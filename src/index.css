@@ -1,0 +1,76 @@
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+:root {
+  --background: #020617;
+  --foreground: #F8FAFC;
+}
+
+@layer base {
+  body {
+    @apply bg-navy-950 text-slate-300 font-body antialiased overflow-x-hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-slate-50;
+    letter-spacing: -0.025em;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-navy-800/40 backdrop-blur-xl border border-white/10 shadow-xl;
+  }
+
+  .glass-dark {
+    @apply bg-navy-950/80 backdrop-blur-md border-b border-white/5;
+  }
+  
+  .glass-button {
+    @apply bg-white/5 hover:bg-white/10 border border-white/10 backdrop-blur-sm transition-all duration-300;
+  }
+  
+  .btn-primary {
+    @apply bg-emerald-500 hover:bg-emerald-600 text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 shadow-neon hover:shadow-lg transform hover:-translate-y-0.5;
+  }
+
+  .btn-gold {
+    @apply bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 shadow-gold hover:shadow-lg transform hover:-translate-y-0.5;
+  }
+
+  .btn-premium {
+    @apply bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 shadow-gold hover:shadow-lg transform hover:-translate-y-0.5;
+  }
+  
+  .input-field {
+    @apply w-full bg-navy-900/50 border border-navy-700 rounded-lg px-4 py-3 text-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all duration-300 placeholder-navy-500;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24 px-4 md:px-8;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
