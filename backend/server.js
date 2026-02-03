@@ -12,6 +12,7 @@ import User from './models/User.js';
 import authRoutes from './routes/authRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
+import contactRoutes from './routes/contactRoutes.js';
 
 dotenv.config();
 
@@ -112,6 +113,7 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/eventdekho'
 app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/contact', contactRoutes);
 
 app.get('/', (req, res) => {
     res.send('API is running...');

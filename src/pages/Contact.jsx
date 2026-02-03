@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react';
 import Navbar from '../components/premium/Navbar';
+import { sendContactMessage } from '../api/contact';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -10,16 +11,37 @@ const Contact = () => {
         subject: '',
         message: ''
     });
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        // Clear messages when user starts typing
+        setError('');
+        setSuccess('');
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission logic here
-        console.log('Form submitted:', formData);
-        alert('Message sent! We will get back to you soon.');
+        setIsLoading(true);
+        setError('');
+        setSuccess('');
+
+        try {
+            await sendContactMessage(formData);
+            setSuccess('Message sent successfully! We will get back to you soon.');
+            setFormData({
+                name: '',
+                email: '',
+                subject: '',
+                message: ''
+            });
+        } catch (err) {
+            setError(err.message || 'Failed to send message. Please try again.');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -80,6 +102,20 @@ const Contact = () => {
 
                             {/* Contact Form */}
                             <div className="glass-card p-8 rounded-2xl">
+                                {/* Success Message */}
+                                {success && (
+                                    <div className="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400">
+                                        {success}
+                                    </div>
+                                )}
+
+                                {/* Error Message */}
+                                {error && (
+                                    <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400">
+                                        {error}
+                                    </div>
+                                )}
+
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     <div>
                                         <label className="block text-sm font-bold text-white mb-2">Name</label>
@@ -91,6 +127,7 @@ const Contact = () => {
                                             className="input-field"
                                             placeholder="Your name"
                                             required
+                                            disabled={isLoading}
                                         />
                                     </div>
 
@@ -104,6 +141,20 @@ const Contact = () => {
                                             className="input-field"
                                             placeholder="your@email.com"
                                             required
+                                            disabled={isLoading}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-bold text-white mb-2">Subject (Optional)</label>
+                                        <input
+                                            type="text"
+                                            name="subject"
+                                            value={formData.subject}
+                                            onChange={handleChange}
+                                            className="input-field"
+                                            placeholder="What's this about?"
+                                            disabled={isLoading}
                                         />
                                     </div>
 
@@ -117,14 +168,25 @@ const Contact = () => {
                                             className="input-field resize-none"
                                             placeholder="How can we help you?"
                                             required
+                                            disabled={isLoading}
                                         ></textarea>
                                     </div>
 
                                     <button
                                         type="submit"
-                                        className="w-full btn-primary flex items-center justify-center gap-2"
+                                        disabled={isLoading}
+                                        className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                                     >
-                                        Send Message <Send size={18} />
+                                        {isLoading ? (
+                                            <>
+                                                <Loader2 className="animate-spin" size={18} />
+                                                Sending...
+                                            </>
+                                        ) : (
+                                            <>
+                                                Send Message <Send size={18} />
+                                            </>
+                                        )}
                                     </button>
                                 </form>
                             </div>
