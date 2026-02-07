@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react';
 import Navbar from '../components/premium/Navbar';
+import Footer from '../components/premium/Footer';
 import { sendContactMessage } from '../api/contact';
 
 const Contact = () => {
@@ -49,7 +50,7 @@ const Contact = () => {
             <Navbar />
             
             <div className="pt-24 md:pt-32 pb-12">
-                <div className="container mx-auto px-4">
+                <div className="container-custom px-4">
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -194,6 +195,8 @@ const Contact = () => {
                     </motion.div>
                 </div>
             </div>
+            
+            <Footer />
         </div>
     );
 };
