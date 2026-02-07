@@ -33,6 +33,7 @@ import io from 'socket.io-client';
 import Navbar from '../components/premium/Navbar';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/config';
+import { triggerEventCleanup, getCleanupStatus } from '../api/cleanup';
 
 const AdminDashboard = () => {
     const { user } = useAuth();
@@ -48,6 +49,7 @@ const AdminDashboard = () => {
         upcomingEvents: 0
     });
     const [events, setEvents] = useState([]);
+    const [cleanupStatus, setCleanupStatus] = useState(null);
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showEventModal, setShowEventModal] = useState(false);
@@ -144,6 +146,36 @@ const AdminDashboard = () => {
         }
     };
     
+    // Cleanup functions
+    const triggerManualCleanup = async () => {
+        try {
+            setLoading(true);
+            const result = await triggerEventCleanup();
+            console.log('Cleanup triggered:', result);
+            
+            // Refresh status after cleanup
+            setTimeout(() => {
+                getCleanupStatusData();
+            }, 2000);
+            
+        } catch (error) {
+            console.error('Cleanup error:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const getCleanupStatusData = async () => {
+        try {
+            const status = await getCleanupStatus();
+            setCleanupStatus(status.data);
+            console.log('Cleanup status:', status.data);
+        } catch (error) {
+            console.error('Error getting cleanup status:', error);
+            setCleanupStatus({ active: false, error: error.message });
+        }
+    };
+
     const fetchStats = async () => {
         try {
             console.log('Fetching admin stats...');
@@ -779,11 +811,94 @@ const AdminDashboard = () => {
                     {activeTab === 'Settings' && (
                         <div className="bg-navy-900/50 rounded-[2rem] p-10 shadow-xl border border-white/5 backdrop-blur-sm">
                             <h3 className="text-2xl font-black flex items-center gap-3 text-white mb-8">
-                                <Settings className="text-emerald-500" /> Admin Settings
+                                <Settings className="text-emerald-500" /> Event Cleanup & Settings
                             </h3>
-                            <div className="text-center py-12">
-                                <Settings className="mx-auto mb-4 text-slate-600" size={48} />
-                                <p className="text-slate-400">Settings panel coming soon...</p>
+                            
+                            <div className="grid md:grid-cols-2 gap-8">
+                                {/* Cleanup Controls */}
+                                <div className="space-y-6">
+                                    <h4 className="text-lg font-bold text-white mb-4">Event Management</h4>
+                                    
+                                    <div className="space-y-4">
+                                        <button
+                                            onClick={triggerManualCleanup}
+                                            className="w-full btn-primary flex items-center justify-center gap-2"
+                                        >
+                                            <Trash2 size={18} />
+                                            Cleanup Expired Events
+                                        </button>
+                                        
+                                        <button
+                                            onClick={getCleanupStatus}
+                                            className="w-full glass-card p-4 rounded-xl text-slate-300 hover:bg-navy-800 transition-all duration-300"
+                                        >
+                                            <RefreshCw size={18} />
+                                            Check Cleanup Status
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Cleanup Status */}
+                                <div className="space-y-6">
+                                    <h4 className="text-lg font-bold text-white mb-4">System Status</h4>
+                                    
+                                    {cleanupStatus && (
+                                        <div className="glass-card p-6 rounded-xl space-y-4">
+                                            <div className="flex items-center justify-between">
+                                                <span className="text-emerald-400 font-medium">Auto-Cleanup Status:</span>
+                                                <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                                    cleanupStatus.active 
+                                                        ? 'bg-emerald-500/20 text-emerald-300' 
+                                                        : 'bg-slate-500/20 text-slate-300'
+                                                }`}>
+                                                    {cleanupStatus.active ? 'Active' : 'Inactive'}
+                                                </span>
+                                            </div>
+                                            
+                                            {cleanupStatus.lastRun && (
+                                                <div className="text-sm text-slate-400">
+                                                    <span className="font-medium">Last Run:</span> {new Date(cleanupStatus.lastRun).toLocaleString()}
+                                                </div>
+                                            )}
+                                            
+                                            {cleanupStatus.nextRun && (
+                                                <div className="text-sm text-slate-400">
+                                                    <span className="font-medium">Next Run:</span> {new Date(cleanupStatus.nextRun).toLocaleString()}
+                                                </div>
+                                            )}
+                                            
+                                            {cleanupStatus.config && (
+                                                <div className="mt-4 pt-4 border-t border-white/10">
+                                                    <h5 className="text-sm font-medium text-white mb-2">Recent Activity</h5>
+                                                    {cleanupStatus.config.deletedCount > 0 && (
+                                                        <div className="text-emerald-400 text-sm">
+                                                            ✅ Deleted {cleanupStatus.config.deletedCount} expired events
+                                                            {cleanupStatus.config.failedCount > 0 && (
+                                                                <span className="text-red-400"> ({cleanupStatus.config.failedCount} failed)</span>
+                                                            )}
+                                                        </div>
+                                                    )}
+                                                    
+                                                    {cleanupStatus.config.deletedEvents && (
+                                                        <div className="mt-3 space-y-2">
+                                                            <h6 className="text-xs font-medium text-slate-400 uppercase tracking-wider">Recently Deleted Events:</h6>
+                                                            {cleanupStatus.config.deletedEvents.slice(0, 5).map((event, index) => (
+                                                                <div key={event.eventId} className="text-xs text-slate-500 bg-navy-800/50 rounded p-2">
+                                                                    {event.title}
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <div className="glass-card p-6 rounded-xl text-center">
+                                            <Database className="mx-auto mb-4 text-slate-600" size={48} />
+                                            <p className="text-slate-400">Loading cleanup status...</p>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     )}
