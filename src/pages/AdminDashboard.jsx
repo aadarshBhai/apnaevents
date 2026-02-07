@@ -892,7 +892,7 @@ const AdminDashboard = () => {
                                                 </div>
                                             )}
                                         </div>
-                                    ) : (
+                                    ) || (
                                         <div className="glass-card p-6 rounded-xl text-center">
                                             <Database className="mx-auto mb-4 text-slate-600" size={48} />
                                             <p className="text-slate-400">Loading cleanup status...</p>
