@@ -10,7 +10,7 @@ import FeatureCards from '../components/premium/FeatureCards';
 import Testimonials from '../components/premium/Testimonials';
 import EventCard from '../components/EventCard';
 import { getEvents, getFeaturedEvents } from '../api/events';
-import io from 'socket.io-client';
+import { createSocket } from '../utils/socket';
 
 const LandingPage = () => {
     const { user } = useAuth();
@@ -20,13 +20,7 @@ const LandingPage = () => {
 
     // Initialize Socket.IO for real-time updates
     useEffect(() => {
-        const newSocket = io('http://localhost:5000', {
-            transports: ['websocket', 'polling'],
-            timeout: 20000,
-            reconnection: true,
-            reconnectionAttempts: 5,
-            reconnectionDelay: 1000
-        });
+        const newSocket = createSocket();
         setSocket(newSocket);
         
         newSocket.on('connect', () => {

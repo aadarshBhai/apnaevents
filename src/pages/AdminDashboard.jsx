@@ -34,6 +34,8 @@ import Navbar from '../components/premium/Navbar';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/config';
 import { triggerEventCleanup, getCleanupStatus } from '../api/cleanup';
+import { createSocket } from '../utils/socket';
+import { getImageUrl } from '../utils/imageUrl';
 
 const AdminDashboard = () => {
     const { user } = useAuth();
@@ -81,13 +83,7 @@ const AdminDashboard = () => {
 
     // Initialize Socket.IO
     useEffect(() => {
-        const newSocket = io('http://localhost:5000', {
-            transports: ['websocket', 'polling'], // Try websocket first, fallback to polling
-            timeout: 20000,
-                    reconnection: true,
-                    reconnectionAttempts: 5,
-                    reconnectionDelay: 1000
-                });
+        const newSocket = createSocket();
                 setSocket(newSocket);
                 
                 newSocket.on('connect', () => {
@@ -559,7 +555,7 @@ const AdminDashboard = () => {
                                                         <div className="flex items-center gap-4">
                                                             {event.image && (
                                                                 <img 
-                                                                    src={`http://localhost:5000${event.image}`} 
+                                                                    src={getImageUrl(event.image)} 
                                                                     alt={event.title}
                                                                     className="w-12 h-12 rounded-xl object-cover"
                                                                 />
@@ -1047,7 +1043,7 @@ const AdminDashboard = () => {
                                                 {(imagePreview || (editingEvent && editingEvent.image)) && (
                                                     <div className="flex items-center gap-4">
                                                         <img 
-                                                            src={imagePreview || `http://localhost:5000${editingEvent.image}`}
+                                                            src={imagePreview || getImageUrl(editingEvent.image)}
                                                             alt="Preview"
                                                             className="w-16 h-16 rounded-xl object-cover"
                                                         />

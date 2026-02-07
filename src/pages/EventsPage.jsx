@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, Calendar, MapPin, Users, Shield, ArrowRight } from 'lucide-react';
+import { Search, Filter, Calendar, MapPin, Tag, ChevronDown, X } from 'lucide-react';
+import EventCard from '../components/EventCard';
 import Navbar from '../components/premium/Navbar';
 import Footer from '../components/premium/Footer';
-import EventCard from '../components/EventCard';
-import { getEvents, getEventCategories } from '../api/events';
-import io from 'socket.io-client';
+import { getEvents, getCategories } from '../api/events';
+import { createSocket } from '../utils/socket';
 
 const EventsPage = () => {
     const [events, setEvents] = useState([]);
@@ -27,13 +27,7 @@ const EventsPage = () => {
 
     // Initialize Socket.IO for real-time updates
     useEffect(() => {
-        const newSocket = io('http://localhost:5000', {
-            transports: ['websocket', 'polling'],
-            timeout: 20000,
-            reconnection: true,
-            reconnectionAttempts: 5,
-            reconnectionDelay: 1000
-        });
+        const newSocket = createSocket();
         setSocket(newSocket);
         
         newSocket.on('connect', () => {
