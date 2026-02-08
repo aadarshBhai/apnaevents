@@ -1,4 +1,5 @@
 // SEO-optimized components for page structure
+import { motion } from 'framer-motion';
 
 export const SEOFAQ = ({ faqs }) => (
     <section className="py-16 bg-navy-900/30">
