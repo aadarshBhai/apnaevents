@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Trophy, Users, Target, Award, Globe, Linkedin, Mail, ShieldCheck, Rocket } from 'lucide-react';
+import { Trophy, Users, Target, Award, Globe, Linkedin, Mail, ShieldCheck, Rocket, ArrowRight } from 'lucide-react';
 import Navbar from '../components/premium/Navbar';
 import Footer from '../components/premium/Footer';
+import SEO from '../components/seo/SEO';
 import { TEAM_MEMBERS } from '../data/team';
-import { updatePageSEO } from '../utils/seo';
 
 const About = () => {
     const fadeIn = {
@@ -78,6 +79,11 @@ const About = () => {
 
     return (
         <div className="bg-navy-950 min-h-screen text-slate-300 selection:bg-emerald-500/30">
+            <SEO 
+                title="About Us - Democratizing Student Opportunities"
+                description="ApnaEvents is building India's first unified platform for verified student competitions. Meet the team bridging the gap between talent and opportunity."
+                keywords="about apnaevents, education technology team, student competitions india, aadarsh kumar"
+            />
             <Navbar />
             
             {/* Hero Section */}
@@ -237,33 +243,36 @@ const About = () => {
                                 transition={{ delay: idx * 0.1 }}
                                 className="group"
                             >
-                                <div className="relative mb-6 overflow-hidden rounded-3xl aspect-[4/5]">
-                                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-transparent opacity-60 z-10" />
+                                <div className="relative mb-6 overflow-hidden rounded-2xl aspect-square bg-navy-800">
                                     <img 
                                         src={member.image} 
                                         alt={member.name} 
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                        onError={(e) => {
+                                            e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&background=random`;
+                                        }}
                                     />
-                                    <div className="absolute bottom-0 left-0 p-6 z-20">
-                                        <h3 className="text-2xl font-display font-bold text-white">{member.name}</h3>
-                                        <p className="text-emerald-400 font-medium">{member.role}</p>
-                                        {member.social && (
-                                            <div className="flex gap-3 mt-3">
-                                                {member.social.linkedin && (
-                                                    <a href={member.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-white hover:text-emerald-400 transition-colors">
-                                                        <Linkedin size={16} />
-                                                    </a>
-                                                )}
-                                                {member.social.email && (
-                                                    <a href={`mailto:${member.social.email}`} className="text-white hover:text-emerald-400 transition-colors">
-                                                        <Mail size={16} />
-                                                    </a>
-                                                )}
-                                            </div>
-                                        )}
-                                    </div>
                                 </div>
-                                <p className="text-slate-400 text-sm leading-relaxed">{member.bio}</p>
+                                <div className="text-center">
+                                    <h3 className="text-2xl font-display font-bold text-white mb-1">{member.name}</h3>
+                                    <p className="text-emerald-400 font-medium mb-4">{member.role}</p>
+                                    
+                                    {member.social && (
+                                        <div className="flex gap-3 justify-center mb-4">
+                                            {member.social.linkedin && (
+                                                <a href={member.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-emerald-400 transition-colors">
+                                                    <Linkedin size={20} />
+                                                </a>
+                                            )}
+                                            {member.social.email && (
+                                                <a href={`mailto:${member.social.email}`} className="text-slate-400 hover:text-emerald-400 transition-colors">
+                                                    <Mail size={20} />
+                                                </a>
+                                            )}
+                                        </div>
+                                    )}
+                                    <p className="text-slate-400 text-sm leading-relaxed max-w-sm mx-auto">{member.bio}</p>
+                                </div>
                             </motion.div>
                         ))}
                     </div>

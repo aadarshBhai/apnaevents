@@ -103,19 +103,13 @@ const Navbar = () => {
                   <Link
                     key={link.name}
                     to={link.path}
-                    className={`relative text-sm font-medium transition-colors duration-200 ${
+                    className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                       location.pathname === link.path
-                        ? 'text-emerald-400'
-                        : 'text-slate-200 hover:text-white dark:text-slate-300 dark:hover:text-white'
+                        ? 'bg-emerald-500/10 text-emerald-400'
+                        : 'text-slate-200 hover:text-white hover:bg-white/5'
                     }`}
                   >
                     {link.name}
-                    {location.pathname === link.path && (
-                      <motion.div
-                        layoutId="navIndicator"
-                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-emerald-400"
-                      />
-                    )}
                   </Link>
                 ))}
               </div>

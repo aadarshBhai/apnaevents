@@ -12,23 +12,23 @@ const Hero = () => {
 
   const slides = [
     {
-      title: "Building India's",
-      highlight: "Merit Pipeline",
-      description: "The unified infrastructure for students to find verified competitions, build professional passports, and secure their future.",
+      title: "India's Premier",
+      highlight: "Competition Platform",
+      description: "The official gateway for students to discover verified competitions, build academic portfolios, and earn national recognition.",
       image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80&w=1200",
       stats: { students: "50K+", events: "1.2K+", schools: "500+" }
     },
     {
-      title: "Verified",
-      highlight: "Competitions",
-      description: "100% manual vetting. We bridge the trust gap between organizers and millions of active families across India.",
+      title: "100% Verified",
+      highlight: "Academic Events",
+      description: "We rigorously vet every competition to ensure safety, authenticity, and value for students and schools across India.",
       image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200",
       stats: { students: "50K+", events: "1.2K+", schools: "500+" }
     },
     {
-      title: "Career-Ready",
-      highlight: "Passports",
-      description: "Build your digital passport with verified participations, resume-integrated badges, and national skill rankings.",
+      title: "Build Your",
+      highlight: "Digital Profile",
+      description: "Create a verified track record of your achievements, skills, and participation to stand out for college admissions.",
       image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1200",
       stats: { students: "50K+", events: "1.2K+", schools: "500+" }
     }
@@ -65,46 +65,12 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        {/* Floating Orbs */}
-        <motion.div
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -100, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="absolute top-20 left-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            x: [0, -100, 0],
-            y: [0, 100, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-emerald-500/5 to-blue-500/5 rounded-full blur-3xl"
-        />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-navy-950">
+      {/* Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-navy-900 to-navy-950 opacity-90" />
+        <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-emerald-900/20 rounded-full blur-[100px]" />
+        <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-blue-900/20 rounded-full blur-[100px]" />
       </div>
 
       {/* Grid Pattern */}

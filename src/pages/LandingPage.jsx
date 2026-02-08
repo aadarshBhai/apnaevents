@@ -10,6 +10,7 @@ import FeatureCards from '../components/premium/FeatureCards';
 import Testimonials from '../components/premium/Testimonials';
 import EventCard from '../components/EventCard';
 import { SEOFAQ, SEOComparisonTable, SEOInternalLinks } from '../components/seo/SEOComponents';
+import SEO from '../components/seo/SEO';
 import { getEvents, getFeaturedEvents } from '../api/events';
 import { createSocket } from '../utils/socket';
 import { updatePageSEO } from '../utils/seo';
@@ -195,6 +196,11 @@ const LandingPage = () => {
 
     return (
         <div className="bg-navy-950 min-h-screen text-slate-300 selection:bg-emerald-500/30">
+            <SEO 
+                title="Online Olympiad Competitions for Class 9-12 Students"
+                description="Join India's best online Olympiad competitions for Class 9-12 students. Verified events, cash prizes, and certificates recognized by top schools and colleges."
+                keywords="olympiad competitions, online contests, class 9-12 competitions, science olympiad, math olympiad, student scholarships"
+            />
             <Navbar />
             <Hero />
             

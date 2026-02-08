@@ -10,42 +10,42 @@
 
 @layer base {
   body {
-    @apply bg-navy-950 text-slate-300 font-body antialiased overflow-x-hidden;
+    @apply bg-navy-950 text-slate-200 font-body antialiased overflow-x-hidden;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display text-slate-50;
-    letter-spacing: -0.025em;
+    @apply font-display text-white;
+    letter-spacing: -0.01em;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-navy-800/40 backdrop-blur-xl border border-white/10 shadow-xl;
+    @apply bg-navy-800/70 backdrop-blur-md border border-white/10 shadow-lg;
   }
 
   .glass-dark {
-    @apply bg-navy-950/80 backdrop-blur-md border-b border-white/5;
+    @apply bg-navy-950/95 backdrop-blur-md border-b border-white/10;
   }
   
   .glass-button {
-    @apply bg-white/5 hover:bg-white/10 border border-white/10 backdrop-blur-sm transition-all duration-300;
+    @apply bg-white/5 hover:bg-white/10 border border-white/10 backdrop-blur-sm transition-all duration-200;
   }
   
   .btn-primary {
-    @apply bg-emerald-500 hover:bg-emerald-600 text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 shadow-neon hover:shadow-lg transform hover:-translate-y-0.5;
+    @apply bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg;
   }
 
   .btn-gold {
-    @apply bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 shadow-gold hover:shadow-lg transform hover:-translate-y-0.5;
+    @apply bg-amber-600 hover:bg-amber-700 text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg;
   }
 
   .btn-premium {
-    @apply bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 shadow-gold hover:shadow-lg transform hover:-translate-y-0.5;
+    @apply bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg;
   }
   
   .input-field {
-    @apply w-full bg-navy-900/50 border border-navy-700 rounded-lg px-4 py-3 text-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all duration-300 placeholder-navy-500;
+    @apply w-full bg-navy-900 border border-navy-700 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all duration-200 placeholder-navy-400;
   }
 
   .section-padding {

@@ -139,7 +139,7 @@ const ContactForm = () => {
               </h2>
               <p className="text-lg text-slate-600 leading-relaxed">
                 Have questions about ApnaEvents? Want to partner with us? 
-                Contact us at aadarshgolucky@gmail.com - we're here to help and would love to hear from you.
+                Contact us at contact@apnaevents.com - we're here to help and would love to hear from you.
               </p>
             </div>
 
@@ -153,7 +153,7 @@ const ContactForm = () => {
                 </div>
                 <div>
                   <h3 className="font-display text-xl font-black text-slate-900 mb-2">Email Us</h3>
-                  <p className="text-slate-600 mb-1">support@eventdekho.com</p>
+                  <p className="text-slate-600 mb-1">aadarshgolucky@gmail.com</p>
                   <p className="text-sm text-slate-500">We respond within 24 hours</p>
                 </div>
               </motion.div>
