@@ -204,9 +204,8 @@ const LandingPage = () => {
             <Navbar />
             <Hero />
             
-            <FeatureCards />
+            <SEOFAQ faqs={faqs} />
 
-            {/* Featured Events Section */}
             <section className="py-24 bg-navy-900 relative">
                 <div className="container-custom px-4">
                     <div className="flex justify-between items-end mb-12">
@@ -290,9 +289,6 @@ const LandingPage = () => {
                 title="Compare Online Olympiad Competitions for Class 9-12 Students"
                 data={olympiadComparisonData}
             />
-
-            {/* SEO FAQ Section */}
-            <SEOFAQ faqs={faqs} />
 
             {/* SEO Internal Links */}
             <SEOInternalLinks links={internalLinks} />
