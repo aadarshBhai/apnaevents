@@ -29,29 +29,6 @@ const EventsPage = () => {
     const [socket, setSocket] = useState(null);
 
     // SEO Data for Events Page
-    const eventsFaqs = [
-        {
-            question: "How do I find best school competitions for my class (9-12)?",
-            answer: "Use our advanced filters to search by class (9-12), subject (Science, Math, English), competition type, and location. You can also sort by upcoming deadlines or prize amounts to find most suitable competitions."
-        },
-        {
-            question: "Are all competitions listed on ApnaEvents verified?",
-            answer: "Yes! Every competition undergoes a strict verification process. We check organizer credentials, prize distribution history, and student reviews before listing any competition on our platform."
-        },
-        {
-            question: "What is registration process for school competitions?",
-            answer: "Simply click on any competition, review the details, and click 'Register'. Fill in your details, pay the registration fee securely, and you'll receive instant confirmation with exam details and preparation materials."
-        },
-        {
-            question: "Can I get refunds if I can't participate after registering?",
-            answer: "Refund policies vary by competition organizer. Most competitions offer refunds up to 7 days before the event date. Check the specific competition's terms and conditions for detailed refund information."
-        },
-        {
-            question: "How do I prepare for these academic competitions?",
-            answer: "Each competition listing includes preparation resources, sample papers, and study materials. Additionally, you can join our study groups and access free preparation guides available on the platform."
-        }
-    ];
-
     const eventsInternalLinks = [
         {
             href: '/',
@@ -330,9 +307,6 @@ const EventsPage = () => {
                             </div>
                         </>
                     )}
-
-                    {/* SEO FAQ Section */}
-                    <SEOFAQ faqs={eventsFaqs} />
 
                     {/* SEO Internal Links */}
                     <SEOInternalLinks links={eventsInternalLinks} />
