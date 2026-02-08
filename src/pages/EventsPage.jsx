@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, Calendar, MapPin, Tag, ChevronDown, X } from 'lucide-react';
+import { Search, Filter, Calendar, MapPin, Tag, ChevronDown, X, Trophy, Users, Shield } from 'lucide-react';
 import EventCard from '../components/EventCard';
 import Navbar from '../components/premium/Navbar';
 import Footer from '../components/premium/Footer';
+import { SEOFAQ, SEOInternalLinks } from '../components/seo/SEOComponents';
 import { getEvents, getEventCategories } from '../api/events';
 import { createSocket } from '../utils/socket';
 import { updatePageSEO } from '../utils/seo';
@@ -19,12 +20,76 @@ const EventsPage = () => {
         sortBy: 'date',
         sortOrder: 'asc'
     });
+    const [showFilters, setShowFilters] = useState(false);
     const [pagination, setPagination] = useState({
         currentPage: 1,
         totalPages: 1,
         totalItems: 0
     });
     const [socket, setSocket] = useState(null);
+
+    // SEO Data for Events Page
+    const eventsFaqs = [
+        {
+            question: "How do I find the best school competitions for my class?",
+            answer: "Use our advanced filters to search by class (6-10), subject (Science, Math, English), competition type, and location. You can also sort by upcoming deadlines or prize amounts to find the most suitable competitions."
+        },
+        {
+            question: "Are all competitions listed on ApnaEvents verified?",
+            answer: "Yes! Every competition undergoes a strict verification process. We check organizer credentials, prize distribution history, and student reviews before listing any competition on our platform."
+        },
+        {
+            question: "What is the registration process for school competitions?",
+            answer: "Simply click on any competition, review the details, and click 'Register'. Fill in your details, pay the registration fee securely, and you'll receive instant confirmation with exam details and preparation materials."
+        },
+        {
+            question: "Can I get refunds if I can't participate after registering?",
+            answer: "Refund policies vary by competition organizer. Most competitions offer refunds up to 7 days before the event date. Check the specific competition's terms and conditions for detailed refund information."
+        },
+        {
+            question: "How do I prepare for these academic competitions?",
+            answer: "Each competition listing includes preparation resources, sample papers, and study materials. Additionally, you can join our study groups and access free preparation guides available on the platform."
+        }
+    ];
+
+    const eventsInternalLinks = [
+        {
+            href: '/',
+            icon: <Trophy size={24} />,
+            title: 'Featured Olympiads',
+            description: 'Top recommended competitions'
+        },
+        {
+            href: '/about',
+            icon: <Shield size={24} />,
+            title: 'About ApnaEvents',
+            description: 'Our verification process'
+        },
+        {
+            href: '/contact',
+            icon: <Users size={24} />,
+            title: 'Competition Support',
+            description: 'Get help with registration'
+        },
+        {
+            href: '/auth',
+            icon: <Calendar size={24} />,
+            title: 'Track Applications',
+            description: 'Monitor your competition status'
+        },
+        {
+            href: '/events?category=science',
+            icon: <Trophy size={24} />,
+            title: 'Science Competitions',
+            description: 'Physics, Chemistry, Biology contests'
+        },
+        {
+            href: '/events?category=mathematics',
+            icon: <Trophy size={24} />,
+            title: 'Math Competitions',
+            description: 'Mathematics olympiads and contests'
+        }
+    ];
 
     // Initialize Socket.IO for real-time updates
     useEffect(() => {
@@ -265,6 +330,12 @@ const EventsPage = () => {
                             </div>
                         </>
                     )}
+
+                    {/* SEO FAQ Section */}
+                    <SEOFAQ faqs={eventsFaqs} />
+
+                    {/* SEO Internal Links */}
+                    <SEOInternalLinks links={eventsInternalLinks} />
                 </div>
             </div>
         </div>

@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Trophy, Users, Calendar, Shield } from 'lucide-react';
 import Navbar from '../components/premium/Navbar';
 import Footer from '../components/premium/Footer';
 import Hero from '../components/premium/Hero';
 import FeatureCards from '../components/premium/FeatureCards';
 import Testimonials from '../components/premium/Testimonials';
 import EventCard from '../components/EventCard';
+import { SEOFAQ, SEOComparisonTable, SEOInternalLinks } from '../components/seo/SEOComponents';
 import { getEvents, getFeaturedEvents } from '../api/events';
 import { createSocket } from '../utils/socket';
 import { updatePageSEO } from '../utils/seo';
@@ -18,6 +19,80 @@ const LandingPage = () => {
     const navigate = useNavigate();
     const [events, setEvents] = useState([]);
     const [socket, setSocket] = useState(null);
+
+    // SEO Data
+    const olympiadComparisonData = {
+        headers: ['Olympiad', 'Class', 'Registration Fee', 'Last Date', 'Prizes'],
+        rows: [
+            ['National Science Olympiad', 'Class 6-10', '₹150', 'Dec 15, 2024', '₹10,000 - ₹50,000'],
+            ['International Math Olympiad', 'Class 6-12', '₹200', 'Dec 20, 2024', '₹25,000 - ₹1,00,000'],
+            ['English Olympiad', 'Class 6-10', '₹120', 'Dec 10, 2024', '₹5,000 - ₹25,000'],
+            ['Computer Olympiad', 'Class 6-12', '₹180', 'Dec 25, 2024', '₹15,000 - ₹75,000'],
+            ['General Knowledge Olympiad', 'Class 6-10', '₹100', 'Dec 18, 2024', '₹8,000 - ₹40,000']
+        ]
+    };
+
+    const faqs = [
+        {
+            question: "What are Online Olympiad Competitions for Class 6-10 Students?",
+            answer: "Online Olympiad competitions are national and international level academic contests for students in classes 6-10. These competitions test knowledge in subjects like Science, Mathematics, English, and Computer Science through online exams."
+        },
+        {
+            question: "How can I register for Olympiad competitions on ApnaEvents?",
+            answer: "Simply create a free account on ApnaEvents, browse available Olympiad competitions, and register online. You'll get instant confirmation, exam details, and regular updates about your registered competitions."
+        },
+        {
+            question: "What is the registration fee for Olympiad competitions?",
+            answer: "Registration fees vary from ₹100 to ₹200 depending on the Olympiad type and organizing body. ApnaEvents shows all fees upfront with no hidden charges, and you can pay securely online."
+        },
+        {
+            question: "Are these Olympiad competitions recognized by schools and colleges?",
+            answer: "Yes! All Olympiad competitions listed on ApnaEvents are verified and recognized by major educational boards, schools, and colleges across India. Certificates can boost your academic profile."
+        },
+        {
+            question: "What are the prizes and benefits of participating in Olympiads?",
+            answer: "Prizes range from ₹5,000 to ₹1,00,000 along with medals, certificates, and scholarships. Beyond prizes, participation enhances your academic profile, improves subject knowledge, and opens doors to better opportunities."
+        }
+    ];
+
+    const internalLinks = [
+        {
+            href: '/events',
+            icon: <Trophy size={24} />,
+            title: 'Browse All Competitions',
+            description: 'Explore verified olympiads and contests'
+        },
+        {
+            href: '/about',
+            icon: <Shield size={24} />,
+            title: 'About ApnaEvents',
+            description: 'Learn about our mission and impact'
+        },
+        {
+            href: '/contact',
+            icon: <Users size={24} />,
+            title: 'Get Support',
+            description: 'Contact our team for help'
+        },
+        {
+            href: '/auth',
+            icon: <Calendar size={24} />,
+            title: 'Create Free Account',
+            description: 'Start your competition journey today'
+        },
+        {
+            href: '/events?category=science',
+            icon: <Trophy size={24} />,
+            title: 'Science Olympiads',
+            description: 'Specialized science competitions'
+        },
+        {
+            href: '/events?category=mathematics',
+            icon: <Trophy size={24} />,
+            title: 'Math Olympiads',
+            description: 'Mathematics challenge contests'
+        }
+    ];
 
     // Initialize Socket.IO for real-time updates
     useEffect(() => {
@@ -203,6 +278,18 @@ const LandingPage = () => {
                     </motion.div>
                 </div>
             </section>
+
+            {/* SEO Comparison Table */}
+            <SEOComparisonTable 
+                title="Compare Online Olympiad Competitions for Class 6-10 Students"
+                data={olympiadComparisonData}
+            />
+
+            {/* SEO FAQ Section */}
+            <SEOFAQ faqs={faqs} />
+
+            {/* SEO Internal Links */}
+            <SEOInternalLinks links={internalLinks} />
             
             <Footer />
         </div>
