@@ -184,7 +184,7 @@ const LandingPage = () => {
                             Ready to Build Your <br/><span className="text-emerald-400">Future?</span>
                         </h2>
                         <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
-                            Join 50,000+ students who are already using EventDekho to discover, compete, and win.
+                            Join 50,000+ students who are already using ApnaEvents to discover, compete, and win.
                         </p>
                         <div className="flex flex-col sm:flex-row justify-center gap-6">
                             <button onClick={() => navigate('/signup')} className="btn-primary text-lg px-8 py-4">

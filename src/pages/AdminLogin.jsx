@@ -100,7 +100,7 @@ const AdminLogin = () => {
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                         className="w-full pl-12 pr-4 py-4 bg-navy-950/50 border border-white/10 rounded-xl text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 transition-all"
-                                        placeholder="admin@eventdekho.com"
+                                        placeholder="admin@ApnaEvents.com"
                                         required
                                     />
                                 </div>

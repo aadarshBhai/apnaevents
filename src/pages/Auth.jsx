@@ -144,7 +144,7 @@ const Auth = () => {
                             <h1 className="text-5xl font-black text-white leading-tight font-display">
                                 {isLogin ? 'Welcome Back to' : 'Join the Future of'} <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
-                                    EventDekho
+                                    ApnaEvents
                                 </span>
                             </h1>
                             <p className="text-lg text-slate-400 leading-relaxed max-w-md">
@@ -363,7 +363,7 @@ const Auth = () => {
                                                                         ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20'
                                                                         : 'border-white/10 focus:border-emerald-500/50 focus:ring-emerald-500/50'
                                                                 }`}
-                                                                placeholder="EventDekho Inc."
+                                                                placeholder="ApnaEvents Inc."
                                                             />
                                                         </div>
                                                         {errors.orgName && (

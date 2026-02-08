@@ -35,8 +35,8 @@ const Profile = () => {
     const handleShare = () => {
         if (navigator.share) {
             navigator.share({
-                title: `EventDekho Profile - ${user?.name || 'Aadarsh Kumar'}`,
-                text: 'Check out my student profile and verified participations on EventDekho!',
+                title: `ApnaEvents Profile - ${user?.name || 'Aadarsh Kumar'}`,
+                text: 'Check out my student profile and verified participations on ApnaEvents!',
                 url: window.location.href,
             }).catch(console.error);
         } else {
@@ -156,7 +156,7 @@ const Profile = () => {
                                         <h3 className="text-xl md:text-2xl font-black flex items-center gap-3 mb-1 tracking-tight text-white">
                                             <ShieldCheck size={28} className="text-emerald-500" /> My Activity Hub
                                         </h3>
-                                        <p className="text-slate-400 text-sm font-bold">All participations are manually vetted by EventDekho team.</p>
+                                        <p className="text-slate-400 text-sm font-bold">All participations are manually vetted by ApnaEvents team.</p>
                                     </div>
                                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 text-xs font-black uppercase tracking-widest border border-emerald-500/20">
                                         <Activity size={14} /> 100% Verified

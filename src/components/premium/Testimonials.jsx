@@ -14,7 +14,7 @@ const Testimonials = () => {
       role: "Class 12 Student",
       school: "Delhi Public School",
       avatar: "https://i.pravatar.cc/150?u=priya",
-      content: "EventDekho transformed my academic journey. I've participated in 8 national competitions and earned certificates that helped me secure admission at IIT Delhi. The platform's verification process gives parents complete peace of mind.",
+      content: "ApnaEvents transformed my academic journey. I've participated in 8 national competitions and earned certificates that helped me secure admission at IIT Delhi. The platform's verification process gives parents complete peace of mind.",
       rating: 5,
       achievement: "IIT Delhi Admit"
     },
@@ -24,7 +24,7 @@ const Testimonials = () => {
       role: "Event Organizer",
       school: "National Science Olympiad",
       avatar: "https://i.pravatar.cc/150?u=rahul",
-      content: "As an organizer, EventDekho has been revolutionary. We reached over 10,000 students across 200+ schools in just 3 months. The platform's broadcast system and verification process saved us countless hours of manual work.",
+      content: "As an organizer, ApnaEvents has been revolutionary. We reached over 10,000 students across 200+ schools in just 3 months. The platform's broadcast system and verification process saved us countless hours of manual work.",
       rating: 5,
       achievement: "10K+ Students Reached"
     },
@@ -44,7 +44,7 @@ const Testimonials = () => {
       role: "Principal",
       school: "Bangalore Public School",
       avatar: "https://i.pravatar.cc/150?u=rajesh",
-      content: "EventDekho has become integral to our school's extracurricular program. The platform ensures our students only participate in verified, high-quality competitions. The impact on student development has been remarkable.",
+      content: "ApnaEvents has become integral to our school's extracurricular program. The platform ensures our students only participate in verified, high-quality competitions. The impact on student development has been remarkable.",
       rating: 5,
       achievement: "500+ Student Engagements"
     }
@@ -99,7 +99,7 @@ const Testimonials = () => {
             Trusted by <span className="bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">50,000+</span> Students
           </h2>
           <p className="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Hear from students, educators, and organizers who are building their future with EventDekho
+            Hear from students, educators, and organizers who are building their future with ApnaEvents
           </p>
         </motion.div>
 

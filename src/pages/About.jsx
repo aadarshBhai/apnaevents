@@ -110,7 +110,7 @@ const About = () => {
                             </span>
                         </h1>
                         <p className="text-xl text-slate-400 leading-relaxed max-w-2xl mx-auto">
-                            EventDekho is India's first unified platform for students to discover verified competitions, build professional passports, and secure their future through merit.
+                            ApnaEvents is India's first unified platform for students to discover verified competitions, build professional passports, and secure their future through merit.
                         </p>
                     </motion.div>
                 </div>
@@ -153,7 +153,7 @@ const About = () => {
                                     On the other side, organizers struggle to reach meritocratic talent pools, relying on outdated networks.
                                 </p>
                                 <p className="text-white font-medium border-l-4 border-emerald-500 pl-4">
-                                    EventDekho bridges this gap. We are the digital highway connecting ambition with opportunity.
+                                    ApnaEvents bridges this gap. We are the digital highway connecting ambition with opportunity.
                                 </p>
                             </div>
                         </motion.div>
@@ -255,7 +255,7 @@ const About = () => {
                                 Ready to Start Your Journey?
                             </h2>
                             <p className="text-xl text-slate-300 mb-10 leading-relaxed">
-                                Join thousands of students who are building their future with EventDekho.
+                                Join thousands of students who are building their future with ApnaEvents.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-6 justify-center">
                                 <Link to="/auth" className="btn-primary px-8 py-4 text-lg rounded-xl flex items-center justify-center gap-2 group-hover:scale-105 transition-transform">

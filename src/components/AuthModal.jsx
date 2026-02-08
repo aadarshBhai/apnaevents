@@ -290,7 +290,7 @@ const AuthModal = ({ isOpen, onClose }) => {
                             {!isLogin && !roleSelected ? (
                                 <>
                                     <h2 className="text-3xl font-black tracking-tight text-slate-800">Select Role</h2>
-                                    <p className="text-text-muted font-bold mt-1 text-sm">How will you use EventDekho?</p>
+                                    <p className="text-text-muted font-bold mt-1 text-sm">How will you use ApnaEvents?</p>
                                 </>
                             ) : (
                                 <>

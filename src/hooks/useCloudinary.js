@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 // Cloudinary configuration
 const CLOUDINARY_CONFIG = {
   cloudName: 'demo', // Replace with your Cloudinary cloud name
-  uploadPreset: 'eventdekho', // Replace with your upload preset
+  uploadPreset: 'ApnaEvents', // Replace with your upload preset
   apiKey: process.env.REACT_APP_CLOUDINARY_API_KEY,
 };
 

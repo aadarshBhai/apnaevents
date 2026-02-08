@@ -138,7 +138,7 @@ const ContactForm = () => {
                 Get in <span className="bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">Touch</span>
               </h2>
               <p className="text-lg text-slate-600 leading-relaxed">
-                Have questions about EventDekho? Want to partner with us? 
+                Have questions about ApnaEvents? Want to partner with us? 
                 We're here to help and would love to hear from you.
               </p>
             </div>
@@ -182,7 +182,7 @@ const ContactForm = () => {
                 <div>
                   <h3 className="font-display text-xl font-black text-slate-900 mb-2">Visit Us</h3>
                   <p className="text-slate-300 leading-relaxed">
-                    EventDekho Headquarters<br />
+                    ApnaEvents Headquarters<br />
                     Bangalore, Karnataka 560001<br />
                     India
                   </p>

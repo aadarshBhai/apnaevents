@@ -172,7 +172,7 @@ const Navbar = () => {
                                             Sign up
                                         </button>
                                     )}
-                                    <p className="text-center mt-6 text-xs font-bold text-slate-400">© 2026 EventDekho Platform</p>
+                                    <p className="text-center mt-6 text-xs font-bold text-slate-400">© 2026 ApnaEvents Platform</p>
                                 </div>
                             </motion.div>
                         </>
