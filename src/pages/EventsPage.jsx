@@ -4,7 +4,7 @@ import { Search, Filter, Calendar, MapPin, Tag, ChevronDown, X } from 'lucide-re
 import EventCard from '../components/EventCard';
 import Navbar from '../components/premium/Navbar';
 import Footer from '../components/premium/Footer';
-import { getEvents, getCategories } from '../api/events';
+import { getEvents, getEventCategories } from '../api/events';
 import { createSocket } from '../utils/socket';
 
 const EventsPage = () => {
