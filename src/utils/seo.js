@@ -1,9 +1,9 @@
 // SEO metadata configuration for different pages
 export const SEO_CONFIG = {
   home: {
-    title: "Online Olympiad Competitions for Class 6–10 Students in India | ApnaEvents",
-    description: "Discover and participate in verified online olympiad competitions for Class 6-10 students across India. Build your academic profile with ApnaEvents.",
-    keywords: "online olympiad, class 6 olympiad, class 7 olympiad, class 8 olympiad, class 9 olympiad, class 10 olympiad, india competitions, student competitions"
+    title: "Online Olympiad Competitions for Class 9–12 Students in India | ApnaEvents",
+    description: "Discover and participate in verified online olympiad competitions for Class 9-12 students across India. Build your academic profile with ApnaEvents.",
+    keywords: "online olympiad, class 9 olympiad, class 10 olympiad, class 11 olympiad, class 12 olympiad, india competitions, student competitions"
   },
   events: {
     title: "Browse School Competitions in India | Academic Events for Students",

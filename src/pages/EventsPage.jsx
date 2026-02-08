@@ -31,15 +31,15 @@ const EventsPage = () => {
     // SEO Data for Events Page
     const eventsFaqs = [
         {
-            question: "How do I find the best school competitions for my class?",
-            answer: "Use our advanced filters to search by class (6-10), subject (Science, Math, English), competition type, and location. You can also sort by upcoming deadlines or prize amounts to find the most suitable competitions."
+            question: "How do I find best school competitions for my class (9-12)?",
+            answer: "Use our advanced filters to search by class (9-12), subject (Science, Math, English), competition type, and location. You can also sort by upcoming deadlines or prize amounts to find most suitable competitions."
         },
         {
             question: "Are all competitions listed on ApnaEvents verified?",
             answer: "Yes! Every competition undergoes a strict verification process. We check organizer credentials, prize distribution history, and student reviews before listing any competition on our platform."
         },
         {
-            question: "What is the registration process for school competitions?",
+            question: "What is registration process for school competitions?",
             answer: "Simply click on any competition, review the details, and click 'Register'. Fill in your details, pay the registration fee securely, and you'll receive instant confirmation with exam details and preparation materials."
         },
         {
