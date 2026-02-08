@@ -1,8 +1,10 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Trophy, Users, Target, Award, Globe, Linkedin, Mail } from 'lucide-react';
 import Navbar from '../components/premium/Navbar';
 import Footer from '../components/premium/Footer';
-import { ShieldCheck, Users, Target, Rocket, Award, Globe, ArrowRight } from 'lucide-react';
+import { TEAM_MEMBERS } from '../data/team';
+import { updatePageSEO } from '../utils/seo';
 
 const About = () => {
     const fadeIn = {
@@ -41,22 +43,38 @@ const About = () => {
         {
             name: "Aadarsh Kumar",
             role: "Founder & CEO",
-            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400",
-            bio: "Former National Olympiad winner with a vision to democratize access to opportunities."
+            title: "Visionary Leader in Education Technology",
+            image: "/images/team/aadarsh-kumar.jpg",
+            bio: "Aadarsh Kumar is the founder of ApnaEvents, a passionate educator and technology enthusiast dedicated to democratizing access to quality education competitions for students across India. With a vision to bridge the gap between talented students and prestigious opportunities, he has built a platform that serves thousands of students nationwide.",
+            expertise: ["Education Technology", "Student Development", "Competition Management", "Digital Innovation"],
+            achievements: [
+                "Founded ApnaEvents - India's leading education competition platform",
+                "Empowered 50,000+ students to discover and participate in verified competitions",
+                "Built comprehensive digital platform for academic competitions",
+                "Established partnerships with prestigious educational institutions"
+            ],
+            social: {
+                linkedin: "https://linkedin.com/in/aadarshkumar",
+                email: "aadarshgolucky@gmail.com"
+            }
         },
         {
-            name: "Sarah Chen",
-            role: "Head of Partnerships",
-            image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400",
-            bio: "Building bridges between top institutions and student talent across the globe."
+            name: "Priya Sharma",
+            role: "Head of Operations",
+            image: "/images/team/priya-sharma.jpg",
+            bio: "Priya ensures smooth operations and exceptional user experience for all ApnaEvents users, managing day-to-day activities with precision and care.",
+            expertise: ["Operations Management", "User Experience", "Quality Assurance"]
         },
         {
-            name: "David Miller",
-            role: "Tech Lead",
-            image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400",
-            bio: "Architecting the future of secure, verifiable digital student credentials."
+            name: "Rahul Verma",
+            role: "Lead Developer",
+            image: "/images/team/rahul-verma.jpg",
+            bio: "Rahul leads the technical development of ApnaEvents, ensuring robust, scalable, and secure platform performance.",
+            expertise: ["Full-Stack Development", "System Architecture", "Security"]
         }
     ];
+
+    // Update SEO metadata
 
     return (
         <div className="bg-navy-950 min-h-screen text-slate-300 selection:bg-emerald-500/30">
@@ -229,6 +247,20 @@ const About = () => {
                                     <div className="absolute bottom-0 left-0 p-6 z-20">
                                         <h3 className="text-2xl font-display font-bold text-white">{member.name}</h3>
                                         <p className="text-emerald-400 font-medium">{member.role}</p>
+                                        {member.social && (
+                                            <div className="flex gap-3 mt-3">
+                                                {member.social.linkedin && (
+                                                    <a href={member.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-white hover:text-emerald-400 transition-colors">
+                                                        <Linkedin size={16} />
+                                                    </a>
+                                                )}
+                                                {member.social.email && (
+                                                    <a href={`mailto:${member.social.email}`} className="text-white hover:text-emerald-400 transition-colors">
+                                                        <Mail size={16} />
+                                                    </a>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                                 <p className="text-slate-400 text-sm leading-relaxed">{member.bio}</p>
