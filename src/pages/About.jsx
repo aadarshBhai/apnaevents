@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, Users, Target, Award, Globe, Linkedin, Mail, ShieldCheck } from 'lucide-react';
+import { Trophy, Users, Target, Award, Globe, Linkedin, Mail, ShieldCheck, Rocket } from 'lucide-react';
 import Navbar from '../components/premium/Navbar';
 import Footer from '../components/premium/Footer';
 import { TEAM_MEMBERS } from '../data/team';
