@@ -26,8 +26,11 @@ import {
     Upload,
     Eye,
     Filter,
-    RefreshCw
+    RefreshCw,
+    Send,
+    Bell
 } from 'lucide-react';
+import { createSocket } from '../utils/socket';
 import axios from 'axios';
 import io from 'socket.io-client';
 import Navbar from '../components/premium/Navbar';
@@ -63,6 +66,12 @@ const AdminDashboard = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState('');
     const [filterCategory, setFilterCategory] = useState('');
+    
+    // Notification states
+    const [notificationTitle, setNotificationTitle] = useState('');
+    const [notificationMessage, setNotificationMessage] = useState('');
+    const [notificationType, setNotificationType] = useState('info');
+    const [showNotificationModal, setShowNotificationModal] = useState(false);
     
     const [formData, setFormData] = useState({
         title: '',
@@ -169,6 +178,36 @@ const AdminDashboard = () => {
         } catch (error) {
             console.error('Error getting cleanup status:', error);
             setCleanupStatus({ active: false, error: error.message });
+        }
+    };
+
+    // Notification broadcasting function
+    const broadcastNotification = () => {
+        if (!notificationTitle.trim() || !notificationMessage.trim()) {
+            alert('Please fill in both title and message');
+            return;
+        }
+
+        if (socket) {
+            socket.emit('adminNotification', {
+                type: notificationType,
+                title: notificationTitle,
+                message: notificationMessage,
+                timestamp: new Date(),
+                autoClose: true,
+                duration: 6000
+            });
+
+            // Reset form
+            setNotificationTitle('');
+            setNotificationMessage('');
+            setNotificationType('info');
+            setShowNotificationModal(false);
+
+            // Show success feedback
+            alert('Notification sent successfully to all users!');
+        } else {
+            alert('Socket connection not available. Please try again.');
         }
     };
 
@@ -807,10 +846,67 @@ const AdminDashboard = () => {
                     {activeTab === 'Settings' && (
                         <div className="bg-navy-900/50 rounded-[2rem] p-10 shadow-xl border border-white/5 backdrop-blur-sm">
                             <h3 className="text-2xl font-black flex items-center gap-3 text-white mb-8">
-                                <Settings className="text-emerald-500" /> Event Cleanup & Settings
+                                <Settings className="text-emerald-500" /> Admin Settings
                             </h3>
                             
                             <div className="grid md:grid-cols-2 gap-8">
+                                {/* Notification Broadcasting */}
+                                <div className="space-y-6">
+                                    <h4 className="text-lg font-bold text-white mb-4">Send Notifications</h4>
+                                    
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-slate-300 mb-2">
+                                                Notification Type
+                                            </label>
+                                            <select
+                                                value={notificationType}
+                                                onChange={(e) => setNotificationType(e.target.value)}
+                                                className="w-full px-4 py-3 bg-navy-800 border border-navy-700 text-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                                            >
+                                                <option value="info">Information</option>
+                                                <option value="success">Success</option>
+                                                <option value="warning">Warning</option>
+                                                <option value="error">Error</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div>
+                                            <label className="block text-sm font-medium text-slate-300 mb-2">
+                                                Title
+                                            </label>
+                                            <input
+                                                type="text"
+                                                value={notificationTitle}
+                                                onChange={(e) => setNotificationTitle(e.target.value)}
+                                                placeholder="Enter notification title"
+                                                className="w-full px-4 py-3 bg-navy-800 border border-navy-700 text-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label className="block text-sm font-medium text-slate-300 mb-2">
+                                                Message
+                                            </label>
+                                            <textarea
+                                                value={notificationMessage}
+                                                onChange={(e) => setNotificationMessage(e.target.value)}
+                                                placeholder="Enter notification message"
+                                                rows="3"
+                                                className="w-full px-4 py-3 bg-navy-800 border border-navy-700 text-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none"
+                                            />
+                                        </div>
+                                        
+                                        <button
+                                            onClick={broadcastNotification}
+                                            className="w-full btn-primary flex items-center justify-center gap-2"
+                                        >
+                                            <Send size={18} />
+                                            Send to All Users
+                                        </button>
+                                    </div>
+                                </div>
+
                                 {/* Cleanup Controls */}
                                 <div className="space-y-6">
                                     <h4 className="text-lg font-bold text-white mb-4">Event Management</h4>
