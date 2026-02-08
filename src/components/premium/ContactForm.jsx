@@ -139,7 +139,7 @@ const ContactForm = () => {
               </h2>
               <p className="text-lg text-slate-600 leading-relaxed">
                 Have questions about ApnaEvents? Want to partner with us? 
-                We're here to help and would love to hear from you.
+                Contact us at aadarshgolucky@gmail.com - we're here to help and would love to hear from you.
               </p>
             </div>
 
