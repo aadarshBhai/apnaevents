@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'https://eventdekho-backend.onrender.com';
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'https://apnaevents.onrender.com';
 
 export const createSocket = () => {
     const socket = io(SOCKET_URL, {
