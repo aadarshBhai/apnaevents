@@ -6,6 +6,7 @@ import Navbar from '../components/premium/Navbar';
 import Footer from '../components/premium/Footer';
 import { getEvents, getEventCategories } from '../api/events';
 import { createSocket } from '../utils/socket';
+import { updatePageSEO } from '../utils/seo';
 
 const EventsPage = () => {
     const [events, setEvents] = useState([]);
@@ -52,6 +53,11 @@ const EventsPage = () => {
         return () => {
             newSocket.close();
         };
+    }, []);
+
+    // Update SEO metadata
+    useEffect(() => {
+        updatePageSEO('events');
     }, []);
 
     useEffect(() => {

@@ -11,6 +11,7 @@ import Testimonials from '../components/premium/Testimonials';
 import EventCard from '../components/EventCard';
 import { getEvents, getFeaturedEvents } from '../api/events';
 import { createSocket } from '../utils/socket';
+import { updatePageSEO } from '../utils/seo';
 
 const LandingPage = () => {
     const { user } = useAuth();
@@ -49,6 +50,11 @@ const LandingPage = () => {
         return () => {
             newSocket.close();
         };
+    }, []);
+
+    // Update SEO metadata
+    useEffect(() => {
+        updatePageSEO('home');
     }, []);
 
     useEffect(() => {
