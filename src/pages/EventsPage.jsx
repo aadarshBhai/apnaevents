@@ -4,7 +4,7 @@ import { Search, Filter, Calendar, MapPin, Tag, ChevronDown, X, Trophy, Users, S
 import EventCard from '../components/EventCard';
 import Navbar from '../components/premium/Navbar';
 import Footer from '../components/premium/Footer';
-import { SEOFAQ, SEOInternalLinks } from '../components/seo/SEOComponents';
+import { SEOFAQ } from '../components/seo/SEOComponents';
 import { getEvents, getEventCategories } from '../api/events';
 import { createSocket } from '../utils/socket';
 import { updatePageSEO } from '../utils/seo';
@@ -29,45 +29,6 @@ const EventsPage = () => {
     const [socket, setSocket] = useState(null);
 
     // SEO Data for Events Page
-    const eventsInternalLinks = [
-        {
-            href: '/',
-            icon: <Trophy size={24} />,
-            title: 'Featured Olympiads',
-            description: 'Top recommended competitions'
-        },
-        {
-            href: '/about',
-            icon: <Shield size={24} />,
-            title: 'About ApnaEvents',
-            description: 'Our verification process'
-        },
-        {
-            href: '/contact',
-            icon: <Users size={24} />,
-            title: 'Competition Support',
-            description: 'Get help with registration'
-        },
-        {
-            href: '/auth',
-            icon: <Calendar size={24} />,
-            title: 'Track Applications',
-            description: 'Monitor your competition status'
-        },
-        {
-            href: '/events?category=science',
-            icon: <Trophy size={24} />,
-            title: 'Science Competitions',
-            description: 'Physics, Chemistry, Biology contests'
-        },
-        {
-            href: '/events?category=mathematics',
-            icon: <Trophy size={24} />,
-            title: 'Math Competitions',
-            description: 'Mathematics olympiads and contests'
-        }
-    ];
-
     // Initialize Socket.IO for real-time updates
     useEffect(() => {
         const newSocket = createSocket();
@@ -307,9 +268,6 @@ const EventsPage = () => {
                             </div>
                         </>
                     )}
-
-                    {/* SEO Internal Links */}
-                    <SEOInternalLinks links={eventsInternalLinks} />
                 </div>
             </div>
         </div>

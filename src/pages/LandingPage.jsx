@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
-import { ArrowRight, Trophy, Users, Calendar, Shield } from 'lucide-react';
+import { ArrowRight, Trophy, Users, Calendar, Shield, Target, Award } from 'lucide-react';
 import Navbar from '../components/premium/Navbar';
 import Footer from '../components/premium/Footer';
 import Hero from '../components/premium/Hero';
@@ -204,6 +204,99 @@ const LandingPage = () => {
             <Navbar />
             <Hero />
             
+            {/* Blog Section - Competitive Exams Content */}
+            <section className="py-24 bg-navy-900 relative">
+                <div className="container-custom px-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="text-center mb-16"
+                    >
+                        <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
+                            Competitive Exams for <span className="text-emerald-400">Class 9</span> Students in India
+                        </h2>
+                        <p className="text-slate-300 text-lg max-w-3xl mx-auto mb-12">
+                            Class 9th is a critical point in a student's school learning journey. The student doesn't yet have the class 10th board pressure and yet is mature enough to face national-level competitions.
+                        </p>
+                    </motion.div>
+                    
+                    <div className="grid md:grid-cols-2 gap-12">
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                            className="glass-card p-8 rounded-2xl"
+                        >
+                            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                                <Trophy className="text-emerald-500" size={24} />
+                                NSEJS
+                            </h3>
+                            <p className="text-slate-300 mb-4">
+                                Indian science olympiads are respected worldwide for the quality of students they send every year in the international stages of competition. The Science Olympiad program in India follows a five-stage procedure.
+                            </p>
+                            <ul className="space-y-2 text-slate-400">
+                                <li>• National Standard Examination in Junior Science (NSEJS)</li>
+                                <li>• Indian National Olympiad in Junior Science (INJSO)</li>
+                                <li>• Orientation cum Selection Camp (OCSC)</li>
+                                <li>• Pre-departure Training Camp (PDT)</li>
+                                <li>• International Junior Science Olympiad (IJSO)</li>
+                            </ul>
+                            <p className="text-sm text-slate-500 mt-4">
+                                This examination targets students roughly in the age group 14-15 years and is broadly equivalent to secondary school level (up to and including Class X) of CBSE.
+                            </p>
+                        </motion.div>
+                        
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.4 }}
+                            className="glass-card p-8 rounded-2xl"
+                        >
+                            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                                <Target className="text-emerald-500" size={24} />
+                                Pre-RMO
+                            </h3>
+                            <p className="text-slate-300 mb-4">
+                                The Mathematical Olympiad Programme in India leads to participation of Indian students in the International Mathematical Olympiad (IMO).
+                            </p>
+                            <ul className="space-y-2 text-slate-400">
+                                <li>• Pre-Regional Mathematical Olympiad (Pre-RMO)</li>
+                                <li>• Regional Mathematical Olympiad (RMO)</li>
+                                <li>• Indian National Mathematical Olympiad (INMO)</li>
+                                <li>• IMO Training Camp</li>
+                                <li>• International Mathematical Olympiad (IMO)</li>
+                            </ul>
+                            <p className="text-sm text-slate-500 mt-4">
+                                This competition is open for students from class 8 to class 12. So class 9th students are definitely eligible.
+                            </p>
+                        </motion.div>
+                    </div>
+                    
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.6 }}
+                        className="glass-card p-8 rounded-2xl"
+                    >
+                        <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                            <Award className="text-emerald-500" size={24} />
+                            NSTSE
+                        </h3>
+                        <p className="text-slate-300 mb-4">
+                            NSTSE stands for National Level Science Talent Search Exam. This diagnostic test identifies talented students from classes II to XII.
+                        </p>
+                        <p className="text-sm text-slate-500 mt-4">
+                            All these examinations are prestigious and students require to prepare appropriately for them. Even if students don't qualify, the process of preparation will enhance their academic abilities multifold.
+                        </p>
+                    </motion.div>
+                </div>
+            </section>
+
             <SEOFAQ faqs={faqs} />
 
             <section className="py-24 bg-navy-900 relative">
