@@ -37,7 +37,6 @@ import Navbar from '../components/premium/Navbar';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/config';
 import { triggerEventCleanup, getCleanupStatus } from '../api/cleanup';
-import { createSocket } from '../utils/socket';
 import { getImageUrl } from '../utils/imageUrl';
 
 const AdminDashboard = () => {
