@@ -1,6 +1,7 @@
 import { io } from 'socket.io-client';
 
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'https://apnaevents.onrender.com';
+const isLocal = window.location.hostname === 'localhost';
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || (isLocal ? 'http://localhost:5000' : 'https://apnaevents.onrender.com');
 
 export const createSocket = () => {
     const socket = io(SOCKET_URL, {
@@ -31,11 +32,11 @@ export const createSocket = () => {
 // Create a mock socket for when backend is not available
 export const createMockSocket = () => {
     return {
-        on: () => {},
-        off: () => {},
-        emit: () => {},
-        connect: () => {},
-        disconnect: () => {},
+        on: () => { },
+        off: () => { },
+        emit: () => { },
+        connect: () => { },
+        disconnect: () => { },
         connected: false
     };
 };
