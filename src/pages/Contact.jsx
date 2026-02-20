@@ -53,10 +53,10 @@ const Contact = () => {
     return (
         <div className="bg-navy-950 min-h-screen text-slate-300 selection:bg-emerald-500/30">
             <Navbar />
-            
+
             <div className="pt-24 md:pt-32 pb-12">
                 <div className="container-custom px-4">
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="max-w-4xl mx-auto"
@@ -71,7 +71,7 @@ const Contact = () => {
                             <div className="space-y-8">
                                 <div className="glass-card p-8 rounded-2xl">
                                     <h3 className="text-xl font-bold mb-6 text-white">Get in Touch</h3>
-                                    
+
                                     <div className="space-y-6">
                                         <div className="flex items-start gap-4">
                                             <div className="bg-emerald-500/10 p-3 rounded-full text-emerald-400">
@@ -124,13 +124,13 @@ const Contact = () => {
 
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     <div>
-                                        <label className="block text-sm font-bold text-white mb-2">Name</label>
+                                        <label className="block text-sm font-black text-white uppercase tracking-widest mb-3 pl-1">Name</label>
                                         <input
                                             type="text"
                                             name="name"
                                             value={formData.name}
                                             onChange={handleChange}
-                                            className="input-field"
+                                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all duration-300"
                                             placeholder="Your name"
                                             required
                                             disabled={isLoading}
@@ -138,13 +138,13 @@ const Contact = () => {
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-bold text-white mb-2">Email</label>
+                                        <label className="block text-sm font-black text-white uppercase tracking-widest mb-3 pl-1">Email</label>
                                         <input
                                             type="email"
                                             name="email"
                                             value={formData.email}
                                             onChange={handleChange}
-                                            className="input-field"
+                                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all duration-300"
                                             placeholder="your@email.com"
                                             required
                                             disabled={isLoading}
@@ -152,26 +152,26 @@ const Contact = () => {
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-bold text-white mb-2">Subject (Optional)</label>
+                                        <label className="block text-sm font-black text-white uppercase tracking-widest mb-3 pl-1">Subject (Optional)</label>
                                         <input
                                             type="text"
                                             name="subject"
                                             value={formData.subject}
                                             onChange={handleChange}
-                                            className="input-field"
+                                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all duration-300"
                                             placeholder="What's this about?"
                                             disabled={isLoading}
                                         />
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-bold text-white mb-2">Message</label>
+                                        <label className="block text-sm font-black text-white uppercase tracking-widest mb-3 pl-1">Message</label>
                                         <textarea
                                             name="message"
                                             value={formData.message}
                                             onChange={handleChange}
                                             rows="4"
-                                            className="input-field resize-none"
+                                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all duration-300 resize-none"
                                             placeholder="How can we help you?"
                                             required
                                             disabled={isLoading}
@@ -181,7 +181,7 @@ const Contact = () => {
                                     <button
                                         type="submit"
                                         disabled={isLoading}
-                                        className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                                        className="w-full btn-premium py-5 rounded-2xl flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed text-lg"
                                     >
                                         {isLoading ? (
                                             <>
@@ -200,7 +200,7 @@ const Contact = () => {
                     </motion.div>
                 </div>
             </div>
-            
+
             <Footer />
         </div>
     );
