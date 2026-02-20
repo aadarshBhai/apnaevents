@@ -32,7 +32,7 @@ const EventCard = ({
     };
 
     const cardClasses = "group cursor-pointer overflow-hidden transition-all duration-300";
-    const bgClasses = "bg-navy-800/50 hover:bg-navy-800 border border-white/5 hover:border-emerald-500/30";
+    const bgClasses = "bg-navy-900/40 backdrop-blur-xl border border-white/5 hover:border-amber-500/30";
 
     if (isList) {
         return (
@@ -46,7 +46,7 @@ const EventCard = ({
                         style={{ backgroundImage: `url(${image && image.startsWith('http') ? image : 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=800'})` }}
                     />
                     <div className="absolute top-3 left-3">
-                        <span className="bg-navy-900/90 backdrop-blur px-3 py-1.5 rounded-full text-[10px] font-bold text-emerald-400 border border-emerald-500/20 uppercase tracking-widest">
+                        <span className="bg-navy-900/90 backdrop-blur px-3 py-1.5 rounded-lg text-[10px] font-black text-amber-500 border border-amber-500/20 uppercase tracking-widest">
                             {category}
                         </span>
                     </div>
@@ -55,12 +55,12 @@ const EventCard = ({
                 <div className="flex flex-col justify-between flex-grow py-2">
                     <div>
                         <div className="flex justify-between items-start gap-4 mb-2">
-                            <h3 className="text-xl md:text-2xl font-display font-bold text-slate-100 group-hover:text-emerald-400 transition-colors line-clamp-1">
+                            <h3 className="text-xl md:text-2xl font-display font-black text-white group-hover:text-amber-500 transition-colors line-clamp-2">
                                 {title}
                             </h3>
                             {verified && (
-                                <div className="flex items-center gap-1.5 bg-gradient-to-r from-emerald-600/20 to-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded-full text-[10px] font-black border border-emerald-500/20 shrink-0 shadow-lg shadow-emerald-500/5 uppercase tracking-widest">
-                                    <ShieldCheck size={12} className="text-emerald-500" />
+                                <div className="flex items-center gap-1.5 bg-gradient-to-r from-amber-600/20 to-amber-500/10 text-amber-500 px-3 py-1.5 rounded-lg text-[10px] font-black border border-amber-500/20 shrink-0 shadow-lg uppercase tracking-widest">
+                                    <ShieldCheck size={12} className="text-amber-500" />
                                     <span>Verified</span>
                                 </div>
                             )}
@@ -68,28 +68,28 @@ const EventCard = ({
 
                         <div className="flex flex-wrap gap-x-6 gap-y-2 mb-4">
                             <div className="flex items-center gap-2 text-slate-400 text-sm font-medium">
-                                <Calendar size={16} className="text-emerald-500" />
+                                <Calendar size={16} className="text-amber-500" />
                                 <span>{formatDate(date)}</span>
                             </div>
                             <div className="flex items-center gap-2 text-slate-400 text-sm font-medium">
-                                <MapPin size={16} className="text-emerald-500" />
+                                <MapPin size={16} className="text-amber-500" />
                                 <span>{location}</span>
                             </div>
                             {ageGroup && (
                                 <div className="flex items-center gap-2 text-slate-400 text-sm font-medium">
-                                    <Users size={16} className="text-emerald-500" />
+                                    <Users size={16} className="text-amber-500" />
                                     <span>{ageGroup}</span>
                                 </div>
                             )}
                             {deadline && (
-                                <div className="flex items-center gap-2 text-slate-400 text-sm font-medium">
-                                    <span className="text-amber-500">⏰</span>
-                                    <span>Deadline: {formatDate(deadline)}</span>
+                                <div className="flex items-center gap-2 text-slate-400 text-sm font-bold">
+                                    <span className="text-rose-500">⏰</span>
+                                    <span className="text-rose-400">Deadline: {formatDate(deadline)}</span>
                                 </div>
                             )}
                             {mode && (
                                 <div className="flex items-center gap-2 text-slate-400 text-sm font-medium">
-                                    <Laptop size={16} className="text-emerald-500" />
+                                    <Laptop size={16} className="text-amber-500" />
                                     <span>{mode}</span>
                                 </div>
                             )}
@@ -98,14 +98,14 @@ const EventCard = ({
 
                     <div className="flex items-center justify-between mt-auto">
                         <div className="flex items-center gap-2">
-                            <span className="text-lg font-bold text-emerald-400 tracking-tight">
-                                {registrationFee || 'Free Access'}
+                            <span className="text-lg font-black text-amber-500 tracking-tight">
+                                {registrationFee || 'Free Entry'}
                             </span>
                             <div className="w-1 h-1 rounded-full bg-slate-600"></div>
-                            <span className="text-xs font-bold text-slate-500">Limited Slots</span>
+                            <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Open Enrollment</span>
                         </div>
-                        <button className="text-emerald-400 font-bold uppercase tracking-widest text-xs flex items-center gap-2 hover:gap-3 transition-all">
-                            View Details <ArrowRight size={16} />
+                        <button className="text-amber-500 font-black uppercase tracking-widest text-[10px] flex items-center gap-2 hover:gap-3 transition-all">
+                            Prospectus <ArrowRight size={16} />
                         </button>
                     </div>
                 </div>
@@ -117,7 +117,7 @@ const EventCard = ({
     return (
         <div
             onClick={handleCardClick}
-            className={`${cardClasses} ${bgClasses} flex flex-col h-full rounded-2xl relative`}
+            className={`${cardClasses} ${bgClasses} flex flex-col h-full rounded-2xl relative shadow-2xl`}
         >
             {/* Image Section */}
             <div className="relative h-48 overflow-hidden">
@@ -127,14 +127,14 @@ const EventCard = ({
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-900 via-transparent to-transparent opacity-80"></div>
                 <div className="absolute top-4 left-4">
-                    <span className="bg-navy-900/80 backdrop-blur px-3 py-1 rounded-lg text-xs font-bold text-emerald-400 border border-emerald-500/20">
+                    <span className="bg-navy-900/80 backdrop-blur px-3 py-1 rounded-lg text-[10px] font-black text-amber-500 border border-amber-500/20 uppercase tracking-widest leading-none">
                         {category}
                     </span>
                 </div>
                 {verified && (
                     <div className="absolute top-4 right-4">
-                        <div className="flex items-center gap-1.5 bg-navy-950/90 backdrop-blur-md text-emerald-400 px-3 py-1.5 rounded-xl text-[10px] font-black border border-emerald-500/30 shadow-2xl uppercase tracking-widest">
-                            <ShieldCheck size={14} className="text-emerald-500" />
+                        <div className="flex items-center gap-1.5 bg-navy-950/90 backdrop-blur-md text-amber-500 px-3 py-1.5 rounded-xl text-[10px] font-black border border-amber-500/30 shadow-2xl uppercase tracking-widest">
+                            <ShieldCheck size={14} className="text-amber-500" />
                             <span>Verified</span>
                         </div>
                     </div>
@@ -143,31 +143,31 @@ const EventCard = ({
 
             {/* Content Section */}
             <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-display font-bold text-white mb-4 line-clamp-2 group-hover:text-emerald-400 transition-colors">
+                <h3 className="text-xl font-display font-black text-white mb-4 line-clamp-2 group-hover:text-amber-500 transition-colors">
                     {title}
                 </h3>
 
                 <div className="space-y-3 mb-6 flex-grow">
-                    <div className="flex items-center gap-3 text-slate-400 text-sm">
-                        <Calendar size={16} className="text-emerald-500 shrink-0" />
+                    <div className="flex items-center gap-3 text-slate-400 text-sm font-medium">
+                        <Calendar size={16} className="text-amber-500 shrink-0" />
                         <span>{formatDate(date)}</span>
                     </div>
-                    <div className="flex items-center gap-3 text-slate-400 text-sm">
-                        <MapPin size={16} className="text-emerald-500 shrink-0" />
+                    <div className="flex items-center gap-3 text-slate-400 text-sm font-medium">
+                        <MapPin size={16} className="text-amber-500 shrink-0" />
                         <span className="line-clamp-1">{location}</span>
                     </div>
                     {prizes && (
-                        <div className="flex items-center gap-3 text-slate-400 text-sm">
-                            <Trophy size={16} className="text-gold-500 shrink-0" />
+                        <div className="flex items-center gap-3 text-slate-400 text-sm font-medium">
+                            <Trophy size={16} className="text-amber-500 shrink-0" />
                             <span className="line-clamp-1">{prizes}</span>
                         </div>
                     )}
-                    <div className="flex items-center gap-3 text-slate-400 text-sm font-bold">
-                        <span className="text-emerald-500 tracking-tight">{registrationFee || 'Free'}</span>
+                    <div className="flex items-center gap-3 text-slate-300 text-sm font-black">
+                        <span className="text-amber-500 tracking-tight uppercase tracking-widest text-[10px]">{registrationFee || 'Free Access'}</span>
                         {mode && (
                             <>
                                 <div className="w-1 h-1 rounded-full bg-slate-600"></div>
-                                <span className="text-slate-400">{mode}</span>
+                                <span className="text-slate-400 uppercase tracking-widest text-[10px]">{mode}</span>
                             </>
                         )}
                     </div>
@@ -175,10 +175,10 @@ const EventCard = ({
 
                 {/* Footer */}
                 <div className="pt-4 border-t border-white/5 flex items-center justify-between mt-auto">
-                    <span className="text-sm font-medium text-slate-500">
-                        {eligibility || "Open to all"}
+                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                        {eligibility || "Open Enrollment"}
                     </span>
-                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-300">
+                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-navy-950 transition-colors duration-300">
                         <ArrowRight size={16} />
                     </div>
                 </div>

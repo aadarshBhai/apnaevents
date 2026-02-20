@@ -1,47 +1,59 @@
-@import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Outfit:wght@300;400;500;600;700;900&display=swap');
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
 :root {
   --background: #020617;
   --foreground: #F8FAFC;
-  --emerald-glow: 0 0 20px rgba(16, 185, 129, 0.2);
+  --gold-glow: 0 0 20px rgba(245, 158, 11, 0.2);
+  --navy-school: #0f172a;
+  --varsity-gold: #f59e0b;
+  --varsity-red: #e11d48;
 }
 
 @layer base {
   body {
-    @apply bg-[#020617] text-slate-200 font-body antialiased overflow-x-hidden;
+    @apply bg-[#020617] text-slate-200 font-["Outfit"] antialiased overflow-x-hidden;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display text-white tracking-tight;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-["Fraunces"] text-white tracking-tight;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-navy-900/40 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.36)];
+    @apply bg-navy-900/40 backdrop-blur-xl border border-white/10;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
   }
 
   .glass-dark {
     @apply bg-[#020617]/80 backdrop-blur-xl border-b border-white/10 shadow-xl;
   }
-  
+
   .glass-button {
     @apply bg-white/5 hover:bg-white/10 border border-white/10 backdrop-blur-sm transition-all duration-300;
   }
-  
+
   .btn-primary {
-    @apply bg-emerald-500 hover:bg-emerald-600 text-navy-950 font-black px-8 py-4 rounded-2xl transition-all duration-300 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 hover:-translate-y-0.5 active:scale-95;
+    @apply bg-amber-500 hover:bg-amber-600 text-navy-950 font-black px-8 py-4 rounded-2xl transition-all duration-300 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 hover:-translate-y-0.5 active:scale-95;
   }
 
   .btn-premium {
-    @apply bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-black px-6 py-3 rounded-xl transition-all duration-300 shadow-xl shadow-emerald-500/25 hover:shadow-emerald-500/40;
+    @apply bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-amber-500 text-white font-black px-6 py-3 rounded-xl transition-all duration-300 shadow-xl shadow-amber-500/25 hover:shadow-amber-500/40;
   }
-  
+
   .container-custom {
     @apply max-w-7xl mx-auto;
+  }
+
+  .varsity-badge {
+    @apply px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest border transition-all;
   }
 }
 

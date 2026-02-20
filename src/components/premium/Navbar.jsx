@@ -82,17 +82,17 @@ const Navbar = () => {
               <motion.div
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.8 }}
-                className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-emerald-500/25"
+                className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-amber-500/25"
               >
-                <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-7 h-7 text-navy-950" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
                 </svg>
               </motion.div>
               <div>
-                <h1 className="font-display text-2xl font-black text-white dark:text-white">
-                  Event<span className="text-emerald-400">Dekho</span>
+                <h1 className="font-['Fraunces'] text-2xl font-black text-white leading-none">
+                  Event<span className="text-amber-500">Dekho</span>
                 </h1>
-                <p className="text-xs text-slate-300 dark:text-slate-400 font-medium">Merit Pipeline</p>
+                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Merit Pipeline</p>
               </div>
             </Link>
 
@@ -103,9 +103,9 @@ const Navbar = () => {
                   <Link
                     key={link.name}
                     to={link.path}
-                    className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${location.pathname === link.path
-                      ? 'bg-emerald-500/10 text-emerald-400'
-                      : 'text-slate-200 hover:text-white hover:bg-white/5'
+                    className={`relative px-4 py-2 rounded-lg text-sm font-bold transition-all duration-200 ${location.pathname === link.path
+                      ? 'bg-amber-500/10 text-amber-500'
+                      : 'text-slate-300 hover:text-white hover:bg-white/5'
                       }`}
                   >
                     {link.name}
@@ -120,14 +120,14 @@ const Navbar = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="flex items-center space-x-3 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-2xl text-white hover:bg-white/20 transition-all duration-200"
+                    className="flex items-center space-x-3 px-4 py-2 bg-white/5 backdrop-blur-sm rounded-2xl text-white hover:bg-white/10 transition-all duration-200 border border-white/5"
                   >
-                    <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center">
-                      <span className="text-white text-sm font-bold">
+                    <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center">
+                      <span className="text-navy-950 text-sm font-black">
                         {user.name.charAt(0).toUpperCase()}
                       </span>
                     </div>
-                    <span className="text-sm font-medium">{user.name}</span>
+                    <span className="text-sm font-bold">{user.name}</span>
                     <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                   </motion.button>
 
@@ -145,7 +145,7 @@ const Navbar = () => {
                               key={link.name}
                               to={link.path}
                               onClick={() => setIsDropdownOpen(false)}
-                              className="block px-4 py-3 text-sm text-slate-200 hover:bg-white/10 hover:text-white transition-colors duration-200"
+                              className="block px-4 py-3 text-sm font-bold text-slate-300 hover:bg-white/10 hover:text-white transition-colors duration-200"
                             >
                               {link.name}
                             </Link>
@@ -153,7 +153,7 @@ const Navbar = () => {
                           <div className="border-t border-white/10 my-2"></div>
                           <button
                             onClick={handleLogout}
-                            className="block w-full text-left px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors duration-200"
+                            className="block w-full text-left px-4 py-3 text-sm font-bold text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors duration-200"
                           >
                             Sign Out
                           </button>
@@ -166,13 +166,13 @@ const Navbar = () => {
                 <div className="flex items-center space-x-4">
                   <Link
                     to="/auth"
-                    className="text-sm font-medium text-slate-200 hover:text-white transition-colors duration-200"
+                    className="text-sm font-bold text-slate-300 hover:text-white transition-colors duration-200"
                   >
                     Sign In
                   </Link>
                   <Link
                     to="/submit-event"
-                    className="btn-premium text-sm px-6 py-3 bg-emerald-500 hover:bg-emerald-600 border-none text-white font-bold"
+                    className="btn-premium text-sm px-6 py-3 bg-amber-500 hover:bg-amber-600 border-none text-navy-950 font-black"
                   >
                     List Your Competition
                   </Link>
@@ -184,9 +184,9 @@ const Navbar = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={toggleDarkMode}
-                className="p-2 rounded-2xl bg-white/10 backdrop-blur-sm text-slate-200 hover:bg-white/20 transition-all duration-200"
+                className="p-2.5 rounded-2xl bg-white/5 backdrop-blur-sm text-slate-300 hover:bg-white/10 border border-white/5 transition-all duration-200"
               >
-                {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                {isDarkMode ? <Sun className="w-5 h-5 text-amber-500" /> : <Moon className="w-5 h-5 text-amber-500" />}
               </motion.button>
             </div>
 
@@ -195,15 +195,15 @@ const Navbar = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-2xl bg-white/10 backdrop-blur-sm text-slate-200 hover:bg-white/20 transition-all duration-200"
+              className="lg:hidden p-2.5 rounded-2xl bg-white/5 backdrop-blur-sm text-slate-300 hover:bg-white/10 border border-white/5 transition-all duration-200"
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </motion.button>
           </div>
-        </div>
+        </div >
 
         {/* Mobile Menu */}
-        <AnimatePresence>
+        < AnimatePresence >
           {isMobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
@@ -217,9 +217,9 @@ const Navbar = () => {
                     key={link.name}
                     to={link.path}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block text-base font-medium transition-colors duration-200 ${location.pathname === link.path
-                      ? 'text-emerald-400'
-                      : 'text-slate-200 hover:text-white'
+                    className={`block text-base font-bold transition-colors duration-200 ${location.pathname === link.path
+                      ? 'text-amber-500'
+                      : 'text-slate-300 hover:text-white'
                       }`}
                   >
                     {link.name}
@@ -262,7 +262,7 @@ const Navbar = () => {
                     <Link
                       to="/submit-event"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block btn-premium text-center bg-emerald-500 text-white font-bold"
+                      className="block btn-premium text-center bg-amber-500 text-navy-950 font-black"
                     >
                       List Your Competition
                     </Link>
@@ -270,9 +270,10 @@ const Navbar = () => {
                 )}
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.nav>
+          )
+          }
+        </AnimatePresence >
+      </motion.nav >
     </>
   );
 };

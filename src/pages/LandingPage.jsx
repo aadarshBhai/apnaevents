@@ -11,7 +11,7 @@ import Testimonials from '../components/premium/Testimonials';
 import EventCard from '../components/EventCard';
 import { SEOFAQ, SEOComparisonTable, SEOInternalLinks } from '../components/seo/SEOComponents';
 import SEO from '../components/seo/SEO';
-import { getEvents, getFeaturedEvents } from '../api/events';
+import { getEvents, getFeaturedEvents, getPublicStats } from '../api/events';
 import { createSocket } from '../utils/socket';
 import { updatePageSEO } from '../utils/seo';
 
@@ -21,6 +21,7 @@ const LandingPage = () => {
     const [events, setEvents] = useState([]);
     const [recentlyAdded, setRecentlyAdded] = useState([]);
     const [upcomingDeadlines, setUpcomingDeadlines] = useState([]);
+    const [stats, setStats] = useState({ students: '50K+', events: '1.2K+', schools: '500+' });
     const [socket, setSocket] = useState(null);
 
     // SEO Data
@@ -109,8 +110,9 @@ const LandingPage = () => {
         newSocket.on('eventCreated', (event) => {
             console.log('LandingPage: New event created', event);
             if (event.featured) {
-                setEvents(prev => [event, ...prev.slice(0, 5)]); // Keep only 6 featured events
+                setEvents(prev => [event, ...prev.slice(0, 5)]);
             }
+            setRecentlyAdded(prev => [event, ...prev.slice(0, 3)]);
         });
 
         newSocket.on('eventUpdated', (event) => {
@@ -138,6 +140,16 @@ const LandingPage = () => {
     useEffect(() => {
         const fetchEventsData = async () => {
             try {
+                // Fetch Platform Stats
+                const statsData = await getPublicStats();
+                if (statsData) {
+                    setStats({
+                        students: statsData.students >= 1000 ? `${(statsData.students / 1000).toFixed(1)}K+` : statsData.students,
+                        events: statsData.events >= 1000 ? `${(statsData.events / 1000).toFixed(1)}K+` : statsData.events,
+                        schools: statsData.schools
+                    });
+                }
+
                 // Featured Events
                 const featuredData = await getFeaturedEvents();
                 if (featuredData.events && featuredData.events.length > 0) {
@@ -157,309 +169,280 @@ const LandingPage = () => {
 
             } catch (err) {
                 console.error("Failed to fetch events", err);
-                // Fallback to mock data if API fails
-                const mockEvents = [
-                    {
-                        _id: '1',
-                        title: "FASPE FELLOWSHIPS",
-                        category: "Fellowship",
-                        date: new Date('2026-01-04'),
-                        location: "Germany and Poland",
-                        eligibility: "Graduate Students",
-                        prizes: "Full funding",
-                        applicationLink: "bit.ly/faspefellowships",
-                        image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800",
-                        verified: true,
-                        featured: true
-                    },
-                    {
-                        _id: '2',
-                        title: "SONY WORLD PHOTOGRAPHY",
-                        category: "Photography",
-                        date: new Date('2026-01-06'),
-                        location: "London, UK",
-                        eligibility: "OPEN TO ALL",
-                        prizes: "Sony digital kit",
-                        applicationLink: "bit.ly/sony",
-                        image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=800",
-                        verified: true,
-                        featured: true
-                    }
-                ];
-                setEvents(mockEvents);
-                setRecentlyAdded(mockEvents);
-                setUpcomingDeadlines(mockEvents);
             }
         };
 
         fetchEventsData();
     }, []);
-
     return (
-        <div className="bg-navy-950 min-h-screen text-slate-300 selection:bg-emerald-500/30">
+        <div className="min-h-screen bg-navy-950 font-['Outfit']">
             <SEO
-                title="Online Olympiad Competitions for Class 9-12 Students"
-                description="Join India's best online Olympiad competitions for Class 9-12 students. Verified events, cash prizes, and certificates recognized by top schools and colleges."
+                title="EventDekho - India's Premier Merit Pipeline"
+                description="Join India's best competitions for Class 9-12 students. Verified events, cash prizes, and certificates recognized by top schools."
                 keywords="olympiad competitions, online contests, class 9-12 competitions, science olympiad, math olympiad, student scholarships"
             />
             <Navbar />
-            <Hero />
 
-            {/* Blog Section - Competitive Exams Content */}
-            <section className="py-24 bg-navy-900 relative">
-                <div className="container-custom px-4">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                        className="text-center mb-16"
-                    >
-                        <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
-                            Competitive Exams for <span className="text-emerald-400">Class 9</span> Students in India
-                        </h2>
-                        <p className="text-slate-300 text-lg max-w-3xl mx-auto mb-12">
-                            Class 9th is a critical point in a student's school learning journey. The student doesn't yet have the class 10th board pressure and yet is mature enough to face national-level competitions.
-                        </p>
-                    </motion.div>
+            <main>
+                <Hero stats={stats} />
+                <FeatureCards />
 
-                    <div className="grid md:grid-cols-2 gap-12">
+                {/* Blog Section - Competitive Exams Content */}
+                <section className="py-24 bg-navy-900 relative">
+                    <div className="container-custom px-4">
                         <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            className="glass-card p-8 rounded-2xl"
+                            transition={{ duration: 0.6 }}
+                            className="text-center mb-16"
                         >
-                            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-                                <Trophy className="text-emerald-500" size={24} />
-                                NSEJS
-                            </h3>
-                            <p className="text-slate-300 mb-4">
-                                Indian science olympiads are respected worldwide for the quality of students they send every year in the international stages of competition. The Science Olympiad program in India follows a five-stage procedure.
-                            </p>
-                            <ul className="space-y-2 text-slate-400">
-                                <li>• National Standard Examination in Junior Science (NSEJS)</li>
-                                <li>• Indian National Olympiad in Junior Science (INJSO)</li>
-                                <li>• Orientation cum Selection Camp (OCSC)</li>
-                                <li>• Pre-departure Training Camp (PDT)</li>
-                                <li>• International Junior Science Olympiad (IJSO)</li>
-                            </ul>
-                            <p className="text-sm text-slate-500 mt-4">
-                                This examination targets students roughly in the age group 14-15 years and is broadly equivalent to secondary school level (up to and including Class X) of CBSE.
-                            </p>
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, x: 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.4 }}
-                            className="glass-card p-8 rounded-2xl"
-                        >
-                            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-                                <Target className="text-emerald-500" size={24} />
-                                Pre-RMO
-                            </h3>
-                            <p className="text-slate-300 mb-4">
-                                The Mathematical Olympiad Programme in India leads to participation of Indian students in the International Mathematical Olympiad (IMO).
-                            </p>
-                            <ul className="space-y-2 text-slate-400">
-                                <li>• Pre-Regional Mathematical Olympiad (Pre-RMO)</li>
-                                <li>• Regional Mathematical Olympiad (RMO)</li>
-                                <li>• Indian National Mathematical Olympiad (INMO)</li>
-                                <li>• IMO Training Camp</li>
-                                <li>• International Mathematical Olympiad (IMO)</li>
-                            </ul>
-                            <p className="text-sm text-slate-500 mt-4">
-                                This competition is open for students from class 8 to class 12. So class 9th students are definitely eligible.
-                            </p>
-                        </motion.div>
-                    </div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.6 }}
-                        className="glass-card p-8 rounded-2xl"
-                    >
-                        <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-                            <Award className="text-emerald-500" size={24} />
-                            NSTSE
-                        </h3>
-                        <p className="text-slate-300 mb-4">
-                            NSTSE stands for National Level Science Talent Search Exam. This diagnostic test identifies talented students from classes II to XII.
-                        </p>
-                        <p className="text-sm text-slate-500 mt-4">
-                            All these examinations are prestigious and students require to prepare appropriately for them. Even if students don't qualify, the process of preparation will enhance their academic abilities multifold.
-                        </p>
-                    </motion.div>
-                </div>
-            </section>
-
-            <section className="py-24 bg-navy-900/50">
-                <div className="container-custom px-4">
-                    <div className="grid lg:grid-cols-2 gap-16">
-                        {/* Recently Added */}
-                        <div>
-                            <div className="flex justify-between items-end mb-8">
-                                <h2 className="text-2xl font-bold text-white">Recently <span className="text-emerald-400">Added</span></h2>
-                                <button onClick={() => navigate('/events?sortBy=createdAt')} className="text-xs font-bold text-emerald-400 uppercase tracking-widest hover:text-emerald-300 transition-colors">View All</button>
-                            </div>
-                            <div className="grid gap-4">
-                                {recentlyAdded.map((event) => (
-                                    <EventCard key={event._id} {...event} isList={true} />
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Upcoming Deadlines */}
-                        <div>
-                            <div className="flex justify-between items-end mb-8">
-                                <h2 className="text-2xl font-bold text-white">Upcoming <span className="text-amber-400">Deadlines</span></h2>
-                                <button onClick={() => navigate('/events?sortBy=deadline')} className="text-xs font-bold text-amber-400 uppercase tracking-widest hover:text-amber-300 transition-colors">View All</button>
-                            </div>
-                            <div className="grid gap-4">
-                                {upcomingDeadlines.map((event) => (
-                                    <EventCard key={event._id} {...event} isList={true} />
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <SEOFAQ faqs={faqs} />
-
-            <section className="py-24 bg-navy-900 relative">
-                <div className="container-custom px-4">
-                    <div className="flex justify-between items-end mb-12">
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                        >
-                            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
-                                Featured <span className="text-emerald-400">Opportunities</span>
+                            <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-6">
+                                Competitive Exams for <span className="text-amber-500 italic">Class 9</span> Students in India
                             </h2>
-                            <p className="text-slate-400">Hand-picked competitions for maximum impact.</p>
+                            <p className="text-slate-300 text-lg max-w-3xl mx-auto mb-12">
+                                Class 9th is a critical point in a student's school learning journey. The student doesn't yet have the class 10th board pressure and yet is mature enough to face national-level competitions.
+                            </p>
                         </motion.div>
-                        <motion.button
-                            initial={{ opacity: 0, x: 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            onClick={() => navigate('/events')}
-                            className="hidden md:flex items-center gap-2 text-emerald-400 font-medium hover:text-emerald-300 transition-colors"
-                        >
-                            View All <ArrowRight size={20} />
-                        </motion.button>
-                    </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {events.map((event, index) => (
+                        <div className="grid md:grid-cols-2 gap-12">
                             <motion.div
-                                key={event._id}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                                className="glass-card p-8 rounded-3xl border-white/5"
                             >
-                                <EventCard {...event} isList={true} />
+                                <h3 className="text-xl font-black text-white mb-6 flex items-center gap-3">
+                                    <Trophy className="text-amber-500" size={24} />
+                                    NSEJS
+                                </h3>
+                                <p className="text-slate-300 mb-4 leading-relaxed">
+                                    Indian science olympiads are respected worldwide for the quality of students they send every year in the international stages of competition. The Science Olympiad program in India follows a five-stage procedure.
+                                </p>
+                                <ul className="space-y-3 text-slate-400 font-medium">
+                                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500" /> National Standard Examination in Junior Science (NSEJS)</li>
+                                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500" /> Indian National Olympiad in Junior Science (INJSO)</li>
+                                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500" /> Orientation cum Selection Camp (OCSC)</li>
+                                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500" /> Pre-departure Training Camp (PDT)</li>
+                                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500" /> International Junior Science Olympiad (IJSO)</li>
+                                </ul>
+                                <p className="text-xs text-slate-500 mt-6 font-bold uppercase tracking-wider">
+                                    AGE GROUP: 14-15 YEARS | LEVEL: SECONDARY (UP TO CLASS X)
+                                </p>
                             </motion.div>
-                        ))}
-                    </div>
 
-                    <div className="mt-12 text-center md:hidden">
-                        <button
-                            onClick={() => navigate('/events')}
-                            className="btn-primary w-full"
+                            <motion.div
+                                initial={{ opacity: 0, x: 20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: 0.4 }}
+                                className="glass-card p-8 rounded-3xl border-white/5"
+                            >
+                                <h3 className="text-xl font-black text-white mb-6 flex items-center gap-3">
+                                    <Target className="text-amber-500" size={24} />
+                                    Pre-RMO
+                                </h3>
+                                <p className="text-slate-300 mb-4 leading-relaxed">
+                                    The Mathematical Olympiad Programme in India leads to participation of Indian students in the International Mathematical Olympiad (IMO).
+                                </p>
+                                <ul className="space-y-3 text-slate-400 font-medium">
+                                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500" /> Pre-Regional Mathematical Olympiad (Pre-RMO)</li>
+                                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500" /> Regional Mathematical Olympiad (RMO)</li>
+                                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500" /> Indian National Mathematical Olympiad (INMO)</li>
+                                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500" /> IMO Training Camp</li>
+                                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500" /> International Mathematical Olympiad (IMO)</li>
+                                </ul>
+                                <p className="text-xs text-slate-500 mt-6 font-bold uppercase tracking-wider">
+                                    ELIGIBILITY: CLASS 8 TO CLASS 12
+                                </p>
+                            </motion.div>
+                        </div>
+
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.6 }}
+                            className="glass-card p-8 rounded-3xl mt-12 border-white/5"
                         >
-                            View All Opportunities
-                        </button>
+                            <h3 className="text-xl font-black text-white mb-6 flex items-center gap-3">
+                                <Award className="text-amber-500" size={24} />
+                                NSTSE
+                            </h3>
+                            <p className="text-slate-300 mb-4 leading-relaxed">
+                                NSTSE stands for National Level Science Talent Search Exam. This diagnostic test identifies talented students from classes II to XII.
+                            </p>
+                            <p className="text-sm text-slate-500 mt-4 font-medium italic">
+                                All these examinations are prestigious. Even if students don't qualify, the prep multifold enhances academic abilities.
+                            </p>
+                        </motion.div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <Testimonials />
-
-            {/* Why List With Us Section */}
-            <section className="py-24 bg-navy-950 border-y border-white/5">
-                <div className="container-custom px-4">
-                    <div className="max-w-4xl mx-auto text-center mb-16">
-                        <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6">Why List Your Competition <span className="text-emerald-400">With Us?</span></h2>
-                        <p className="text-slate-400 text-lg">We help schools and organizations reach thousands of motivated students across India.</p>
-                    </div>
-
-                    <div className="grid md:grid-cols-3 gap-8">
-                        <div className="glass-card p-8 rounded-3xl text-center">
-                            <div className="w-16 h-16 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                                <Users size={32} />
+                <section className="py-24 bg-navy-950/50">
+                    <div className="container-custom px-4">
+                        <div className="grid lg:grid-cols-2 gap-16">
+                            {/* Recently Added */}
+                            <div>
+                                <div className="flex justify-between items-end mb-8 border-b border-white/5 pb-4">
+                                    <h2 className="text-2xl font-black text-white uppercase tracking-tight">Recently <span className="text-amber-500">Added</span></h2>
+                                    <button onClick={() => navigate('/events?sortBy=createdAt')} className="text-[10px] font-black text-amber-500 uppercase tracking-widest hover:text-amber-400 transition-colors">View Archive</button>
+                                </div>
+                                <div className="grid gap-4">
+                                    {recentlyAdded.map((event) => (
+                                        <EventCard key={event._id} {...event} isList={true} />
+                                    ))}
+                                </div>
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-4">Class 9–12 Focus</h3>
-                            <p className="text-slate-400 text-sm leading-relaxed">Dedicated platform for secondary and senior secondary students, ensuring high relevant participation.</p>
-                        </div>
-                        <div className="glass-card p-8 rounded-3xl text-center">
-                            <div className="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                                <Shield size={32} />
+
+                            {/* Upcoming Deadlines */}
+                            <div>
+                                <div className="flex justify-between items-end mb-8 border-b border-white/5 pb-4">
+                                    <h2 className="text-2xl font-black text-white uppercase tracking-tight">Closing <span className="text-rose-500">Soon</span></h2>
+                                    <button onClick={() => navigate('/events?sortBy=deadline')} className="text-[10px] font-black text-amber-500 uppercase tracking-widest hover:text-amber-400 transition-colors">View All</button>
+                                </div>
+                                <div className="grid gap-4">
+                                    {upcomingDeadlines.map((event) => (
+                                        <EventCard key={event._id} {...event} isList={true} />
+                                    ))}
+                                </div>
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-4">Verified Platform</h3>
-                            <p className="text-slate-400 text-sm leading-relaxed">Every event is verified by our team, building instant trust with students, parents, and schools.</p>
-                        </div>
-                        <div className="glass-card p-8 rounded-3xl text-center">
-                            <div className="w-16 h-16 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                                <Target size={32} />
-                            </div>
-                            <h3 className="text-xl font-bold text-white mb-4">Early Partner Onboarding</h3>
-                            <p className="text-slate-400 text-sm leading-relaxed">Join our early partner program for featured listings and dedicated support for your school events.</p>
                         </div>
                     </div>
+                </section>
 
-                    <div className="mt-16 text-center">
-                        <button onClick={() => navigate('/submit-event')} className="btn-primary px-10 py-4 text-lg font-bold rounded-2xl shadow-xl shadow-emerald-500/20">
-                            List Your Competition Now
-                        </button>
-                    </div>
-                </div>
-            </section>
+                <SEOFAQ faqs={faqs} />
 
-            {/* CTA Section */}
-            <section className="py-24 bg-gradient-to-br from-emerald-900/20 to-navy-900 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
-                <div className="container-custom px-4 relative z-10 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                    >
-                        <h2 className="text-4xl md:text-6xl font-display font-bold text-white mb-8">
-                            Ready to Build Your <br /><span className="text-emerald-400">Future?</span>
-                        </h2>
-                        <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
-                            Join 50,000+ students who are already using ApnaEvents to discover, compete, and win.
-                        </p>
-                        <div className="flex flex-col sm:flex-row justify-center gap-6">
-                            <button onClick={() => navigate('/signup')} className="btn-primary text-lg px-8 py-4">
-                                Create Free Account
+                <section className="py-24 bg-navy-900 relative">
+                    <div className="container-custom px-4">
+                        <div className="flex justify-between items-end mb-12">
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                            >
+                                <h2 className="text-3xl md:text-5xl font-display font-black text-white mb-4">
+                                    Featured <span className="text-amber-500">Exhibitions</span>
+                                </h2>
+                                <p className="text-slate-400 font-medium">Hand-picked competitions for maximum academic impact.</p>
+                            </motion.div>
+                            <motion.button
+                                initial={{ opacity: 0, x: 20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                onClick={() => navigate('/events')}
+                                className="hidden md:flex items-center gap-2 text-amber-500 font-black uppercase tracking-widest text-xs hover:text-amber-400 transition-colors"
+                            >
+                                Explore All <ArrowRight size={20} />
+                            </motion.button>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {events.map((event, index) => (
+                                <motion.div
+                                    key={event._id}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.1 }}
+                                >
+                                    <EventCard {...event} isList={false} />
+                                </motion.div>
+                            ))}
+                        </div>
+
+                        <div className="mt-16 text-center md:hidden">
+                            <button
+                                onClick={() => navigate('/events')}
+                                className="btn-primary w-full"
+                            >
+                                View All Opportunities
                             </button>
-                            <button onClick={() => navigate('/events')} className="px-8 py-4 bg-navy-800 text-white rounded-lg font-medium hover:bg-navy-700 transition-colors border border-navy-700">
-                                Browse Events
+                        </div>
+                    </div>
+                </section>
+
+                <Testimonials />
+
+                {/* Why List With Us Section */}
+                <section className="py-24 bg-navy-950 border-y border-white/5">
+                    <div className="container-custom px-4">
+                        <div className="max-w-4xl mx-auto text-center mb-16">
+                            <h2 className="text-3xl md:text-5xl font-display font-black text-white mb-6">Partner <span className="text-amber-500">With Us</span></h2>
+                            <p className="text-slate-400 text-lg font-medium">Reach 50,000+ ambitious students through India's premier merit pipeline.</p>
+                        </div>
+
+                        <div className="grid md:grid-cols-3 gap-8">
+                            <div className="glass-card p-10 rounded-[2.5rem] text-center border-white/5">
+                                <div className="w-16 h-16 bg-amber-500/10 text-amber-500 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-amber-500/20">
+                                    <Users size={32} />
+                                </div>
+                                <h3 className="text-xl font-black text-white mb-4 uppercase tracking-tight">Academic Focus</h3>
+                                <p className="text-slate-400 text-sm leading-relaxed font-medium">Highly targeted audience of Class 9-12 students seeking elite recognition.</p>
+                            </div>
+                            <div className="glass-card p-10 rounded-[2.5rem] text-center border-white/5">
+                                <div className="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-500/20">
+                                    <Shield size={32} />
+                                </div>
+                                <h3 className="text-xl font-black text-white mb-4 uppercase tracking-tight">Verified Authority</h3>
+                                <p className="text-slate-400 text-sm leading-relaxed font-medium">Instant credibility through our platform's rigorous manual vetting process.</p>
+                            </div>
+                            <div className="glass-card p-10 rounded-[2.5rem] text-center border-white/5">
+                                <div className="w-16 h-16 bg-rose-500/10 text-rose-400 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-rose-500/20">
+                                    <Target size={32} />
+                                </div>
+                                <h3 className="text-xl font-black text-white mb-4 uppercase tracking-tight">National Reach</h3>
+                                <p className="text-slate-400 text-sm leading-relaxed font-medium">Access students from top-tier institutions across every state in India.</p>
+                            </div>
+                        </div>
+
+                        <div className="mt-16 text-center">
+                            <button onClick={() => navigate('/submit-event')} className="btn-primary px-12 py-5 text-lg font-black rounded-2xl shadow-2xl shadow-amber-500/20">
+                                Partner with EventDekho
                             </button>
                         </div>
-                    </motion.div>
-                </div>
-            </section>
+                    </div>
+                </section>
 
-            {/* SEO Comparison Table */}
-            <SEOComparisonTable
-                title="Compare Online Olympiad Competitions for Class 9-12 Students"
-                data={olympiadComparisonData}
-            />
+                {/* CTA Section */}
+                <section className="py-24 bg-gradient-to-br from-[#0f172a] to-[#020617] relative overflow-hidden">
+                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+                    <div className="container-custom px-4 relative z-10 text-center">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                        >
+                            <h2 className="text-4xl md:text-6xl font-display font-black text-white mb-8">
+                                Join the <span className="text-amber-500 italic">Merit</span> Pipeline
+                            </h2>
+                            <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto font-medium">
+                                Join {stats.students} students who are already using EventDekho to discover, compete, and lead.
+                            </p>
+                            <div className="flex flex-col sm:flex-row justify-center gap-6">
+                                <button onClick={() => navigate('/signup')} className="btn-primary text-lg px-10 py-4">
+                                    Create Merit Profile
+                                </button>
+                                <button onClick={() => navigate('/events')} className="px-10 py-4 bg-white/5 text-white rounded-2xl font-bold hover:bg-white/10 transition-colors border border-white/10 backdrop-blur-sm">
+                                    Browse Opportunities
+                                </button>
+                            </div>
+                        </motion.div>
+                    </div>
+                </section>
 
-            {/* SEO Internal Links */}
-            <SEOInternalLinks links={internalLinks} />
+                {/* SEO Comparison Table */}
+                <SEOComparisonTable
+                    title="Compare Online Olympiad Competitions for Class 9-12 Students"
+                    data={olympiadComparisonData}
+                />
 
-            <Footer />
+                {/* SEO Internal Links */}
+                <SEOInternalLinks links={internalLinks} />
+            </main>
+
+            <Footer stats={stats} />
         </div>
     );
 };

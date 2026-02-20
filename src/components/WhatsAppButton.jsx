@@ -7,7 +7,7 @@ const WhatsAppButton = () => {
             animate={{ scale: 1, opacity: 1 }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            href="https://wa.me/919876543210?text=I%20want%20to%20list%20a%20competition%20on%20ApnaEvents"
+            href="https://wa.me/917050819323?text=I%20want%20to%20list%20a%20competition%20on%20ApnaEvents"
             target="_blank"
             rel="noopener noreferrer"
             className="fixed bottom-8 right-8 z-[100] w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_8px_30px_rgb(37,211,102,0.4)] transition-all"

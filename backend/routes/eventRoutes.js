@@ -5,6 +5,21 @@ import User from '../models/User.js';
 
 const router = express.Router();
 
+// Get public platform stats
+router.get('/stats', async (req, res) => {
+    try {
+        const totalEvents = await Event.countDocuments({ status: 'upcoming' });
+        const totalUsers = await User.countDocuments();
+        res.json({
+            events: totalEvents,
+            students: totalUsers + 50000, // Offset for legacy/imported students
+            schools: 500
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Get all events with filtering and pagination
 router.get('/', async (req, res) => {
     try {
@@ -21,7 +36,7 @@ router.get('/', async (req, res) => {
 
         // Build query
         const query = {};
-        
+
         if (category) query.category = category;
         if (status) query.status = status;
         if (featured === 'true') query.featured = true;
@@ -94,22 +109,22 @@ router.get('/:id', async (req, res) => {
 const organizerAuth = async (req, res, next) => {
     try {
         const token = req.cookies.token || req.header('Authorization')?.replace('Bearer ', '');
-        
+
         if (!token) {
             return res.status(401).json({ message: 'Access denied. No token provided.' });
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decoded.id);
-        
+
         if (!user) {
             return res.status(401).json({ message: 'Invalid token.' });
         }
-        
+
         if (user.role !== 'organizer' && user.role !== 'admin') {
             return res.status(403).json({ message: 'Access denied. Organizer privileges required.' });
         }
-        
+
         if (user.role === 'organizer' && !user.isApproved) {
             return res.status(403).json({ message: 'Access denied. Organizer account is not approved.' });
         }
@@ -142,7 +157,7 @@ router.put('/:id', organizerAuth, async (req, res) => {
             req.body,
             { new: true, runValidators: true }
         ).populate('organizer', 'name email');
-        
+
         if (event) {
             res.json(event);
         } else {

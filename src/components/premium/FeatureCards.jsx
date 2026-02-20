@@ -5,51 +5,45 @@ const FeatureCards = () => {
   const features = [
     {
       icon: <Shield className="w-8 h-8" />,
-      title: "100% Verified Events",
-      description: "Every competition undergoes rigorous 12-hour manual vetting by our compliance team.",
-      gradient: "from-emerald-500 to-emerald-600",
-      bgLight: "bg-emerald-50",
-      stats: "Zero Spam"
+      title: "Vetted Opportunities",
+      description: "Every competition is manually verified by our Academic Excellence Committee for authenticity.",
+      gradient: "from-amber-500 to-orange-600",
+      stats: "Verified Seal"
     },
     {
       icon: <Users className="w-8 h-8" />,
-      title: "20K+ Active Students",
-      description: "Join India's largest community of high-achieving students from 500+ schools.",
-      gradient: "from-blue-500 to-blue-600",
-      bgLight: "bg-blue-50",
-      stats: "Growing Daily"
+      title: "Inter-School Network",
+      description: "Connect with high-achieving students from prestigious institutions across the nation.",
+      gradient: "from-blue-600 to-indigo-700",
+      stats: "500+ Schools"
     },
     {
       icon: <Trophy className="w-8 h-8" />,
-      title: "Career-Ready Passports",
-      description: "Build verified professional trajectories with resume-integrated badges.",
-      gradient: "from-amber-500 to-amber-600",
-      bgLight: "bg-amber-50",
-      stats: "Lifetime Valid"
+      title: "Merit Portfolios",
+      description: "Build a digital record of achievements recognized by top tier universities.",
+      gradient: "from-rose-600 to-crimson-700",
+      stats: "Career Guard"
     },
     {
       icon: <Zap className="w-8 h-8" />,
-      title: "Instant Notifications",
-      description: "Real-time updates for deadlines, results, and new opportunities.",
-      gradient: "from-purple-500 to-purple-600",
-      bgLight: "bg-purple-50",
+      title: "Timely Alerts",
+      description: "Never miss a deadline with our centralized academic notification system.",
+      gradient: "from-violet-600 to-purple-700",
       stats: "Real-time"
     },
     {
       icon: <Globe className="w-8 h-8" />,
-      title: "National Reach",
-      description: "Access competitions from every corner of India with local verification.",
-      gradient: "from-rose-500 to-rose-600",
-      bgLight: "bg-rose-50",
+      title: "National Merit",
+      description: "Access state and national level olympiads that build your competitive edge.",
+      gradient: "from-cyan-600 to-blue-700",
       stats: "Pan India"
     },
     {
       icon: <Award className="w-8 h-8" />,
-      title: "Premium Recognition",
-      description: "Earn certificates and badges recognized by top institutions and employers.",
-      gradient: "from-indigo-500 to-indigo-600",
-      bgLight: "bg-indigo-50",
-      stats: "Industry Validated"
+      title: "Certified Skills",
+      description: "Earn badges and certificates that validate your talent to the world.",
+      gradient: "from-amber-600 to-yellow-700",
+      stats: "Gold Standard"
     }
   ];
 

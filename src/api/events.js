@@ -5,6 +5,11 @@ export const getEvents = async (params = {}) => {
     return res.data;
 };
 
+export const getPublicStats = async () => {
+    const res = await api.get('/events/stats');
+    return res.data;
+};
+
 export const getFeaturedEvents = async () => {
     const res = await api.get('/events/featured');
     return res.data;
