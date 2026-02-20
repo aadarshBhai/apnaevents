@@ -91,7 +91,7 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); // Enable pre-flight for all routes
 
 // Database Connection
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/eventdekho')
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/apnaevents')
     .then(async () => {
         console.log('MongoDB Connected Successfully');
         // One-time admin seeder

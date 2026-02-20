@@ -32,7 +32,7 @@ router.post('/register', async (req, res) => {
 
         if (user) {
             const token = generateToken(user._id);
-            const isProduction = process.env.NODE_ENV === 'production';
+            const isProduction = process.env.NODE_ENV === 'production' || !!process.env.RENDER || !!process.env.VERCEL;
             res.cookie('token', token, {
                 httpOnly: true,
                 secure: isProduction, // true for production (HTTPS)
@@ -65,7 +65,7 @@ router.post('/login', async (req, res) => {
 
         if (user && (await user.matchPassword(password))) {
             const token = generateToken(user._id);
-            const isProduction = process.env.NODE_ENV === 'production';
+            const isProduction = process.env.NODE_ENV === 'production' || !!process.env.RENDER || !!process.env.VERCEL;
             res.cookie('token', token, {
                 httpOnly: true,
                 secure: isProduction,
