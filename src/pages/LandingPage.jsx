@@ -28,11 +28,11 @@ const LandingPage = () => {
     const olympiadComparisonData = {
         headers: ['Olympiad', 'Class', 'Registration Fee', 'Last Date', 'Prizes'],
         rows: [
-            ['National Science Olympiad', 'Class 9-12', '₹150', 'Dec 15, 2024', '₹10,000 - ₹50,000'],
-            ['International Math Olympiad', 'Class 9-12', '₹200', 'Dec 20, 2024', '₹25,000 - ₹1,00,000'],
-            ['English Olympiad', 'Class 9-12', '₹120', 'Dec 10, 2024', '₹5,000 - ₹25,000'],
-            ['Computer Olympiad', 'Class 9-12', '₹180', 'Dec 25, 2024', '₹15,000 - ₹75,000'],
-            ['General Knowledge Olympiad', 'Class 9-12', '₹100', 'Dec 18, 2024', '₹8,000 - ₹40,000']
+            ['National Science Olympiad', 'Class 9-12', '₹125', 'Nov 13, 2025', 'Medals, Certificates, Scholarships'],
+            ['International Math Olympiad', 'Class 9-12', '₹125', 'Nov 12, 2025', 'Medals, Certificates, Scholarships'],
+            ['English Olympiad', 'Class 9-12', '₹150', 'Dec 10, 2025', '₹5,000 - ₹25,000'],
+            ['Computer Olympiad', 'Class 9-12', '₹150', 'Dec 25, 2025', '₹15,000 - ₹75,000'],
+            ['General Knowledge Olympiad', 'Class 9-12', '₹125', 'Dec 18, 2025', '₹8,000 - ₹40,000']
         ]
     };
 
