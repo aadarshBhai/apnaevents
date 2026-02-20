@@ -89,7 +89,7 @@ const Navbar = () => {
                 </svg>
               </motion.div>
               <div>
-                <h1 className="font-['Fraunces'] text-2xl font-black text-white leading-none">
+                <h1 className="font-display text-2xl font-black text-white leading-none">
                   Event<span className="text-amber-500">Dekho</span>
                 </h1>
                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Merit Pipeline</p>
