@@ -30,6 +30,11 @@ const allowedOrigins = [
     'http://localhost:3003',
     'http://localhost:3004',
     'http://localhost:3005',
+    'http://localhost:5173',
+    'http://localhost:8080',
+    'https://apnaevents.in',
+    'https://www.apnaevents.in',
+    'https://apnaevents.onrender.com',
     ...envOrigins
 ];
 

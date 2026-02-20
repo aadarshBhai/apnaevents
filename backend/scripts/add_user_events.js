@@ -12,36 +12,38 @@ dotenv.config({ path: path.join(__dirname, '../.env') });
 
 const newEvents = [
     {
-        title: "SOF National Science Olympiad 2025-26",
-        description: "Annual science olympiad testing physics, chemistry, and biology knowledge. Level 2 for top performers, scholarships available. Source: https://sofworld.org. Exam Dates: 13-11-2025, 27-11-2025, 11-12-2025. Notes: Level 2 for top performers, scholarships available.",
-        date: new Date('2025-11-13T10:00:00Z'),
+        title: "SOF National Science Olympiad (NSO) 2026",
+        description: "Official 2026 Season: Annual science olympiad testing physics, chemistry, and biology knowledge. Level 2 for top performers, scholarships available. Source: https://sofworld.org. Exam Dates: 13-11-2026, 27-11-2026, 11-12-2026. Register early to secure your slot.",
+        date: new Date('2026-11-13T10:00:00Z'),
+        deadline: new Date('2026-10-31T23:59:59Z'),
         location: "School-based across India",
         category: "Academic",
         eligibility: "Class 9-12",
         applicationLink: "https://sofworld.org",
         ageGroup: "9-12",
-        registrationFee: "125",
+        registrationFee: "₹125",
         mode: "Offline",
-        contactInfo: "info@sofworld.org, -4951233",
-        tags: ["Science", "Olympiad", "Academic"],
+        contactInfo: "info@sofworld.org, +91-124-4951200",
+        tags: ["Science", "Olympiad", "Academic", "SOF"],
         featured: true,
         status: "upcoming",
         image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=1200",
         verified: true
     },
     {
-        title: "SOF International Mathematics Olympiad 2025-26",
-        description: "International mathematics olympiad testing mathematical reasoning and problem-solving. Level 2 for top performers, scholarships available. Source: https://sofworld.org. Exam Dates: 12-11-2025, 28-11-2025, 12-12-2025. Notes: Level 2 for top performers, scholarships available.",
-        date: new Date('2025-11-12T09:00:00Z'),
+        title: "SOF International Mathematics Olympiad (IMO) 2026",
+        description: "Official 2026 Season: International mathematics olympiad testing mathematical reasoning and problem-solving. Level 2 for top performers, scholarships available. Source: https://sofworld.org. Exam Dates: 12-11-2026, 28-11-2026, 12-12-2026.",
+        date: new Date('2026-11-12T09:00:00Z'),
+        deadline: new Date('2026-10-31T23:59:59Z'),
         location: "School-based across India",
         category: "Academic",
         eligibility: "Class 9-12",
         applicationLink: "https://sofworld.org",
         ageGroup: "9-12",
-        registrationFee: "125",
+        registrationFee: "₹125",
         mode: "Offline",
-        contactInfo: "info@sofworld.org, -4951233",
-        tags: ["Mathematics", "Olympiad", "Academic"],
+        contactInfo: "info@sofworld.org, +91-124-4951200",
+        tags: ["Mathematics", "Olympiad", "Academic", "SOF"],
         featured: true,
         status: "upcoming",
         image: "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&q=80&w=1200",
@@ -61,7 +63,7 @@ const updateEvents = async () => {
             process.exit(1);
         }
 
-        console.log('Deleting all existing (demo) events...');
+        console.log('Deleting all existing events for a clean slate...');
         await Event.deleteMany({});
         console.log('Deleted all old events.');
 
@@ -70,7 +72,7 @@ const updateEvents = async () => {
             organizer: adminUser._id
         }));
 
-        console.log(`Adding ${eventsToAdd.length} new events...`);
+        console.log(`Adding ${eventsToAdd.length} new 2026 events...`);
         const result = await Event.insertMany(eventsToAdd);
         console.log(`✅ Success! Added ${result.length} events.`);
 
