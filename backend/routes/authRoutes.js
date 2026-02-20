@@ -32,12 +32,13 @@ router.post('/register', async (req, res) => {
 
         if (user) {
             const token = generateToken(user._id);
+            const isProduction = process.env.NODE_ENV === 'production';
             res.cookie('token', token, {
                 httpOnly: true,
-                secure: false, // Set to false for localhost
-                sameSite: 'lax', // Use 'lax' for localhost
-                maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-                path: '/' // Ensure cookie is available for all paths
+                secure: isProduction, // true for production (HTTPS)
+                sameSite: isProduction ? 'none' : 'lax', // 'none' for cross-site production
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+                path: '/'
             });
             res.status(201).json({
                 user: {
@@ -64,12 +65,13 @@ router.post('/login', async (req, res) => {
 
         if (user && (await user.matchPassword(password))) {
             const token = generateToken(user._id);
+            const isProduction = process.env.NODE_ENV === 'production';
             res.cookie('token', token, {
                 httpOnly: true,
-                secure: false, // Set to false for localhost
-                sameSite: 'lax', // Use 'lax' for localhost
-                maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-                path: '/' // Ensure cookie is available for all paths
+                secure: isProduction,
+                sameSite: isProduction ? 'none' : 'lax',
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+                path: '/'
             });
             res.json({
                 user: {
@@ -147,10 +149,10 @@ router.post('/forgot-password', async (req, res) => {
 
         const html = `
             <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #0f172a;">
-                <h2 style="margin: 0 0 12px;">Reset your EventDekho password</h2>
+                <h2 style="margin: 0 0 12px;">Reset your ApnaEvents password</h2>
                 <p style="margin: 0 0 12px;">We received a request to reset your password. Click the button below to set a new password.</p>
                 <p style="margin: 0 0 16px;">
-                    <a href="${resetUrl}" style="display:inline-block; background:#2563eb; color:#fff; padding:12px 18px; border-radius:10px; text-decoration:none; font-weight:700;">Reset Password</a>
+                    <a href="${resetUrl}" style="display:inline-block; background:#f27244; color:#fff; padding:12px 18px; border-radius:10px; text-decoration:none; font-weight:700;">Reset Password</a>
                 </p>
                 <p style="margin: 0 0 12px;">This link will expire in 15 minutes.</p>
                 <p style="margin: 0; font-size: 12px; color:#475569;">If you didn’t request this, you can ignore this email.</p>
@@ -159,7 +161,7 @@ router.post('/forgot-password', async (req, res) => {
 
         await sendEmail({
             to: user.email,
-            subject: 'Reset your EventDekho password',
+            subject: 'Reset your ApnaEvents password',
             html,
         });
 

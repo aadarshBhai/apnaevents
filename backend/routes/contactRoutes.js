@@ -10,8 +10,8 @@ router.post('/', async (req, res) => {
 
         // Validate required fields
         if (!name || !email || !message) {
-            return res.status(400).json({ 
-                message: 'Name, email, and message are required' 
+            return res.status(400).json({
+                message: 'Name, email, and message are required'
             });
         }
 
@@ -20,11 +20,11 @@ router.post('/', async (req, res) => {
 
         // Create email content
         const emailSubject = subject || `New Contact Form Message from ${name}`;
-        
+
         const emailHtml = `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8f9fa;">
                 <div style="background-color: #0f172a; padding: 30px; border-radius: 10px; color: white; text-align: center; margin-bottom: 30px;">
-                    <h1 style="margin: 0; font-size: 28px;">EventDekho</h1>
+                    <h1 style="margin: 0; font-size: 28px;">ApnaEvents</h1>
                     <p style="margin: 10px 0 0 0; opacity: 0.9;">New Contact Form Submission</p>
                 </div>
                 
@@ -57,24 +57,24 @@ router.post('/', async (req, res) => {
                     
                     <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; text-align: center;">
                         <p style="margin: 0; color: #94a3b8; font-size: 14px;">
-                            This message was sent from the EventDekho contact form
+                            This message was sent from the ApnaEvents contact form
                         </p>
                         <p style="margin: 5px 0 0 0; color: #94a3b8; font-size: 12px;">
-                            Received on: ${new Date().toLocaleString('en-US', { 
-                                weekday: 'long', 
-                                year: 'numeric', 
-                                month: 'long', 
-                                day: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit'
-                            })}
+                            Received on: ${new Date().toLocaleString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        })}
                         </p>
                     </div>
                 </div>
                 
                 <div style="text-align: center; margin-top: 30px;">
                     <p style="color: #64748b; font-size: 14px;">
-                        © 2026 EventDekho - India's Largest Education Competition Hub
+                        © 2026 ApnaEvents - India's Largest Education Competition Hub
                     </p>
                 </div>
             </div>
@@ -87,14 +87,14 @@ router.post('/', async (req, res) => {
             html: emailHtml
         });
 
-        res.status(200).json({ 
-            message: 'Message sent successfully! We will get back to you soon.' 
+        res.status(200).json({
+            message: 'Message sent successfully! We will get back to you soon.'
         });
 
     } catch (error) {
         console.error('Error sending contact email:', error);
-        res.status(500).json({ 
-            message: 'Failed to send message. Please try again later.' 
+        res.status(500).json({
+            message: 'Failed to send message. Please try again later.'
         });
     }
 });

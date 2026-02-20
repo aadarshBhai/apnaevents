@@ -57,26 +57,38 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Middleware
-app.use(express.json());
-app.use(cookieParser());
-
-app.use(cors({
-    origin: (origin, callback) => {
-        // Allow no origin (like mobile apps or curl requests)
+// Robust CORS configuration
+const corsOptions = {
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) !== -1) {
+
+        if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
+            console.log('Origin blocked by CORS:', origin);
             callback(new Error('Not allowed by CORS'));
         }
     },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: [
+        'Content-Type',
+        'Authorization',
+        'X-Requested-With',
+        'Accept',
+        'Origin',
+        'X-Custom-Header'
+    ],
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Enable pre-flight for all routes
 
 // Database Connection
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/eventdekho')
@@ -88,11 +100,11 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/eventdekho'
         if (adminEmail && adminPassword) {
             const existingAdmin = await User.findOne({ email: adminEmail });
             if (!existingAdmin) {
-                const hashedPassword = await bcrypt.hash(adminPassword, 10);
+                // Pass plain password; it will be hashed by the pre-save hook in the User model
                 await User.create({
                     name: 'System Admin',
                     email: adminEmail,
-                    password: hashedPassword,
+                    password: adminPassword,
                     role: 'admin'
                 });
                 console.log(`✅ Admin user created: ${adminEmail}`);
