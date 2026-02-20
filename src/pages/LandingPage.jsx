@@ -62,6 +62,8 @@ const LandingPage = () => {
     const internalLinks = [
         {
             href: '/events',
+            name: 'ApnaEvents',
+            alternateName: 'ApnaEvents',
             icon: <Trophy size={24} />,
             title: 'Browse All Competitions',
             description: 'Explore verified olympiads and contests'
@@ -177,7 +179,7 @@ const LandingPage = () => {
     return (
         <div className="min-h-screen bg-navy-950 font-['Outfit']">
             <SEO
-                title="EventDekho - India's Premier Merit Pipeline"
+                title="ApnaEvents - India's Premier Merit Pipeline"
                 description="Join India's best competitions for Class 9-12 students. Verified events, cash prizes, and certificates recognized by top schools."
                 keywords="olympiad competitions, online contests, class 9-12 competitions, science olympiad, math olympiad, student scholarships"
             />
@@ -399,7 +401,7 @@ const LandingPage = () => {
 
                         <div className="mt-16 text-center">
                             <button onClick={() => navigate('/submit-event')} className="btn-primary px-12 py-5 text-lg font-black rounded-2xl shadow-2xl shadow-amber-500/20">
-                                Partner with EventDekho
+                                Partner with ApnaEvents
                             </button>
                         </div>
                     </div>

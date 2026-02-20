@@ -186,8 +186,8 @@ const Footer = ({ stats }) => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-['Fraunces'] text-2xl font-black">
-                      Event<span className="text-amber-500">Dekho</span>
+                    <h3 className="font-display text-2xl font-black">
+                      apna<span className="text-amber-500">events</span>
                     </h3>
                     <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Merit Pipeline</p>
                   </div>
