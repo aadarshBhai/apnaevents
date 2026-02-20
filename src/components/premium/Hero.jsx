@@ -13,6 +13,10 @@ const Hero = ({ stats }) => {
     schools: stats?.schools || '500+'
   };
 
+  const yRange = useTransform(scrollY, [0, 300], [0, 50]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const scale = useSpring(yRange, { stiffness: 400, damping: 40 });
+
   const slides = [
     {
       title: "India's Premier",
