@@ -54,6 +54,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Events', path: '/events' },
+    { name: 'Blog', path: '/blog' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
   ];
@@ -69,11 +70,10 @@ const Navbar = () => {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? 'glass-dark shadow-2xl'
-            : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+          ? 'glass-dark shadow-2xl'
+          : 'bg-transparent'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
@@ -85,7 +85,7 @@ const Navbar = () => {
                 className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-emerald-500/25"
               >
                 <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
                 </svg>
               </motion.div>
               <div>
@@ -103,11 +103,10 @@ const Navbar = () => {
                   <Link
                     key={link.name}
                     to={link.path}
-                    className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                      location.pathname === link.path
-                        ? 'bg-emerald-500/10 text-emerald-400'
-                        : 'text-slate-200 hover:text-white hover:bg-white/5'
-                    }`}
+                    className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${location.pathname === link.path
+                      ? 'bg-emerald-500/10 text-emerald-400'
+                      : 'text-slate-200 hover:text-white hover:bg-white/5'
+                      }`}
                   >
                     {link.name}
                   </Link>
@@ -172,10 +171,10 @@ const Navbar = () => {
                     Sign In
                   </Link>
                   <Link
-                    to="/auth"
-                    className="btn-premium text-sm px-6 py-3"
+                    to="/submit-event"
+                    className="btn-premium text-sm px-6 py-3 bg-emerald-500 hover:bg-emerald-600 border-none text-white font-bold"
                   >
-                    Get Started
+                    List Your Competition
                   </Link>
                 </div>
               )}
@@ -218,16 +217,15 @@ const Navbar = () => {
                     key={link.name}
                     to={link.path}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block text-base font-medium transition-colors duration-200 ${
-                      location.pathname === link.path
-                        ? 'text-emerald-400'
-                        : 'text-slate-200 hover:text-white'
-                    }`}
+                    className={`block text-base font-medium transition-colors duration-200 ${location.pathname === link.path
+                      ? 'text-emerald-400'
+                      : 'text-slate-200 hover:text-white'
+                      }`}
                   >
                     {link.name}
                   </Link>
                 ))}
-                
+
                 {user ? (
                   <>
                     <div className="border-t border-white/10 pt-4">
@@ -262,11 +260,11 @@ const Navbar = () => {
                       Sign In
                     </Link>
                     <Link
-                      to="/auth"
+                      to="/submit-event"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block btn-premium text-center"
+                      className="block btn-premium text-center bg-emerald-500 text-white font-bold"
                     >
-                      Get Started
+                      List Your Competition
                     </Link>
                   </div>
                 )}

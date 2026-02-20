@@ -79,17 +79,17 @@ const About = () => {
 
     return (
         <div className="bg-navy-950 min-h-screen text-slate-300 selection:bg-emerald-500/30">
-            <SEO 
+            <SEO
                 title="About Us - Democratizing Student Opportunities"
                 description="ApnaEvents is building India's first unified platform for verified student competitions. Meet the team bridging the gap between talent and opportunity."
                 keywords="about apnaevents, education technology team, student competitions india, aadarsh kumar"
             />
             <Navbar />
-            
+
             {/* Hero Section */}
             <section className="relative pt-32 pb-20 overflow-hidden min-h-[60vh] flex items-center">
                 <div className="absolute inset-0 bg-gradient-to-b from-navy-900/50 to-navy-950 pointer-events-none" />
-                
+
                 {/* Animated Background Elements */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <motion.div
@@ -119,7 +119,7 @@ const About = () => {
                 </div>
 
                 <div className="container mx-auto px-4 relative z-10">
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="max-w-4xl mx-auto text-center"
@@ -128,13 +128,13 @@ const About = () => {
                             <Globe size={16} /> Democratizing Opportunity
                         </div>
                         <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-8 leading-tight">
-                            We are building the <br/>
+                            ApnaEvents helps students discover <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">
-                                Infrastructure of Merit
+                                Verified Competitions
                             </span>
                         </h1>
                         <p className="text-xl text-slate-400 leading-relaxed max-w-2xl mx-auto">
-                            ApnaEvents is India's first unified platform for students to discover verified competitions, build professional passports, and secure their future through merit.
+                            We are India's dedicated platform for Class 9–12 students to find and participate in the country's most prestigious school-level competitions and olympiads.
                         </p>
                     </motion.div>
                 </div>
@@ -145,7 +145,7 @@ const About = () => {
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                         {stats.map((stat, idx) => (
-                            <motion.div 
+                            <motion.div
                                 key={idx}
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
@@ -171,26 +171,26 @@ const About = () => {
                             </h2>
                             <div className="space-y-6 text-lg text-slate-400">
                                 <p>
-                                    For decades, student opportunities have been fragmented. Talented students in smaller cities miss out on national competitions simply because they never hear about them.
+                                    ApnaEvents helps students discover verified competitions across India. We believe that every student, regardless of their school or city, should have equal access to national opportunities.
                                 </p>
                                 <p>
-                                    On the other side, organizers struggle to reach meritocratic talent pools, relying on outdated networks.
+                                    Our platform manually verifies every event listing, ensuring students focus on preparation while we take care of discovery and legitimacy.
                                 </p>
                                 <p className="text-white font-medium border-l-4 border-emerald-500 pl-4">
-                                    ApnaEvents bridges this gap. We are the digital highway connecting ambition with opportunity.
+                                    Simple. Clear. Dedicated to student success.
                                 </p>
                             </div>
                         </motion.div>
-                        <motion.div 
+                        <motion.div
                             initial={{ opacity: 0, x: 20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             className="relative"
                         >
                             <div className="absolute inset-0 bg-emerald-500/20 blur-3xl rounded-full" />
-                            <img 
-                                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800" 
-                                alt="Students collaborating" 
+                            <img
+                                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800"
+                                alt="Students collaborating"
                                 className="relative rounded-3xl border border-white/10 shadow-2xl z-10"
                             />
                         </motion.div>
@@ -244,9 +244,9 @@ const About = () => {
                                 className="group"
                             >
                                 <div className="relative mb-6 overflow-hidden rounded-2xl aspect-square bg-navy-800">
-                                    <img 
-                                        src={member.image} 
-                                        alt={member.name} 
+                                    <img
+                                        src={member.image}
+                                        alt={member.name}
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                         onError={(e) => {
                                             e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&background=random`;
@@ -256,7 +256,7 @@ const About = () => {
                                 <div className="text-center">
                                     <h3 className="text-2xl font-display font-bold text-white mb-1">{member.name}</h3>
                                     <p className="text-emerald-400 font-medium mb-4">{member.role}</p>
-                                    
+
                                     {member.social && (
                                         <div className="flex gap-3 justify-center mb-4">
                                             {member.social.linkedin && (
@@ -285,7 +285,7 @@ const About = () => {
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="bg-gradient-to-br from-navy-800 to-navy-900 rounded-[3rem] p-12 md:p-20 text-center border border-white/5 relative overflow-hidden group">
                         <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                        
+
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}

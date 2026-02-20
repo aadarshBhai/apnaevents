@@ -10,6 +10,9 @@ import Auth from './pages/Auth';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import ResetPassword from './pages/ResetPassword';
+import SubmitEvent from './pages/SubmitEvent';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import { NotificationProvider } from './components/NotificationSystem';
@@ -27,6 +30,9 @@ function App() {
                             <Route path="/about" element={<About />} />
                             <Route path="/events" element={<EventsPage />} />
                             <Route path="/contact" element={<Contact />} />
+                            <Route path="/submit-event" element={<SubmitEvent />} />
+                            <Route path="/blog" element={<Blog />} />
+                            <Route path="/blog/:slug" element={<BlogPost />} />
                             <Route path="/auth" element={<Auth />} />
                             <Route path="/event/:id" element={<EventDetail />} />
                             <Route

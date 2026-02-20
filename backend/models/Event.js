@@ -54,6 +54,20 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    registrationFee: {
+        type: String,
+        required: false,
+        default: 'Free'
+    },
+    mode: {
+        type: String,
+        enum: ['Online', 'Offline', 'Hybrid'],
+        default: 'Online'
+    },
+    contactInfo: {
+        type: String,
+        required: false
+    },
     tags: [{
         type: String
     }],

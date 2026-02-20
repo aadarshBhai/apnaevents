@@ -14,6 +14,8 @@ import eventRoutes from './routes/eventRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import contactRoutes from './routes/contactRoutes.js';
 import cleanupRoutes from './routes/cleanupRoutes.js';
+import addSampleEventsRoutes from './routes/addSampleEvents.js';
+import proposalRoutes from './routes/proposalRoutes.js';
 
 dotenv.config();
 
@@ -116,6 +118,8 @@ app.use('/api/events', eventRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/cleanup', cleanupRoutes);
+app.use('/api/events', addSampleEventsRoutes);
+app.use('/api/proposals', proposalRoutes);
 
 app.get('/', (req, res) => {
     res.send('API is running...');
@@ -141,16 +145,16 @@ import EventCleanupService from './services/eventCleanupService.js';
 const startCleanupScheduler = async () => {
     try {
         console.log('🕐️ Initializing automatic event cleanup scheduler...');
-        
+
         // Schedule the cleanup task
         await EventCleanupService.scheduleEventCleanup();
-        
+
         // Run cleanup immediately on server start
         setTimeout(async () => {
             console.log('🗑️ Running initial event cleanup on server start...');
             await EventCleanupService.deleteExpiredEvents();
         }, 5000); // Wait 5 seconds after server starts
-        
+
         // Schedule daily cleanup at 2:00 AM
         setInterval(async () => {
             const now = new Date();
@@ -159,7 +163,7 @@ const startCleanupScheduler = async () => {
                 await EventCleanupService.deleteExpiredEvents();
             }
         }, 60 * 60 * 1000); // Check every minute
-        
+
         console.log('✅ Event cleanup scheduler initialized');
     } catch (error) {
         console.error('❌ Failed to initialize cleanup scheduler:', error);
@@ -170,7 +174,7 @@ const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, async () => {
     console.log(`Server running on port ${PORT}`);
-    
+
     // Start the cleanup scheduler
     await startCleanupScheduler();
 });

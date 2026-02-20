@@ -1,4 +1,5 @@
 import React from 'react';
+import WhatsAppButton from './WhatsAppButton';
 
 const Layout = ({ children }) => {
   return (
@@ -6,6 +7,7 @@ const Layout = ({ children }) => {
       <main className="w-full h-full">
         {children}
       </main>
+      <WhatsAppButton />
     </div>
   );
 };

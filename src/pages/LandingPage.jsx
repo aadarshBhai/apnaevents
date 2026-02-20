@@ -19,6 +19,8 @@ const LandingPage = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
     const [events, setEvents] = useState([]);
+    const [recentlyAdded, setRecentlyAdded] = useState([]);
+    const [upcomingDeadlines, setUpcomingDeadlines] = useState([]);
     const [socket, setSocket] = useState(null);
 
     // SEO Data
@@ -99,30 +101,30 @@ const LandingPage = () => {
     useEffect(() => {
         const newSocket = createSocket();
         setSocket(newSocket);
-        
+
         newSocket.on('connect', () => {
             console.log('LandingPage: Socket connected');
         });
-        
+
         newSocket.on('eventCreated', (event) => {
             console.log('LandingPage: New event created', event);
             if (event.featured) {
                 setEvents(prev => [event, ...prev.slice(0, 5)]); // Keep only 6 featured events
             }
         });
-        
+
         newSocket.on('eventUpdated', (event) => {
             console.log('LandingPage: Event updated', event);
             if (event.featured) {
                 setEvents(prev => prev.map(e => e._id === event._id ? event : e));
             }
         });
-        
+
         newSocket.on('eventDeleted', ({ id }) => {
             console.log('LandingPage: Event deleted', id);
             setEvents(prev => prev.filter(e => e._id !== id));
         });
-        
+
         return () => {
             newSocket.close();
         };
@@ -134,8 +136,9 @@ const LandingPage = () => {
     }, []);
 
     useEffect(() => {
-        const fetchEvents = async () => {
+        const fetchEventsData = async () => {
             try {
+                // Featured Events
                 const featuredData = await getFeaturedEvents();
                 if (featuredData.events && featuredData.events.length > 0) {
                     setEvents(featuredData.events.slice(0, 6));
@@ -143,6 +146,15 @@ const LandingPage = () => {
                     const data = await getEvents({ limit: 6, featured: true });
                     setEvents(data.events || []);
                 }
+
+                // Recently Added
+                const recentData = await getEvents({ limit: 4, sortBy: 'createdAt', sortOrder: 'desc' });
+                setRecentlyAdded(recentData.events || []);
+
+                // Upcoming Deadlines
+                const deadlineData = await getEvents({ limit: 4, sortBy: 'deadline', sortOrder: 'asc' });
+                setUpcomingDeadlines(deadlineData.events || []);
+
             } catch (err) {
                 console.error("Failed to fetch events", err);
                 // Fallback to mock data if API fails
@@ -172,38 +184,27 @@ const LandingPage = () => {
                         image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=800",
                         verified: true,
                         featured: true
-                    },
-                    {
-                        _id: '3',
-                        title: "INTEL AI GLOBAL IMPACT",
-                        category: "Tech Innovation",
-                        date: new Date('2026-02-15'),
-                        location: "Global / Online",
-                        eligibility: "Students 13-18",
-                        prizes: "$5000 + Mentorship",
-                        applicationLink: "#",
-                        image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800",
-                        verified: true,
-                        featured: true
                     }
                 ];
                 setEvents(mockEvents);
+                setRecentlyAdded(mockEvents);
+                setUpcomingDeadlines(mockEvents);
             }
         };
 
-        fetchEvents();
+        fetchEventsData();
     }, []);
 
     return (
         <div className="bg-navy-950 min-h-screen text-slate-300 selection:bg-emerald-500/30">
-            <SEO 
+            <SEO
                 title="Online Olympiad Competitions for Class 9-12 Students"
                 description="Join India's best online Olympiad competitions for Class 9-12 students. Verified events, cash prizes, and certificates recognized by top schools and colleges."
                 keywords="olympiad competitions, online contests, class 9-12 competitions, science olympiad, math olympiad, student scholarships"
             />
             <Navbar />
             <Hero />
-            
+
             {/* Blog Section - Competitive Exams Content */}
             <section className="py-24 bg-navy-900 relative">
                 <div className="container-custom px-4">
@@ -221,7 +222,7 @@ const LandingPage = () => {
                             Class 9th is a critical point in a student's school learning journey. The student doesn't yet have the class 10th board pressure and yet is mature enough to face national-level competitions.
                         </p>
                     </motion.div>
-                    
+
                     <div className="grid md:grid-cols-2 gap-12">
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
@@ -248,7 +249,7 @@ const LandingPage = () => {
                                 This examination targets students roughly in the age group 14-15 years and is broadly equivalent to secondary school level (up to and including Class X) of CBSE.
                             </p>
                         </motion.div>
-                        
+
                         <motion.div
                             initial={{ opacity: 0, x: 20 }}
                             whileInView={{ opacity: 1, x: 0 }}
@@ -275,7 +276,7 @@ const LandingPage = () => {
                             </p>
                         </motion.div>
                     </div>
-                    
+
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -297,6 +298,38 @@ const LandingPage = () => {
                 </div>
             </section>
 
+            <section className="py-24 bg-navy-900/50">
+                <div className="container-custom px-4">
+                    <div className="grid lg:grid-cols-2 gap-16">
+                        {/* Recently Added */}
+                        <div>
+                            <div className="flex justify-between items-end mb-8">
+                                <h2 className="text-2xl font-bold text-white">Recently <span className="text-emerald-400">Added</span></h2>
+                                <button onClick={() => navigate('/events?sortBy=createdAt')} className="text-xs font-bold text-emerald-400 uppercase tracking-widest hover:text-emerald-300 transition-colors">View All</button>
+                            </div>
+                            <div className="grid gap-4">
+                                {recentlyAdded.map((event) => (
+                                    <EventCard key={event._id} {...event} isList={true} />
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Upcoming Deadlines */}
+                        <div>
+                            <div className="flex justify-between items-end mb-8">
+                                <h2 className="text-2xl font-bold text-white">Upcoming <span className="text-amber-400">Deadlines</span></h2>
+                                <button onClick={() => navigate('/events?sortBy=deadline')} className="text-xs font-bold text-amber-400 uppercase tracking-widest hover:text-amber-300 transition-colors">View All</button>
+                            </div>
+                            <div className="grid gap-4">
+                                {upcomingDeadlines.map((event) => (
+                                    <EventCard key={event._id} {...event} isList={true} />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <SEOFAQ faqs={faqs} />
 
             <section className="py-24 bg-navy-900 relative">
@@ -312,7 +345,7 @@ const LandingPage = () => {
                             </h2>
                             <p className="text-slate-400">Hand-picked competitions for maximum impact.</p>
                         </motion.div>
-                        <motion.button 
+                        <motion.button
                             initial={{ opacity: 0, x: 20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -338,7 +371,7 @@ const LandingPage = () => {
                     </div>
 
                     <div className="mt-12 text-center md:hidden">
-                        <button 
+                        <button
                             onClick={() => navigate('/events')}
                             className="btn-primary w-full"
                         >
@@ -350,6 +383,46 @@ const LandingPage = () => {
 
             <Testimonials />
 
+            {/* Why List With Us Section */}
+            <section className="py-24 bg-navy-950 border-y border-white/5">
+                <div className="container-custom px-4">
+                    <div className="max-w-4xl mx-auto text-center mb-16">
+                        <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6">Why List Your Competition <span className="text-emerald-400">With Us?</span></h2>
+                        <p className="text-slate-400 text-lg">We help schools and organizations reach thousands of motivated students across India.</p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-8">
+                        <div className="glass-card p-8 rounded-3xl text-center">
+                            <div className="w-16 h-16 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <Users size={32} />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-4">Class 9–12 Focus</h3>
+                            <p className="text-slate-400 text-sm leading-relaxed">Dedicated platform for secondary and senior secondary students, ensuring high relevant participation.</p>
+                        </div>
+                        <div className="glass-card p-8 rounded-3xl text-center">
+                            <div className="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <Shield size={32} />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-4">Verified Platform</h3>
+                            <p className="text-slate-400 text-sm leading-relaxed">Every event is verified by our team, building instant trust with students, parents, and schools.</p>
+                        </div>
+                        <div className="glass-card p-8 rounded-3xl text-center">
+                            <div className="w-16 h-16 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <Target size={32} />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-4">Early Partner Onboarding</h3>
+                            <p className="text-slate-400 text-sm leading-relaxed">Join our early partner program for featured listings and dedicated support for your school events.</p>
+                        </div>
+                    </div>
+
+                    <div className="mt-16 text-center">
+                        <button onClick={() => navigate('/submit-event')} className="btn-primary px-10 py-4 text-lg font-bold rounded-2xl shadow-xl shadow-emerald-500/20">
+                            List Your Competition Now
+                        </button>
+                    </div>
+                </div>
+            </section>
+
             {/* CTA Section */}
             <section className="py-24 bg-gradient-to-br from-emerald-900/20 to-navy-900 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
@@ -360,7 +433,7 @@ const LandingPage = () => {
                         viewport={{ once: true }}
                     >
                         <h2 className="text-4xl md:text-6xl font-display font-bold text-white mb-8">
-                            Ready to Build Your <br/><span className="text-emerald-400">Future?</span>
+                            Ready to Build Your <br /><span className="text-emerald-400">Future?</span>
                         </h2>
                         <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
                             Join 50,000+ students who are already using ApnaEvents to discover, compete, and win.
@@ -378,14 +451,14 @@ const LandingPage = () => {
             </section>
 
             {/* SEO Comparison Table */}
-            <SEOComparisonTable 
+            <SEOComparisonTable
                 title="Compare Online Olympiad Competitions for Class 9-12 Students"
                 data={olympiadComparisonData}
             />
 
             {/* SEO Internal Links */}
             <SEOInternalLinks links={internalLinks} />
-            
+
             <Footer />
         </div>
     );

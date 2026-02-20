@@ -2,20 +2,22 @@ import { Calendar, MapPin, ShieldCheck, ArrowRight, Laptop, Users, Trophy } from
 import { useNavigate } from 'react-router-dom';
 import { formatDate } from '../utils/dateUtils';
 
-const EventCard = ({ 
-    _id, 
-    title, 
-    category, 
-    date, 
-    deadline, 
-    location, 
-    eligibility, 
-    prizes, 
-    applicationLink, 
-    ageGroup, 
-    verified = true, 
-    image, 
-    isList = false 
+const EventCard = ({
+    _id,
+    title,
+    category,
+    date,
+    deadline,
+    location,
+    eligibility,
+    prizes,
+    applicationLink,
+    ageGroup,
+    registrationFee,
+    mode,
+    verified = true,
+    image,
+    isList = false
 }) => {
     const navigate = useNavigate();
 
@@ -40,10 +42,10 @@ const EventCard = ({
             >
                 <div className="relative w-full md:w-64 h-48 md:h-40 rounded-xl overflow-hidden shrink-0">
                     <div
-                    className="w-full h-full bg-navy-900 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                    style={{ backgroundImage: `url(${image && image.startsWith('http') ? image : 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=800'})` }}
-                />
-                <div className="absolute top-3 left-3">
+                        className="w-full h-full bg-navy-900 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                        style={{ backgroundImage: `url(${image && image.startsWith('http') ? image : 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=800'})` }}
+                    />
+                    <div className="absolute top-3 left-3">
                         <span className="bg-navy-900/90 backdrop-blur px-3 py-1.5 rounded-full text-[10px] font-bold text-emerald-400 border border-emerald-500/20 uppercase tracking-widest">
                             {category}
                         </span>
@@ -57,9 +59,10 @@ const EventCard = ({
                                 {title}
                             </h3>
                             {verified && (
-                                <span className="flex items-center gap-1 bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded-full text-xs font-bold border border-emerald-500/20 shrink-0">
-                                    <ShieldCheck size={12} /> Verified
-                                </span>
+                                <div className="flex items-center gap-1.5 bg-gradient-to-r from-emerald-600/20 to-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded-full text-[10px] font-black border border-emerald-500/20 shrink-0 shadow-lg shadow-emerald-500/5 uppercase tracking-widest">
+                                    <ShieldCheck size={12} className="text-emerald-500" />
+                                    <span>Verified</span>
+                                </div>
                             )}
                         </div>
 
@@ -84,12 +87,20 @@ const EventCard = ({
                                     <span>Deadline: {formatDate(deadline)}</span>
                                 </div>
                             )}
+                            {mode && (
+                                <div className="flex items-center gap-2 text-slate-400 text-sm font-medium">
+                                    <Laptop size={16} className="text-emerald-500" />
+                                    <span>{mode}</span>
+                                </div>
+                            )}
                         </div>
                     </div>
 
                     <div className="flex items-center justify-between mt-auto">
                         <div className="flex items-center gap-2">
-                            <span className="text-lg font-bold text-emerald-400 tracking-tight">Free Access</span>
+                            <span className="text-lg font-bold text-emerald-400 tracking-tight">
+                                {registrationFee || 'Free Access'}
+                            </span>
                             <div className="w-1 h-1 rounded-full bg-slate-600"></div>
                             <span className="text-xs font-bold text-slate-500">Limited Slots</span>
                         </div>
@@ -122,8 +133,9 @@ const EventCard = ({
                 </div>
                 {verified && (
                     <div className="absolute top-4 right-4">
-                        <div className="bg-emerald-500 text-white p-1 rounded-full shadow-lg shadow-emerald-500/20">
-                            <ShieldCheck size={14} />
+                        <div className="flex items-center gap-1.5 bg-navy-950/90 backdrop-blur-md text-emerald-400 px-3 py-1.5 rounded-xl text-[10px] font-black border border-emerald-500/30 shadow-2xl uppercase tracking-widest">
+                            <ShieldCheck size={14} className="text-emerald-500" />
+                            <span>Verified</span>
                         </div>
                     </div>
                 )}
@@ -145,11 +157,20 @@ const EventCard = ({
                         <span className="line-clamp-1">{location}</span>
                     </div>
                     {prizes && (
-                         <div className="flex items-center gap-3 text-slate-400 text-sm">
+                        <div className="flex items-center gap-3 text-slate-400 text-sm">
                             <Trophy size={16} className="text-gold-500 shrink-0" />
                             <span className="line-clamp-1">{prizes}</span>
                         </div>
                     )}
+                    <div className="flex items-center gap-3 text-slate-400 text-sm font-bold">
+                        <span className="text-emerald-500 tracking-tight">{registrationFee || 'Free'}</span>
+                        {mode && (
+                            <>
+                                <div className="w-1 h-1 rounded-full bg-slate-600"></div>
+                                <span className="text-slate-400">{mode}</span>
+                            </>
+                        )}
+                    </div>
                 </div>
 
                 {/* Footer */}

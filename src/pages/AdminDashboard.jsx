@@ -210,6 +210,31 @@ const AdminDashboard = () => {
         }
     };
 
+    // Add sample events function
+    const addSampleEvents = async () => {
+        try {
+            const response = await fetch('https://apnaevents.onrender.com/api/events/add-sample-events', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            const data = await response.json();
+            
+            if (data.success) {
+                alert(`✅ ${data.message}`);
+                // Refresh events list
+                fetchEvents();
+            } else {
+                alert(`❌ ${data.message}`);
+            }
+        } catch (error) {
+            console.error('Error adding sample events:', error);
+            alert('❌ Failed to add sample events. Please try again.');
+        }
+    };
+
     const fetchStats = async () => {
         try {
             console.log('Fetching admin stats...');
@@ -911,6 +936,14 @@ const AdminDashboard = () => {
                                     <h4 className="text-lg font-bold text-white mb-4">Event Management</h4>
                                     
                                     <div className="space-y-4">
+                                        <button
+                                            onClick={addSampleEvents}
+                                            className="w-full btn-primary flex items-center justify-center gap-2"
+                                        >
+                                            <Plus size={18} />
+                                            Add Sample Events
+                                        </button>
+                                        
                                         <button
                                             onClick={triggerManualCleanup}
                                             className="w-full btn-primary flex items-center justify-center gap-2"

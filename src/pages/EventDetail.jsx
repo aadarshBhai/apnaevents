@@ -148,16 +148,19 @@ const EventDetail = () => {
                         <div className="lg:col-span-8 space-y-10">
                             <div className="rounded-3xl overflow-hidden relative shadow-2xl border border-white/5 group">
                                 <div className="h-64 md:h-96 w-full relative overflow-hidden">
-                                    <img 
-                                        src={event.image} 
-                                        alt={event.title} 
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                                    <img
+                                        src={event.image}
+                                        alt={event.title}
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-900/50 to-transparent"></div>
                                     <div className="absolute bottom-8 left-8 right-8">
                                         <div className="flex flex-wrap items-center gap-3 mb-4">
                                             <span className="bg-emerald-500 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-500/20">{event.category}</span>
-                                            <span className="glass-button backdrop-blur text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">Verified Opportunity</span>
+                                            <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 backdrop-blur px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5">
+                                                <ShieldCheck size={14} className="text-emerald-500" />
+                                                Verified Opportunity
+                                            </span>
                                         </div>
                                         <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter leading-tight font-display">{event.title}</h1>
                                     </div>
@@ -183,13 +186,24 @@ const EventDetail = () => {
                                         <div className="font-bold text-white">{event.location}</div>
                                     </div>
                                 </div>
+                                {event.deadline && (
+                                    <div className="glass-card flex items-center gap-5 p-6 rounded-2xl">
+                                        <div className="w-14 h-14 bg-amber-500/10 text-amber-400 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-amber-500/20">
+                                            <Calendar size={28} />
+                                        </div>
+                                        <div>
+                                            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Registration Deadline</div>
+                                            <div className="font-bold text-white">{new Date(event.deadline).toLocaleDateString()}</div>
+                                        </div>
+                                    </div>
+                                )}
                                 <div className="glass-card flex items-center gap-5 p-6 rounded-2xl">
                                     <div className="w-14 h-14 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-purple-500/20">
                                         <Laptop size={28} />
                                     </div>
                                     <div>
                                         <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Event Mode</div>
-                                        <div className="font-bold text-white">{event.mode || 'Offline'}</div>
+                                        <div className="font-bold text-white">{event.mode || 'Online'}</div>
                                     </div>
                                 </div>
                             </div>
@@ -228,7 +242,7 @@ const EventDetail = () => {
                                 <div className="flex justify-between items-start mb-6">
                                     <div>
                                         <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Registration Fee</div>
-                                        <div className="text-4xl font-black text-white">{event.price || 'Free'}</div>
+                                        <div className="text-4xl font-black text-white">{event.registrationFee || event.price || 'Free'}</div>
                                     </div>
                                     <div className="flex gap-2">
                                         <button
@@ -304,7 +318,7 @@ const EventDetail = () => {
                                     </div>
                                     <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5">
                                         <Mail size={16} className="text-emerald-500" />
-                                        <div className="text-xs font-bold break-all text-slate-300">{event.organizer?.email || 'contact@event.com'}</div>
+                                        <div className="text-xs font-bold break-all text-slate-300">{event.contactInfo || event.organizer?.email || 'contact@event.com'}</div>
                                     </div>
                                 </div>
                             </div>
@@ -312,7 +326,7 @@ const EventDetail = () => {
                     </div>
                 </div>
             </div>
-            
+
             <Footer />
 
             <AnimatePresence>
@@ -344,11 +358,16 @@ const EventDetail = () => {
                                     <div className="w-20 h-20 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center mb-6 border-2 border-emerald-500/30 shadow-inner">
                                         <CheckCircle size={48} />
                                     </div>
+                                    {event.verified && (
+                                        <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl text-emerald-400 text-xs font-black uppercase tracking-widest shadow-lg shadow-emerald-500/5">
+                                            <ShieldCheck size={16} /> Verified Competition
+                                        </div>
+                                    )}
                                     <h2 className="text-3xl font-black mb-4 tracking-tight text-white font-display">Spot Secured!</h2>
                                     <p className="text-slate-400 mb-8 max-w-xs mx-auto">
                                         You're all set for {event.title}. Check your email for the entry pass.
                                     </p>
-                                    <button 
+                                    <button
                                         onClick={() => setShowRegModal(false)}
                                         className="btn-primary w-full py-4 rounded-xl font-bold"
                                     >
@@ -377,7 +396,7 @@ const EventDetail = () => {
                                             <div>
                                                 <h4 className="font-bold text-blue-400 text-sm mb-1">Prerequisite Check</h4>
                                                 <p className="text-xs text-blue-200/70 leading-relaxed">
-                                                    Ensure you have a valid student ID card from your institution. 
+                                                    Ensure you have a valid student ID card from your institution.
                                                     This event is strictly for current students.
                                                 </p>
                                             </div>
@@ -388,11 +407,11 @@ const EventDetail = () => {
                                                 <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${hasPermission ? 'border-emerald-500 bg-emerald-500 text-white' : 'border-slate-600'}`}>
                                                     {hasPermission && <Check size={14} strokeWidth={4} />}
                                                 </div>
-                                                <input 
-                                                    type="checkbox" 
-                                                    className="hidden" 
-                                                    checked={hasPermission} 
-                                                    onChange={(e) => setHasPermission(e.target.checked)} 
+                                                <input
+                                                    type="checkbox"
+                                                    className="hidden"
+                                                    checked={hasPermission}
+                                                    onChange={(e) => setHasPermission(e.target.checked)}
                                                 />
                                                 <span className="font-bold text-slate-300 text-sm group-hover:text-white transition-colors">
                                                     I confirm that I am a current student and meet the eligibility criteria.
@@ -405,8 +424,8 @@ const EventDetail = () => {
                                         <div className="space-y-4">
                                             <div>
                                                 <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2 pl-1">Full Name</label>
-                                                <input 
-                                                    type="text" 
+                                                <input
+                                                    type="text"
                                                     defaultValue={user?.name}
                                                     className="w-full py-4 px-6 bg-white/5 border border-white/10 rounded-2xl font-medium text-white placeholder:text-slate-600 outline-none transition-all focus:border-emerald-500/50 focus:bg-white/10"
                                                     placeholder="Enter your full name"
@@ -415,8 +434,8 @@ const EventDetail = () => {
                                             </div>
                                             <div>
                                                 <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2 pl-1">Email Address</label>
-                                                <input 
-                                                    type="email" 
+                                                <input
+                                                    type="email"
                                                     defaultValue={user?.email}
                                                     className="w-full py-4 px-6 bg-white/5 border border-white/10 rounded-2xl font-medium text-white placeholder:text-slate-600 outline-none transition-all focus:border-emerald-500/50 focus:bg-white/10"
                                                     placeholder="name@university.edu"
@@ -425,8 +444,8 @@ const EventDetail = () => {
                                             </div>
                                             <div>
                                                 <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2 pl-1">Phone Number</label>
-                                                <input 
-                                                    type="tel" 
+                                                <input
+                                                    type="tel"
                                                     className="w-full py-4 px-6 bg-white/5 border border-white/10 rounded-2xl font-medium text-white placeholder:text-slate-600 outline-none transition-all focus:border-emerald-500/50 focus:bg-white/10"
                                                     placeholder="+91 98765 43210"
                                                     required
@@ -440,25 +459,25 @@ const EventDetail = () => {
                             {/* Footer */}
                             <div className="p-6 border-t border-white/5 bg-navy-800/50">
                                 {regStep === 1 ? (
-                                    <button 
+                                    <button
                                         onClick={() => hasPermission && setRegStep(2)}
                                         disabled={!hasPermission}
                                         className={`w-full py-4 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-2
-                                            ${hasPermission 
-                                                ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/20' 
+                                            ${hasPermission
+                                                ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/20'
                                                 : 'bg-slate-700 text-slate-500 cursor-not-allowed'}`}
                                     >
                                         Continue <ArrowLeft className="rotate-180" size={20} />
                                     </button>
                                 ) : (
                                     <div className="flex gap-4">
-                                        <button 
+                                        <button
                                             onClick={() => setRegStep(1)}
                                             className="px-6 py-4 rounded-2xl font-bold text-slate-400 hover:bg-white/5 transition-colors"
                                         >
                                             Back
                                         </button>
-                                        <button 
+                                        <button
                                             type="submit"
                                             form="reg-form"
                                             disabled={isSubmitting}
@@ -477,7 +496,7 @@ const EventDetail = () => {
                     </div>
                 )}
             </AnimatePresence>
-        </div>
+        </div >
     );
 };
 

@@ -77,31 +77,31 @@ const FeatureCards = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-50 to-white relative overflow-hidden">
+    <section className="py-32 bg-navy-950 relative overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-emerald-600/5 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px]"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container-custom px-4 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-24"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-200 rounded-full mb-6">
-            <Sparkles className="w-4 h-4 text-emerald-600" />
-            <span className="text-emerald-700 text-sm font-black uppercase tracking-wider">Core Features</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full mb-8">
+            <Sparkles className="w-4 h-4 text-emerald-400" />
+            <span className="text-emerald-400 text-[10px] font-black uppercase tracking-widest">Platform DNA</span>
           </div>
-          <h2 className="font-display text-4xl md:text-5xl font-black text-slate-900 mb-6">
-            Built for <span className="bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">Excellence</span>
+          <h2 className="text-4xl md:text-6xl font-display font-black text-white mb-8 tracking-tighter">
+            The Infrastructure of <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">Student Merit</span>
           </h2>
-          <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Experience the most comprehensive platform for competitive excellence, 
-            designed with precision and trusted by thousands.
+          <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+            We've built the most secure and trusted bridge between ambitious students and world-class opportunities.
           </p>
         </motion.div>
 
@@ -117,71 +117,61 @@ const FeatureCards = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              whileHover={{ y: -8, scale: 1.02 }}
+              whileHover={{ y: -12 }}
               className="group relative"
             >
               {/* Card */}
-              <div className="card-premium h-full">
+              <div className="glass-card h-full p-10 rounded-[2.5rem] border-white/5 hover:border-emerald-500/30 transition-all duration-500 relative z-10">
                 {/* Icon Container */}
-                <div className={`w-20 h-20 bg-gradient-to-br ${feature.gradient} rounded-3xl flex items-center justify-center text-white shadow-2xl mb-8 group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center text-white mb-8 shadow-2xl shadow-emerald-500/10 group-hover:scale-110 transition-transform duration-500`}>
                   {feature.icon}
                 </div>
 
                 {/* Content */}
-                <h3 className="font-display text-2xl font-black text-slate-900 mb-4">
+                <h3 className="text-2xl font-display font-black text-white mb-4">
                   {feature.title}
                 </h3>
-                <p className="text-slate-600 leading-relaxed mb-6">
+                <p className="text-slate-400 leading-relaxed mb-8 text-sm">
                   {feature.description}
                 </p>
 
                 {/* Stats Badge */}
-                <div className={`inline-flex items-center gap-2 px-4 py-2 ${feature.bgLight} rounded-2xl`}>
-                  <div className={`w-2 h-2 bg-gradient-to-r ${feature.gradient} rounded-full`}></div>
-                  <span className={`text-sm font-black bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent`}>
-                    {feature.stats}
-                  </span>
+                <div className="flex items-center gap-3">
+                  <div className={`px-4 py-1.5 rounded-xl bg-white/5 border border-white/10`}>
+                    <span className={`text-[10px] font-black uppercase tracking-widest text-emerald-400`}>
+                      {feature.stats}
+                    </span>
+                  </div>
                 </div>
-
-                {/* Hover Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white to-slate-50 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
               </div>
 
-              {/* Floating Decorator */}
-              <motion.div
-                animate={{
-                  y: [0, -10, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: index * 0.2,
-                }}
-                className={`absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity duration-300`}
-              />
+              {/* Hover Glow */}
+              <div className="absolute inset-x-4 inset-y-4 bg-emerald-500/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Bottom CTA */}
+        {/* Bottom CTA Card */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mt-20"
+          className="mt-24 p-1 rounded-[3rem] bg-gradient-to-r from-white/10 via-white/[0.15] to-white/10"
         >
-          <div className="inline-flex items-center gap-4 p-8 bg-gradient-to-r from-navy-900 to-navy-800 rounded-3xl shadow-2xl">
-            <div className="text-left">
-              <h3 className="font-display text-2xl font-black text-white mb-2">
-                Ready to Excel?
+          <div className="p-8 md:p-12 bg-navy-950 rounded-[2.8rem] flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden group">
+            {/* Background pattern */}
+            <div className="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:20px_20px]"></div>
+
+            <div className="relative z-10 text-center md:text-left">
+              <h3 className="text-3xl md:text-4xl font-display font-black text-white mb-4">
+                Join the <span className="text-emerald-400">Winning</span> Pipeline
               </h3>
-              <p className="text-slate-300 leading-relaxed">
-                Join thousands of students already building their merit pipeline
+              <p className="text-slate-400 max-w-xl">
+                Ready to showcase your talent? Get verified, compete with the best, and build a profile that top universities can't ignore.
               </p>
             </div>
-            <button className="btn-premium whitespace-nowrap">
-              Get Started Free
+            <button className="btn-primary px-10 py-5 rounded-2xl group-hover:scale-105 transition-transform">
+              Discover Opps Now
             </button>
           </div>
         </motion.div>
