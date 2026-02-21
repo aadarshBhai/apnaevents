@@ -1,31 +1,21 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-  Facebook,
   Twitter,
   Linkedin,
-  Instagram,
-  Youtube,
   Mail,
-  Phone,
-  MapPin,
-  ArrowUp,
   Shield,
-  Award,
-  Users,
-  Zap
+  ArrowUp,
+  Github,
+  MapPin,
+  Phone,
+  Globe
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = ({ stats }) => {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
-
-  const displayStats = [
-    { icon: Users, value: stats?.students || '50K+', label: 'Active Students' },
-    { icon: Award, value: stats?.events || '1.2K+', label: 'Verified Events' },
-    { icon: Shield, value: '100%', label: 'Safety Compliant' },
-    { icon: Zap, value: '24/7', label: 'Support' }
-  ];
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -42,249 +32,138 @@ const Footer = ({ stats }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const footerLinks = {
-    platform: [
-      { name: 'About Us', href: '/about' },
-      { name: 'How It Works', href: '/how-it-works' },
-      { name: 'Success Stories', href: '/success-stories' },
-      { name: 'Blog', href: '/blog' },
-      { name: 'Careers', href: '/careers' }
-    ],
-    events: [
-      { name: 'Browse Events', href: '/discover' },
-      { name: 'Create Event', href: '/organizer' },
-      { name: 'Event Calendar', href: '/calendar' },
-      { name: 'Past Events', href: '/past-events' },
-      { name: 'Event Guidelines', href: '/guidelines' }
-    ],
-    support: [
-      { name: 'Help Center', href: '/help' },
-      { name: 'Contact Us', href: '/contact' },
-      { name: 'FAQs', href: '/faq' },
-      { name: 'Terms of Service', href: '/terms' },
-      { name: 'Privacy Policy', href: '/privacy' }
-    ],
-    legal: [
-      { name: 'Cookie Policy', href: '/cookies' },
-      { name: 'GDPR Compliance', href: '/gdpr' },
-      { name: 'Safety Guidelines', href: '/safety' },
-      { name: 'Verification Process', href: '/verification' },
-      { name: 'Report Issue', href: '/report' }
-    ]
-  };
-
-  const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Youtube, href: '#', label: 'YouTube' }
-  ];
-
   return (
-    <footer className="bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 text-white relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
-      </div>
+    <footer className="bg-[#051b2e] text-white pt-24 pb-12 relative overflow-hidden">
+      {/* Subtle background glow */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
 
-      <div className="relative z-10">
-        {/* Newsletter Section */}
-        <section className="border-b border-white/10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Newsletter / CTA Row */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20 pb-16 border-b border-white/10">
+          <div>
+            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
+              Join the <span className="text-[#fcb900]">Academic Network</span>
+            </h2>
+            <p className="text-white/60 text-lg leading-relaxed max-w-xl font-medium">
+              Receive notifications about verified national competitions and exclusive institutional opportunities.
+            </p>
+          </div>
+          <div>
+            <form onSubmit={handleSubscribe} className="flex gap-3">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Institutional or student email"
+                className="flex-1 px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/30 focus:outline-none focus:border-[#fcb900] transition-all"
+                required
+              />
+              <button
+                type="submit"
+                className="px-8 bg-[#fcb900] text-[#0d3862] font-bold rounded-lg hover:bg-[#fef84c] transition-colors"
               >
-                <h2 className="font-display text-3xl md:text-4xl font-black mb-4">
-                  Stay Ahead of the <span className="text-amber-500">Competition</span>
-                </h2>
-                <p className="text-lg text-slate-300 mb-6 leading-relaxed">
-                  Get weekly updates on verified competitions, exclusive opportunities,
-                  and tips to build your merit pipeline.
-                </p>
-                <div className="flex flex-wrap gap-6">
-                  {displayStats.map((stat, index) => (
-                    <div key={index} className="flex items-center gap-2">
-                      <stat.icon className="w-5 h-5 text-amber-500" />
-                      <div>
-                        <div className="font-black text-white">{stat.value}</div>
-                        <div className="text-xs text-slate-400">{stat.label}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
+                {isSubscribed ? 'Opted-in' : 'Subscribe'}
+              </button>
+            </form>
+            <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest mt-4">
+              Institutional privacy protocols apply.
+            </p>
+          </div>
+        </div>
 
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-              >
-                {isSubscribed ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="bg-gradient-to-r from-amber-500 to-orange-600 rounded-3xl p-8 text-center"
-                  >
-                    <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Mail className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-black mb-2">Successfully Subscribed!</h3>
-                    <p className="text-emerald-100">Check your email for confirmation.</p>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubscribe} className="space-y-4">
-                    <label className="block text-sm font-black uppercase tracking-wider text-slate-300 mb-2">
-                      Subscribe to Newsletter
-                    </label>
-                    <div className="flex gap-4">
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter your email address"
-                        className="flex-1 px-6 py-4 bg-white/5 backdrop-blur-sm border-2 border-white/5 rounded-2xl text-white placeholder:text-slate-500 focus:outline-none focus:border-amber-500 focus:bg-white/10 transition-all duration-300"
-                        required
-                      />
-                      <motion.button
-                        type="submit"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="btn-premium px-8"
-                      >
-                        Subscribe
-                      </motion.button>
-                    </div>
-                    <p className="text-xs text-slate-400">
-                      Join 50,000+ subscribers. No spam, unsubscribe anytime.
-                    </p>
-                  </form>
-                )}
-              </motion.div>
+        {/* Info Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+          {/* Brand Column */}
+          <div className="space-y-6">
+            <Link to="/" className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center border border-white/10 shadow-sm">
+                <Shield size={20} className="text-[#fcb900]" fill="currentColor" />
+              </div>
+              <div>
+                <h1 className="font-serif text-2xl font-bold text-white leading-none tracking-tight">
+                  apna<span className="text-[#fcb900]">events</span>
+                </h1>
+                <p className="text-[9px] text-white/40 font-bold uppercase tracking-[0.2em] mt-1">Ashoka Network Affiliate</p>
+              </div>
+            </Link>
+            <p className="text-white/60 text-sm leading-relaxed max-w-xs font-medium">
+              Building the primary merit pipeline for India's brightest minds. Verified by academic institutions.
+            </p>
+            <div className="flex space-x-4">
+              {[Twitter, Github, Linkedin, Mail].map((Icon, i) => (
+                <a
+                  key={i}
+                  href="#"
+                  className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-all shadow-sm"
+                >
+                  <Icon size={18} />
+                </a>
+              ))}
             </div>
           </div>
-        </section>
 
-        {/* Main Footer Content */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-            {/* Brand */}
-            <div className="col-span-2 md:col-span-3 lg:col-span-2">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-              >
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
-                    <svg className="w-7 h-7 text-navy-950" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-display text-2xl font-black">
-                      apna<span className="text-amber-500">events</span>
-                    </h3>
-                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Merit Pipeline</p>
-                  </div>
-                </div>
+          {/* Opportunities Column */}
+          <div>
+            <h4 className="font-serif text-lg font-bold text-white mb-6 underline decoration-[#911116] underline-offset-8">Discovery</h4>
+            <ul className="space-y-4">
+              {['National Olympiads', 'STEM Competitions', 'Liberal Arts Fellowship', 'Research Symposia', 'Global Scholars'].map((link) => (
+                <li key={link}>
+                  <Link to="/events" className="text-white/60 hover:text-[#fcb900] transition-colors text-sm font-semibold">
+                    {link}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-                <p className="text-slate-300 leading-relaxed mb-6 max-w-sm">
-                  Building India's largest verified competition platform.
-                  Connecting students with opportunities and helping them build
-                  their professional futures.
-                </p>
+          {/* Institutional Column */}
+          <div>
+            <h4 className="font-serif text-lg font-bold text-white mb-6 underline decoration-[#911116] underline-offset-8">Network</h4>
+            <ul className="space-y-4">
+              {['About the Network', 'Vetting Process', 'Partner Institutions', 'Privacy Policy', 'Honor Code'].map((link) => (
+                <li key={link}>
+                  <Link to="/" className="text-white/60 hover:text-[#fcb900] transition-colors text-sm font-semibold">
+                    {link}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-                <div className="grid gap-4 mb-8">
-                  <div className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors">
-                    <MapPin className="w-5 h-5 text-amber-500" />
-                    <span className="text-sm font-medium">Bangalore, India</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors">
-                    <Mail className="w-5 h-5 text-amber-500" />
-                    <span className="text-sm font-medium">aadarshgolucky@gmail.com</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors">
-                    <Phone className="w-5 h-5 text-amber-500" />
-                    <span className="text-sm font-medium font-display tracking-wider">+91 70508 19323</span>
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
-                  {socialLinks.map((social, index) => (
-                    <motion.a
-                      key={index}
-                      href={social.href}
-                      whileHover={{ scale: 1.1, y: -4 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="w-10 h-10 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl flex items-center justify-center text-white hover:bg-emerald-500/20 hover:border-emerald-400 transition-all duration-300"
-                      aria-label={social.label}
-                    >
-                      <social.icon className="w-5 h-5" />
-                    </motion.a>
-                  ))}
-                </div>
-              </motion.div>
+          {/* Contact Column */}
+          <div className="bg-white/5 rounded-xl p-8 border border-white/10">
+            <h4 className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] mb-6">Contact Bureau</h4>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 text-white/80">
+                <MapPin size={16} className="text-[#fcb900]" />
+                <span className="text-xs font-bold">Bangalore Academic Hub</span>
+              </div>
+              <div className="flex items-center gap-3 text-white/80">
+                <Globe size={16} className="text-[#fcb900]" />
+                <span className="text-xs font-bold">www.apnaevents.in</span>
+              </div>
+              <div className="flex items-center gap-3 text-white/80">
+                <Mail size={16} className="text-[#fcb900]" />
+                <span className="text-xs font-bold italic">admissions@apnaevents.in</span>
+              </div>
+              <div className="pt-4 mt-4 border-t border-white/10 text-center">
+                <button onClick={scrollToTop} className="text-[10px] font-bold text-white/40 hover:text-white flex items-center gap-2 mx-auto uppercase tracking-widest">
+                  Back to Portal <ArrowUp size={12} />
+                </button>
+              </div>
             </div>
-
-            {/* Footer Links */}
-            {Object.entries(footerLinks).map(([category, links]) => (
-              <motion.div
-                key={category}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-              >
-                <h4 className="font-display text-lg font-black mb-6 capitalize">
-                  {category === 'platform' ? 'Platform' :
-                    category === 'events' ? 'Events' :
-                      category === 'support' ? 'Support' : 'Legal'}
-                </h4>
-                <ul className="space-y-3">
-                  {links.map((link, index) => (
-                    <li key={index}>
-                      <a
-                        href={link.href}
-                        className="text-slate-400 hover:text-amber-500 transition-colors duration-200 text-sm font-bold uppercase tracking-wider text-[11px]"
-                      >
-                        {link.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-              <div className="text-slate-400 text-sm">
-                © {new Date().getFullYear()} ApnaEvents. All rights reserved.
-              </div>
-
-              <div className="flex items-center gap-6 text-slate-400 text-sm">
-                <span>Made with ❤️ for Indian Students</span>
-                <span>•</span>
-                <span>Version 2.0 Premium</span>
-              </div>
-
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={scrollToTop}
-                className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center text-navy-950 shadow-lg hover:shadow-amber-500/40 transition-all duration-300"
-                aria-label="Back to top"
-              >
-                <ArrowUp className="w-6 h-6 stroke-[3]" />
-              </motion.button>
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.2em]">
+            © {new Date().getFullYear()} ApnaEvents Academic Network. Authorized for student merit evaluation.
+          </p>
+          <div className="flex space-x-8">
+            <div className="flex items-center gap-2 text-white/40">
+              <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-[10px] font-bold uppercase tracking-widest">Bureau Systems Online</span>
             </div>
           </div>
         </div>

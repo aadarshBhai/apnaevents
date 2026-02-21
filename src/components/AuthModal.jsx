@@ -78,7 +78,7 @@ const AuthModal = ({ isOpen, onClose }) => {
 
     const validateForm = () => {
         const newErrors = {};
-        
+
         if (!isLogin) {
             const displayName = formData.role === 'organizer'
                 ? (formData.name || '').trim()
@@ -111,7 +111,7 @@ const AuthModal = ({ isOpen, onClose }) => {
             if (!formData.gender) {
                 newErrors.gender = 'Please select your gender';
             }
-            
+
             if (formData.role === 'student') {
                 if (!formData.school.trim()) {
                     newErrors.school = 'School name is required';
@@ -120,18 +120,18 @@ const AuthModal = ({ isOpen, onClose }) => {
                     newErrors.grade = 'Please select your grade';
                 }
             }
-            
+
             if (formData.password !== formData.confirmPassword) {
                 newErrors.confirmPassword = 'Passwords do not match';
             }
         }
-        
+
         if (!formData.email.trim()) {
             newErrors.email = 'Email is required';
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
             newErrors.email = 'Please enter a valid email address';
         }
-        
+
         if (!formData.password) {
             newErrors.password = 'Password is required';
         } else if (formData.password.length < 8) {
@@ -139,7 +139,7 @@ const AuthModal = ({ isOpen, onClose }) => {
         } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
             newErrors.password = 'Password must contain uppercase, lowercase, and number';
         }
-        
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -207,7 +207,7 @@ const AuthModal = ({ isOpen, onClose }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (!isLogin) {
             if (signupStep === 1) {
                 const ok = validateSignupStep(1);
@@ -235,7 +235,7 @@ const AuthModal = ({ isOpen, onClose }) => {
                 return;
             }
         }
-        
+
         setError('');
         setLoading(true);
         try {
@@ -276,40 +276,40 @@ const AuthModal = ({ isOpen, onClose }) => {
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                className="bg-white w-[92vw] max-w-[520px] max-h-[92vh] rounded-[2.5rem] relative shadow-2xl shadow-blue-900/20 overflow-hidden z-10"
+                className="bg-white w-[92vw] max-w-[520px] max-h-[92vh] rounded-[2.5rem] relative shadow-2xl shadow-slate-200/50 overflow-hidden z-10 border border-slate-100"
             >
-                <div className="h-1.5 bg-gradient-to-r from-primary to-blue-600" />
+                <div className="h-2 bg-gradient-to-r from-[#0d3862] to-[#911116]" />
                 {/* Decorative Background Elements */}
-                <div className="absolute -top-20 -right-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
-                <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl" />
+                <div className="absolute -top-20 -right-20 w-64 h-64 bg-blue-50/50 rounded-full blur-3xl" />
+                <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-red-50/30 rounded-full blur-3xl" />
 
                 <div className="p-6 md:p-8 relative overflow-y-auto max-h-[calc(92vh-0.375rem)]">
-                    <div className="flex justify-between items-start mb-6">
+                    <div className="flex justify-between items-start mb-8">
                         <div>
                             {/* Dynamic Header */}
                             {!isLogin && !roleSelected ? (
                                 <>
-                                    <h2 className="text-3xl font-black tracking-tight text-slate-800">Select Role</h2>
-                                    <p className="text-text-muted font-bold mt-1 text-sm">How will you use ApnaEvents?</p>
+                                    <h2 className="text-3xl font-serif font-bold tracking-tight text-[#0d3862]">Official Role</h2>
+                                    <p className="text-slate-500 font-bold mt-1 text-[10px] uppercase tracking-widest">Select your institutional status</p>
                                 </>
                             ) : (
                                 <>
-                                    <h2 className="text-4xl font-black tracking-tighter bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent mb-1">
-                                        {isLogin ? 'Hello Again!' : 'Registration Form'}
+                                    <h2 className="text-4xl font-serif font-bold tracking-tight text-[#0d3862] mb-2 leading-none">
+                                        {isLogin ? 'Institutional Access' : 'Academic Registration'}
                                     </h2>
-                                    <p className="text-text-muted font-bold text-sm">
+                                    <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest">
                                         {isLogin
-                                            ? 'Welcome back, you\'ve been missed!'
-                                            : `Register as ${formData.role === 'student' ? 'Student' : 'Organizer'}`}
+                                            ? 'Please establish your secure connection'
+                                            : `Enrolling as ${formData.role === 'student' ? 'Scholastic Candidate' : 'Institutional Host'}`}
                                     </p>
                                 </>
                             )}
                         </div>
                         <button
                             onClick={onClose}
-                            className="p-2 bg-slate-50 rounded-full hover:bg-red-50 hover:text-red-500 transition-all duration-300 text-text-muted group"
+                            className="p-2.5 bg-slate-50 rounded-xl hover:bg-red-50 hover:text-[#911116] transition-all duration-300 text-slate-400 group border border-slate-100"
                         >
-                            <X size={20} className="group-hover:rotate-90 transition-transform duration-300" />
+                            <X size={18} className="group-hover:rotate-90 transition-transform duration-300" />
                         </button>
                     </div>
 
@@ -332,18 +332,18 @@ const AuthModal = ({ isOpen, onClose }) => {
                         <div className="space-y-4">
                             <button
                                 onClick={() => handleRoleSelect('student')}
-                                className="w-full p-1 rounded-3xl group transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                                className="w-full p-0.5 rounded-[1.5rem] group transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                             >
-                                <div className="bg-white p-6 text-left border-2 border-slate-100 rounded-[1.3rem] group-hover:border-primary/30 group-hover:shadow-xl group-hover:shadow-blue-500/10 transition-all h-full relative overflow-hidden">
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-500" />
+                                <div className="bg-white p-6 text-left border border-slate-100 rounded-[1.5rem] group-hover:border-[#0d3862]/30 group-hover:shadow-xl group-hover:shadow-blue-900/5 transition-all h-full relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50/50 rounded-full -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-700" />
 
                                     <div className="relative z-10 flex items-center gap-5">
-                                        <div className="w-14 h-14 bg-gradient-to-br from-blue-50 to-white border border-blue-100 text-primary rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                                        <div className="w-14 h-14 bg-blue-50 border border-blue-100 text-[#0d3862] rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                                             <User size={28} strokeWidth={2} />
                                         </div>
                                         <div>
-                                            <h3 className="text-xl font-black text-slate-800 group-hover:text-primary transition-colors">I am a Student</h3>
-                                            <p className="text-xs font-bold text-slate-400 mt-1">Participate, track progress & build passport</p>
+                                            <h3 className="text-xl font-serif font-bold text-[#0d3862]">Scholastic Candidate</h3>
+                                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Participate, track progress & build merit</p>
                                         </div>
                                     </div>
                                 </div>
@@ -351,18 +351,18 @@ const AuthModal = ({ isOpen, onClose }) => {
 
                             <button
                                 onClick={() => handleRoleSelect('organizer')}
-                                className="w-full p-1 rounded-3xl group transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                                className="w-full p-0.5 rounded-[1.5rem] group transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                             >
-                                <div className="bg-white p-6 text-left border-2 border-slate-100 rounded-[1.3rem] group-hover:border-purple-500/30 group-hover:shadow-xl group-hover:shadow-purple-500/10 transition-all h-full relative overflow-hidden">
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-purple-50 rounded-full -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-500" />
+                                <div className="bg-white p-6 text-left border border-slate-100 rounded-[1.5rem] group-hover:border-[#911116]/30 group-hover:shadow-xl group-hover:shadow-red-900/5 transition-all h-full relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-red-50/50 rounded-full -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-700" />
 
                                     <div className="relative z-10 flex items-center gap-5">
-                                        <div className="w-14 h-14 bg-gradient-to-br from-purple-50 to-white border border-purple-100 text-purple-600 rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                                        <div className="w-14 h-14 bg-red-50 border border-red-100 text-[#911116] rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                                             <ShieldCheck size={28} strokeWidth={2} />
                                         </div>
                                         <div>
-                                            <h3 className="text-xl font-black text-slate-800 group-hover:text-purple-600 transition-colors">I am an Organizer</h3>
-                                            <p className="text-xs font-bold text-slate-400 mt-1">Host competitions, manage registrations</p>
+                                            <h3 className="text-xl font-serif font-bold text-[#0d3862]">Institutional Host</h3>
+                                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Manage programs & verify applications</p>
                                         </div>
                                     </div>
                                 </div>
@@ -429,18 +429,16 @@ const AuthModal = ({ isOpen, onClose }) => {
                                             type="email"
                                             placeholder="name@example.com"
                                             required
-                                            className={`w-full pl-12 pr-4 py-4 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${
-                                                errors.email && touched.email
+                                            className={`w-full pl-12 pr-4 py-4 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${errors.email && touched.email
                                                     ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
                                                     : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                            }`}
+                                                }`}
                                             value={formData.email}
                                             onChange={(e) => handleInputChange('email', e.target.value)}
                                             onBlur={() => handleBlur('email')}
                                         />
-                                        <div className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300 ${
-                                            errors.email && touched.email ? 'text-red-500' : 'text-slate-400 group-focus-within:text-primary'
-                                        }`}>
+                                        <div className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300 ${errors.email && touched.email ? 'text-red-500' : 'text-slate-400 group-focus-within:text-primary'
+                                            }`}>
                                             <Mail size={20} />
                                         </div>
                                     </div>
@@ -460,16 +458,13 @@ const AuthModal = ({ isOpen, onClose }) => {
                                     type="button"
                                     disabled={loading}
                                     onClick={handleForgotPassword}
-                                    className="w-full py-4 text-base font-semibold rounded-2xl shadow-xl flex items-center justify-center gap-2 transform transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 bg-gradient-to-r from-primary to-blue-600 text-white"
+                                    className="w-full py-4.5 text-xs font-bold uppercase tracking-[0.2em] rounded-xl shadow-xl flex items-center justify-center gap-3 transform transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 bg-[#0d3862] text-white"
                                 >
                                     {loading ? (
-                                        <>
-                                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                            Sending...
-                                        </>
+                                        <Loader2 className="w-5 h-5 animate-spin" />
                                     ) : (
                                         <>
-                                            Send Reset Link <ChevronRight size={18} />
+                                            Request Reset Link <ChevronRight size={16} />
                                         </>
                                     )}
                                 </button>
@@ -480,9 +475,9 @@ const AuthModal = ({ isOpen, onClose }) => {
                                         resetForgotFlow();
                                         setIsLogin(true);
                                     }}
-                                    className="w-full text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors"
+                                    className="w-full text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-[#0d3862] transition-colors"
                                 >
-                                    Back to Sign In
+                                    Cancel & Return
                                 </button>
                             </div>
                         </div>
@@ -492,13 +487,13 @@ const AuthModal = ({ isOpen, onClose }) => {
                             {!isLogin && (
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
-                                        <div className={`w-8 h-8 rounded-2xl flex items-center justify-center text-xs font-black transition-all ${signupStep === 1 ? 'bg-primary text-white shadow-lg shadow-blue-200' : 'bg-slate-100 text-slate-500'}`}>1</div>
-                                        <div className={`text-[11px] font-black uppercase tracking-widest ${signupStep === 1 ? 'text-slate-800' : 'text-slate-400'}`}>Profile</div>
+                                        <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-[10px] font-bold transition-all ${signupStep === 1 ? 'bg-[#0d3862] text-white shadow-lg shadow-blue-900/10' : 'bg-slate-100 text-slate-400'}`}>1</div>
+                                        <div className={`text-[9px] font-bold uppercase tracking-[0.2em] ${signupStep === 1 ? 'text-[#0d3862]' : 'text-slate-300'}`}>Mandatory</div>
                                     </div>
-                                    <div className="h-px flex-1 mx-4 bg-slate-100" />
+                                    <div className="h-px flex-1 mx-3 bg-slate-50" />
                                     <div className="flex items-center gap-2">
-                                        <div className={`w-8 h-8 rounded-2xl flex items-center justify-center text-xs font-black transition-all ${signupStep === 2 ? 'bg-primary text-white shadow-lg shadow-blue-200' : 'bg-slate-100 text-slate-500'}`}>2</div>
-                                        <div className={`text-[11px] font-black uppercase tracking-widest ${signupStep === 2 ? 'text-slate-800' : 'text-slate-400'}`}>Account</div>
+                                        <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-[10px] font-bold transition-all ${signupStep === 2 ? 'bg-[#0d3862] text-white shadow-lg shadow-blue-900/10' : 'bg-slate-100 text-slate-400'}`}>2</div>
+                                        <div className={`text-[9px] font-bold uppercase tracking-[0.2em] ${signupStep === 2 ? 'text-[#0d3862]' : 'text-slate-300'}`}>Credentials</div>
                                     </div>
                                 </div>
                             )}
@@ -515,11 +510,10 @@ const AuthModal = ({ isOpen, onClose }) => {
                                                     type="text"
                                                     placeholder="First name"
                                                     required
-                                                    className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${
-                                                        errors.firstName && touched.firstName
+                                                    className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${errors.firstName && touched.firstName
                                                             ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
                                                             : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                                    }`}
+                                                        }`}
                                                     value={formData.firstName}
                                                     onChange={(e) => handleInputChange('firstName', e.target.value)}
                                                     onBlur={() => handleBlur('firstName')}
@@ -544,11 +538,10 @@ const AuthModal = ({ isOpen, onClose }) => {
                                                     type="text"
                                                     placeholder="Last name"
                                                     required
-                                                    className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${
-                                                        errors.lastName && touched.lastName
+                                                    className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${errors.lastName && touched.lastName
                                                             ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
                                                             : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                                    }`}
+                                                        }`}
                                                     value={formData.lastName}
                                                     onChange={(e) => handleInputChange('lastName', e.target.value)}
                                                     onBlur={() => handleBlur('lastName')}
@@ -574,11 +567,10 @@ const AuthModal = ({ isOpen, onClose }) => {
                                                 type="text"
                                                 placeholder="e.g. IIT Bombay"
                                                 required
-                                                className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${
-                                                    errors.name && touched.name
+                                                className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${errors.name && touched.name
                                                         ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
                                                         : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                                }`}
+                                                    }`}
                                                 value={formData.name}
                                                 onChange={(e) => handleInputChange('name', e.target.value)}
                                                 onBlur={() => handleBlur('name')}
@@ -604,11 +596,10 @@ const AuthModal = ({ isOpen, onClose }) => {
                                             type="tel"
                                             placeholder="e.g. +91 98765 43210"
                                             required
-                                            className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${
-                                                errors.phone && touched.phone
+                                            className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${errors.phone && touched.phone
                                                     ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
                                                     : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                            }`}
+                                                }`}
                                             value={formData.phone}
                                             onChange={(e) => handleInputChange('phone', e.target.value)}
                                             onBlur={() => handleBlur('phone')}
@@ -631,11 +622,10 @@ const AuthModal = ({ isOpen, onClose }) => {
                                         </label>
                                         <div className="relative">
                                             <select
-                                                className={`w-full appearance-none py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 outline-none transition-all duration-300 ${
-                                                    errors.gender && touched.gender
+                                                className={`w-full appearance-none py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 outline-none transition-all duration-300 ${errors.gender && touched.gender
                                                         ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
                                                         : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                                }`}
+                                                    }`}
                                                 value={formData.gender}
                                                 onChange={(e) => handleInputChange('gender', e.target.value)}
                                                 onBlur={() => handleBlur('gender')}
@@ -674,11 +664,10 @@ const AuthModal = ({ isOpen, onClose }) => {
                                             type="text"
                                             placeholder="e.g. Delhi Public School"
                                             required
-                                            className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${
-                                                errors.school && touched.school
+                                            className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${errors.school && touched.school
                                                     ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
                                                     : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                            }`}
+                                                }`}
                                             value={formData.school}
                                             onChange={(e) => handleInputChange('school', e.target.value)}
                                             onBlur={() => handleBlur('school')}
@@ -701,11 +690,10 @@ const AuthModal = ({ isOpen, onClose }) => {
                                         </label>
                                         <div className="relative">
                                             <select
-                                                className={`w-full appearance-none py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 outline-none transition-all duration-300 ${
-                                                    errors.grade && touched.grade
+                                                className={`w-full appearance-none py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 outline-none transition-all duration-300 ${errors.grade && touched.grade
                                                         ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
                                                         : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                                }`}
+                                                    }`}
                                                 value={formData.grade}
                                                 onChange={(e) => handleInputChange('grade', e.target.value)}
                                                 onBlur={() => handleBlur('grade')}
@@ -735,134 +723,128 @@ const AuthModal = ({ isOpen, onClose }) => {
                             )}
 
                             {(isLogin || signupStep === 2) && (
-                            <div className="space-y-2">
-                                <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-widest pl-2">
-                                    Email Address <span className="text-red-500">*</span>
-                                </label>
-                                <input
-                                    type="email"
-                                    placeholder="name@example.com"
-                                    required
-                                    className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${
-                                        errors.email && touched.email
-                                            ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
-                                            : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                    }`}
-                                    value={formData.email}
-                                    onChange={(e) => handleInputChange('email', e.target.value)}
-                                    onBlur={() => handleBlur('email')}
-                                />
-                                {errors.email && touched.email && (
-                                    <motion.p
-                                        initial={{ opacity: 0, y: -5 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        className="text-xs text-red-600 font-medium pl-2 flex items-center gap-1"
-                                    >
-                                        <AlertCircle size={12} />
-                                        {errors.email}
-                                    </motion.p>
-                                )}
-                            </div>
+                                <div className="space-y-2">
+                                    <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-widest pl-2">
+                                        Email Address <span className="text-red-500">*</span>
+                                    </label>
+                                    <input
+                                        type="email"
+                                        placeholder="name@example.com"
+                                        required
+                                        className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${errors.email && touched.email
+                                                ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
+                                                : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
+                                            }`}
+                                        value={formData.email}
+                                        onChange={(e) => handleInputChange('email', e.target.value)}
+                                        onBlur={() => handleBlur('email')}
+                                    />
+                                    {errors.email && touched.email && (
+                                        <motion.p
+                                            initial={{ opacity: 0, y: -5 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="text-xs text-red-600 font-medium pl-2 flex items-center gap-1"
+                                        >
+                                            <AlertCircle size={12} />
+                                            {errors.email}
+                                        </motion.p>
+                                    )}
+                                </div>
                             )}
 
                             {(isLogin || signupStep === 2) && (
-                            <div className="space-y-2">
-                                <div className="flex justify-between items-center px-1">
-                                    <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-widest pl-2">
-                                        Password <span className="text-red-500">*</span>
-                                    </label>
-                                    {isLogin && (
+                                <div className="space-y-2">
+                                    <div className="flex justify-between items-center px-1">
+                                        <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-widest pl-2">
+                                            Password <span className="text-red-500">*</span>
+                                        </label>
+                                        {isLogin && (
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    setIsForgotFlow(true);
+                                                    setResetSuccess('');
+                                                    setResetInfo('');
+                                                    setError('');
+                                                }}
+                                                className="text-[11px] font-medium text-primary hover:text-blue-700 transition-colors"
+                                            >
+                                                Forgot Password?
+                                            </button>
+                                        )}
+                                    </div>
+                                    <div className="relative">
+                                        <input
+                                            type={showPassword ? 'text' : 'password'}
+                                            placeholder="Min. 8 characters"
+                                            required
+                                            className={`w-full py-4 pl-6 pr-12 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${errors.password && touched.password
+                                                    ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
+                                                    : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
+                                                }`}
+                                            value={formData.password}
+                                            onChange={(e) => handleInputChange('password', e.target.value)}
+                                            onBlur={() => handleBlur('password')}
+                                        />
                                         <button
                                             type="button"
-                                            onClick={() => {
-                                                setIsForgotFlow(true);
-                                                setResetSuccess('');
-                                                setResetInfo('');
-                                                setError('');
-                                            }}
-                                            className="text-[11px] font-medium text-primary hover:text-blue-700 transition-colors"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                                         >
-                                            Forgot Password?
+                                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                                         </button>
+                                    </div>
+                                    {errors.password && touched.password && (
+                                        <motion.p
+                                            initial={{ opacity: 0, y: -5 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="text-xs text-red-600 font-medium pl-2 flex items-center gap-1"
+                                        >
+                                            <AlertCircle size={12} />
+                                            {errors.password}
+                                        </motion.p>
+                                    )}
+                                    {!isLogin && (
+                                        <div className="mt-3 space-y-2">
+                                            <div className="flex items-center gap-2 text-xs">
+                                                <div className={`w-4 h-4 rounded-full flex items-center justify-center ${formData.password.length >= 8 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+                                                    }`}>
+                                                    {formData.password.length >= 8 && <CheckCircle2 size={12} />}
+                                                </div>
+                                                <span className={formData.password.length >= 8 ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
+                                                    At least 8 characters
+                                                </span>
+                                            </div>
+                                            <div className="flex items-center gap-2 text-xs">
+                                                <div className={`w-4 h-4 rounded-full flex items-center justify-center ${/(?=.*[a-z])/.test(formData.password) ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+                                                    }`}>
+                                                    {/(?=.*[a-z])/.test(formData.password) && <CheckCircle2 size={12} />}
+                                                </div>
+                                                <span className={/(?=.*[a-z])/.test(formData.password) ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
+                                                    One lowercase letter
+                                                </span>
+                                            </div>
+                                            <div className="flex items-center gap-2 text-xs">
+                                                <div className={`w-4 h-4 rounded-full flex items-center justify-center ${/(?=.*[A-Z])/.test(formData.password) ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+                                                    }`}>
+                                                    {/(?=.*[A-Z])/.test(formData.password) && <CheckCircle2 size={12} />}
+                                                </div>
+                                                <span className={/(?=.*[A-Z])/.test(formData.password) ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
+                                                    One uppercase letter
+                                                </span>
+                                            </div>
+                                            <div className="flex items-center gap-2 text-xs">
+                                                <div className={`w-4 h-4 rounded-full flex items-center justify-center ${/(?=.*\d)/.test(formData.password) ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+                                                    }`}>
+                                                    {/(?=.*\d)/.test(formData.password) && <CheckCircle2 size={12} />}
+                                                </div>
+                                                <span className={/(?=.*\d)/.test(formData.password) ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
+                                                    One number
+                                                </span>
+                                            </div>
+                                        </div>
                                     )}
                                 </div>
-                                <div className="relative">
-                                    <input
-                                        type={showPassword ? 'text' : 'password'}
-                                        placeholder="Min. 8 characters"
-                                        required
-                                        className={`w-full py-4 pl-6 pr-12 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${
-                                            errors.password && touched.password
-                                                ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
-                                                : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                        }`}
-                                        value={formData.password}
-                                        onChange={(e) => handleInputChange('password', e.target.value)}
-                                        onBlur={() => handleBlur('password')}
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
-                                    >
-                                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                                    </button>
-                                </div>
-                                {errors.password && touched.password && (
-                                    <motion.p
-                                        initial={{ opacity: 0, y: -5 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        className="text-xs text-red-600 font-medium pl-2 flex items-center gap-1"
-                                    >
-                                        <AlertCircle size={12} />
-                                        {errors.password}
-                                    </motion.p>
-                                )}
-                                {!isLogin && (
-                                    <div className="mt-3 space-y-2">
-                                        <div className="flex items-center gap-2 text-xs">
-                                            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                                                formData.password.length >= 8 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
-                                            }`}>
-                                                {formData.password.length >= 8 && <CheckCircle2 size={12} />}
-                                            </div>
-                                            <span className={formData.password.length >= 8 ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
-                                                At least 8 characters
-                                            </span>
-                                        </div>
-                                        <div className="flex items-center gap-2 text-xs">
-                                            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                                                /(?=.*[a-z])/.test(formData.password) ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
-                                            }`}>
-                                                {/(?=.*[a-z])/.test(formData.password) && <CheckCircle2 size={12} />}
-                                            </div>
-                                            <span className={/(?=.*[a-z])/.test(formData.password) ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
-                                                One lowercase letter
-                                            </span>
-                                        </div>
-                                        <div className="flex items-center gap-2 text-xs">
-                                            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                                                /(?=.*[A-Z])/.test(formData.password) ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
-                                            }`}>
-                                                {/(?=.*[A-Z])/.test(formData.password) && <CheckCircle2 size={12} />}
-                                            </div>
-                                            <span className={/(?=.*[A-Z])/.test(formData.password) ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
-                                                One uppercase letter
-                                            </span>
-                                        </div>
-                                        <div className="flex items-center gap-2 text-xs">
-                                            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                                                /(?=.*\d)/.test(formData.password) ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
-                                            }`}>
-                                                {/(?=.*\d)/.test(formData.password) && <CheckCircle2 size={12} />}
-                                            </div>
-                                            <span className={/(?=.*\d)/.test(formData.password) ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
-                                                One number
-                                            </span>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
                             )}
 
                             {!isLogin && signupStep === 2 && (
@@ -875,11 +857,10 @@ const AuthModal = ({ isOpen, onClose }) => {
                                             type={showConfirmPassword ? 'text' : 'password'}
                                             placeholder="Re-enter your password"
                                             required
-                                            className={`w-full py-4 pl-6 pr-12 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${
-                                                errors.confirmPassword && touched.confirmPassword
+                                            className={`w-full py-4 pl-6 pr-12 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${errors.confirmPassword && touched.confirmPassword
                                                     ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
                                                     : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                            }`}
+                                                }`}
                                             value={formData.confirmPassword}
                                             onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
                                             onBlur={() => handleBlur('confirmPassword')}
@@ -922,11 +903,10 @@ const AuthModal = ({ isOpen, onClose }) => {
                                             if (!ok) return;
                                             setSignupStep(2);
                                         }}
-                                        className={`flex-1 py-4 text-base font-semibold rounded-2xl shadow-xl flex items-center justify-center gap-2 transform transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${
-                                            formData.role === 'admin' 
-                                                ? 'bg-slate-900 text-white hover:bg-black shadow-slate-200' 
+                                        className={`flex-1 py-4 text-base font-semibold rounded-2xl shadow-xl flex items-center justify-center gap-2 transform transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${formData.role === 'admin'
+                                                ? 'bg-slate-900 text-white hover:bg-black shadow-slate-200'
                                                 : 'bg-gradient-to-r from-primary to-blue-600 text-white hover:shadow-blue-500/40'
-                                        }`}
+                                            }`}
                                     >
                                         Continue <ChevronRight size={18} />
                                     </button>
@@ -945,11 +925,10 @@ const AuthModal = ({ isOpen, onClose }) => {
                                     <button
                                         disabled={loading}
                                         type="submit"
-                                        className={`flex-[2] py-4 text-base font-semibold rounded-2xl shadow-xl flex items-center justify-center gap-2 transform transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${
-                                            formData.role === 'admin' 
-                                                ? 'bg-slate-900 text-white hover:bg-black shadow-slate-200' 
+                                        className={`flex-[2] py-4 text-base font-semibold rounded-2xl shadow-xl flex items-center justify-center gap-2 transform transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${formData.role === 'admin'
+                                                ? 'bg-slate-900 text-white hover:bg-black shadow-slate-200'
                                                 : 'bg-gradient-to-r from-primary to-blue-600 text-white hover:shadow-blue-500/40'
-                                        }`}
+                                            }`}
                                     >
                                         {loading ? (
                                             <>
@@ -969,11 +948,10 @@ const AuthModal = ({ isOpen, onClose }) => {
                                 <button
                                     disabled={loading}
                                     type="submit"
-                                    className={`w-full py-4 text-base font-semibold rounded-2xl shadow-xl mt-6 flex items-center justify-center gap-2 transform transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${
-                                        formData.role === 'admin' 
-                                            ? 'bg-slate-900 text-white hover:bg-black shadow-slate-200' 
+                                    className={`w-full py-4 text-base font-semibold rounded-2xl shadow-xl mt-6 flex items-center justify-center gap-2 transform transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${formData.role === 'admin'
+                                            ? 'bg-slate-900 text-white hover:bg-black shadow-slate-200'
                                             : 'bg-gradient-to-r from-primary to-blue-600 text-white hover:shadow-blue-500/40'
-                                    }`}
+                                        }`}
                                 >
                                     {loading ? (
                                         <>

@@ -72,25 +72,17 @@ const Hero = ({ stats }) => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-navy-950">
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#F8FAFC]">
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#020617] to-[#0f172a] opacity-90" />
-        <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-amber-900/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[100px]" />
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:32px_32px] opacity-40" />
+        <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-red-500/5 rounded-full blur-[120px]" />
       </div>
-
-      {/* Grid Pattern */}
-      <div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='grid' width='60' height='60' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 60 0 L 0 0 0 60' fill='none' stroke='white' stroke-width='0.5' opacity='0.1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23grid)' /%3E%3C/svg%3E")`
-        }}
-      />
 
       <motion.div
         style={{ opacity, y: scale }}
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20"
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20"
       >
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
@@ -101,18 +93,18 @@ const Hero = ({ stats }) => {
             className="text-center lg:text-left"
           >
             {/* Badge */}
-            <motion.div variants={itemVariants} className="inline-flex items-center space-x-2 px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-xl mb-8">
-              <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
-              <span className="text-amber-500 text-[10px] font-black uppercase tracking-widest">National Academic Hub</span>
+            <motion.div variants={itemVariants} className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-50 border border-blue-100 rounded-lg mb-8">
+              <div className="w-1.5 h-1.5 bg-[#0d3862] rounded-full"></div>
+              <span className="text-[#0d3862] text-[10px] font-bold uppercase tracking-[0.2em]">Excellence in Liberal Arts & Sciences</span>
             </motion.div>
 
             {/* Main Heading */}
             <motion.h1
               variants={itemVariants}
-              className="font-display text-4xl md:text-7xl font-black text-white mb-6 leading-tight shrink-0"
+              className="font-display text-4xl md:text-7xl font-bold text-[#0d3862] mb-6 leading-[1.1] shrink-0"
             >
               {slides[currentSlide].title}{' '}
-              <span className="bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent italic block sm:inline">
+              <span className="text-[#911116] block italic">
                 {slides[currentSlide].highlight}
               </span>
             </motion.h1>
@@ -120,67 +112,57 @@ const Hero = ({ stats }) => {
             {/* Description */}
             <motion.p
               variants={itemVariants}
-              className="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed max-w-2xl font-medium"
+              className="text-lg md:text-xl text-slate-600 mb-10 leading-relaxed max-w-2xl"
             >
               {slides[currentSlide].description}
             </motion.p>
 
             {/* CTA Buttons */}
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 mb-12">
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mb-12">
               <Link
                 to="/events"
-                className="btn-premium group relative overflow-hidden px-10 py-5 text-lg"
+                className="btn-primary group px-10 py-4 flex items-center justify-center gap-3"
               >
-                <span className="relative z-10 flex items-center justify-center gap-3">
-                  Discover Opportunities
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                </span>
+                <span>View All Opportunities</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
 
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-white font-bold hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-3"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-8 py-4 bg-white border border-slate-200 rounded-lg text-slate-700 font-bold hover:bg-slate-50 transition-all flex items-center justify-center gap-3 shadow-sm"
               >
-                <Play className="w-5 h-5 text-amber-500" />
-                University Guide
+                Learn About Our Mission
               </motion.button>
             </motion.div>
 
             {/* Stats */}
-            <motion.div variants={itemVariants} className="flex items-center gap-8">
-              <div className="flex -space-x-4">
-                {[1, 2, 3, 4, 5].map((i) => (
+            <motion.div variants={itemVariants} className="flex items-center gap-6">
+              <div className="flex -space-x-3">
+                {[1, 2, 3, 4].map((i) => (
                   <div
                     key={i}
-                    className="w-12 h-12 rounded-2xl border-2 border-[#020617] overflow-hidden shadow-xl"
+                    className="w-10 h-10 rounded-full border-2 border-white overflow-hidden shadow-sm"
                   >
                     <img
-                      src={`https://i.pravatar.cc/150?u=${i + 20}`}
-                      alt={`User ${i}`}
+                      src={`https://i.pravatar.cc/150?u=${i + 40}`}
+                      alt={`Student ${i}`}
                       className="w-full h-full object-cover"
                     />
                   </div>
                 ))}
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 border-2 border-[#020617] flex items-center justify-center text-navy-950 text-xs font-black shadow-xl">
-                  +20k
+                <div className="w-10 h-10 rounded-full bg-[#fcb900] border-2 border-white flex items-center justify-center text-[#0d3862] text-[10px] font-bold shadow-sm">
+                  +50k
                 </div>
               </div>
-              <div>
-                <div className="flex items-center gap-1 mb-1">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <Star key={star} className="w-4 h-4 text-amber-500 fill-current" />
-                  ))}
-                </div>
-                <p className="text-slate-400 text-sm font-bold leading-relaxed uppercase tracking-widest">Trusted by 500+ Schools</p>
-              </div>
+              <p className="text-slate-500 text-xs font-bold uppercase tracking-widest border-l border-slate-200 pl-6">Recognized by Global Institutions</p>
             </motion.div>
           </motion.div>
 
           {/* Right Content - Image */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
             className="relative"
           >
@@ -188,53 +170,46 @@ const Hero = ({ stats }) => {
               {/* Main Image */}
               <motion.div
                 key={currentSlide}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10"
+                className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-100"
               >
                 <img
                   src={slides[currentSlide].image}
                   alt={slides[currentSlide].title}
-                  className="w-full h-[500px] object-cover"
+                  className="w-full h-[550px] object-cover"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-900/50 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
               </motion.div>
 
               {/* Floating Cards */}
               <motion.div
-                animate={{
-                  y: [0, -20, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-amber-500 to-orange-600 rounded-3xl shadow-2xl flex items-center justify-center"
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-6 -right-6 px-6 py-4 bg-white rounded-xl shadow-lg border border-slate-100 flex items-center gap-4"
               >
-                <div className="text-white text-center">
-                  <div className="text-2xl font-black">{slides[currentSlide].stats.students}</div>
-                  <div className="text-xs font-black uppercase tracking-widest">Students</div>
+                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-[#0d3862]">
+                  <Users size={20} />
+                </div>
+                <div>
+                  <div className="text-lg font-bold text-[#0d3862]">{slides[currentSlide].stats.students}</div>
+                  <div className="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Active Cohort</div>
                 </div>
               </motion.div>
 
               <motion.div
-                animate={{
-                  y: [0, 20, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1,
-                }}
-                className="absolute -bottom-8 -left-8 w-32 h-32 bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl shadow-2xl flex items-center justify-center border border-white/10"
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                className="absolute -bottom-6 -left-6 px-6 py-4 bg-[#911116] rounded-xl shadow-lg flex items-center gap-4"
               >
-                <div className="text-white text-center">
-                  <div className="text-2xl font-black">{slides[currentSlide].stats.events}</div>
-                  <div className="text-xs font-black uppercase tracking-widest">Events</div>
+                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white">
+                  <Shield size={20} />
+                </div>
+                <div>
+                  <div className="text-lg font-bold text-white">{slides[currentSlide].stats.events}</div>
+                  <div className="text-[9px] font-bold text-white/70 uppercase tracking-wider">Verified Contests</div>
                 </div>
               </motion.div>
             </div>
@@ -242,14 +217,14 @@ const Hero = ({ stats }) => {
         </div>
 
         {/* Slide Indicators */}
-        <div className="flex justify-center gap-3 mt-16">
+        <div className="flex justify-center gap-4 mt-16">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`h-2 rounded-full transition-all duration-500 ${currentSlide === index
-                ? 'w-12 bg-amber-500'
-                : 'w-2 bg-white/20 hover:bg-white/40'
+              className={`h-1.5 rounded-full transition-all duration-500 ${currentSlide === index
+                ? 'w-12 bg-[#0d3862]'
+                : 'w-6 bg-slate-200 hover:bg-slate-300'
                 }`}
             />
           ))}
@@ -258,17 +233,11 @@ const Hero = ({ stats }) => {
 
       {/* Scroll Indicator */}
       <motion.div
-        animate={{
-          y: [0, 10, 0],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2"
       >
-        <ChevronDown className="w-6 h-6 text-amber-500" />
+        <ChevronDown className="w-5 h-5 text-[#0d3862] opacity-50" />
       </motion.div>
     </section>
   );

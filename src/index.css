@@ -1,19 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
 :root {
-  --background: #020617;
-  --foreground: #F8FAFC;
-  --gold-glow: 0 0 20px rgba(242, 114, 68, 0.2);
-  --navy-school: #0f172a;
-  --varsity-gold: #f27244;
-  --varsity-red: #e11d48;
+  --background: #FFFFFF;
+  --foreground: #1E293B;
+  --ashoka-blue: #0d3862;
+  --ashoka-red: #911116;
+  --ashoka-gold: #fcb900;
+  --ashoka-light: #F8FAFC;
 }
 
 @layer base {
   body {
-    @apply bg-[#020617] text-slate-200 font-["Outfit"] antialiased overflow-x-hidden;
+    @apply bg-white text-slate-800 font-sans antialiased overflow-x-hidden;
   }
 
   h1,
@@ -22,59 +22,59 @@
   h4,
   h5,
   h6 {
-    @apply font-["Outfit"] text-white tracking-tight font-black;
+    @apply font-serif text-[#0d3862] tracking-tight font-bold;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-navy-900/40 backdrop-blur-xl border border-white/10;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+    @apply bg-white border border-slate-200/60 backdrop-blur-xl shadow-sm hover:shadow-md transition-shadow;
   }
 
   .glass-dark {
-    @apply bg-[#020617]/80 backdrop-blur-xl border-b border-white/10 shadow-xl;
+    @apply bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-sm;
   }
 
   .glass-button {
-    @apply bg-white/5 hover:bg-white/10 border border-white/10 backdrop-blur-sm transition-all duration-300;
+    @apply bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-all duration-300;
   }
 
   .btn-primary {
-    @apply bg-amber-500 hover:bg-amber-600 text-navy-950 font-black px-8 py-4 rounded-2xl transition-all duration-300 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 hover:-translate-y-0.5 active:scale-95;
+    @apply bg-[#0d3862] hover:bg-[#0a2c4d] text-white font-bold px-8 py-3.5 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 text-sm;
   }
 
   .btn-premium {
-    @apply bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-amber-500 text-white font-black px-6 py-3 rounded-xl transition-all duration-300 shadow-xl shadow-amber-500/25 hover:shadow-amber-500/40;
+    @apply bg-gradient-to-r from-[#0d3862] to-[#1e4e7a] hover:from-[#911116] hover:to-[#b11b21] text-white font-bold px-6 py-3 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg;
   }
 
   .container-custom {
-    @apply max-w-7xl mx-auto;
+    @apply max-w-7xl mx-auto px-4 sm:px-6;
   }
 
   .input-field {
-    @apply w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all duration-300;
+    @apply w-full bg-slate-50 border border-slate-200 rounded-lg px-6 py-3.5 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#0d3862] focus:ring-1 focus:ring-[#0d3862] transition-all duration-300 text-sm;
   }
 
   .varsity-badge {
-    @apply px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest border transition-all;
+    @apply px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest border transition-all;
   }
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar for Light Theme */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #020617;
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 4px;
+  background: #cbd5e1;
+  border-radius: 5px;
+  border: 2px solid #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #94a3b8;
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Quote, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Quote, Star, ChevronLeft, ChevronRight, Award, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Testimonials = () => {
@@ -76,11 +76,12 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 relative overflow-hidden">
+    <section className="py-24 bg-white relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:32px_32px] opacity-40" />
+        <div className="absolute top-20 left-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-red-500/5 rounded-full blur-3xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -91,87 +92,83 @@ const Testimonials = () => {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full mb-6">
-            <Quote className="w-4 h-4 text-emerald-400" />
-            <span className="text-emerald-400 text-sm font-black uppercase tracking-wider">Success Stories</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-100 rounded-lg mb-6">
+            <Quote className="w-4 h-4 text-[#0d3862]" />
+            <span className="text-[#0d3862] text-[10px] font-bold uppercase tracking-[0.2em]">Institutional Success</span>
           </div>
-          <h2 className="font-display text-4xl md:text-5xl font-black text-white mb-6">
-            Trusted by <span className="bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">50,000+</span> Students
+          <h2 className="font-serif text-4xl md:text-5xl font-bold text-[#0d3862] mb-6 tracking-tight">
+            Trusted by <span className="text-[#911116] italic">50,000+</span> Scholars
           </h2>
-          <p className="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Hear from students, educators, and organizers who are building their future with ApnaEvents
+          <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            Hear from students, educators, and organizers who are building their future within the ApnaEvents Academic Network.
           </p>
         </motion.div>
 
         {/* Testimonials Carousel */}
-        <div className="relative max-w-4xl mx-auto">
+        <div className="relative max-w-5xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.5 }}
-              className="glass-dark rounded-3xl p-12 border border-white/10"
+              className="bg-[#F8FAFC] rounded-2xl p-8 md:p-12 border border-slate-100 shadow-sm"
             >
-              <div className="grid md:grid-cols-3 gap-8 items-center">
+              <div className="grid md:grid-cols-3 gap-12 items-center">
                 {/* Testimonial Content */}
                 <div className="md:col-span-2">
                   <div className="flex items-center gap-1 mb-6">
                     {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-amber-400 fill-current" />
+                      <Star key={i} className="w-5 h-5 text-[#fcb900] fill-current" />
                     ))}
                   </div>
-                  
-                  <blockquote className="text-xl text-slate-200 leading-relaxed mb-8 font-medium">
+
+                  <blockquote className="text-xl md:text-2xl text-[#0d3862] leading-relaxed mb-8 font-medium">
                     "{testimonials[currentIndex].content}"
                   </blockquote>
 
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="flex items-center gap-4 mb-2">
-                        <img
-                          src={testimonials[currentIndex].avatar}
-                          alt={testimonials[currentIndex].name}
-                          className="w-12 h-12 rounded-2xl border-2 border-emerald-500"
-                        />
-                        <div>
-                          <h4 className="font-display text-xl font-black text-white">
-                            {testimonials[currentIndex].name}
-                          </h4>
-                          <p className="text-slate-400 text-sm">
-                            {testimonials[currentIndex].role} • {testimonials[currentIndex].school}
-                          </p>
-                        </div>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+                    <div className="flex items-center gap-4">
+                      <img
+                        src={testimonials[currentIndex].avatar}
+                        alt={testimonials[currentIndex].name}
+                        className="w-14 h-14 rounded-full border-2 border-white shadow-md"
+                      />
+                      <div>
+                        <h4 className="font-serif text-xl font-bold text-[#0d3862]">
+                          {testimonials[currentIndex].name}
+                        </h4>
+                        <p className="text-slate-500 text-sm font-medium">
+                          {testimonials[currentIndex].role} • {testimonials[currentIndex].school}
+                        </p>
                       </div>
-                      <div className="flex items-center gap-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl">
-                        <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
-                        <span className="text-emerald-400 text-xs font-black uppercase tracking-wider">
-                          {testimonials[currentIndex].achievement}
-                        </span>
-                      </div>
+                    </div>
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-slate-100 rounded-lg shadow-sm">
+                      <Trophy className="w-4 h-4 text-[#911116]" />
+                      <span className="text-[#0d3862] text-[10px] font-bold uppercase tracking-widest leading-none">
+                        {testimonials[currentIndex].achievement}
+                      </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Achievement Card */}
+                {/* Achievement Badge */}
                 <div className="hidden md:block">
                   <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.3 }}
-                    className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl p-8 text-center shadow-2xl"
+                    className="aspect-square bg-[#0d3862] rounded-2xl flex flex-col items-center justify-center text-center p-8 shadow-xl"
                   >
-                    <div className="text-4xl font-black text-white mb-2">
+                    <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-4">
+                      <Award className="text-[#fcb900]" size={28} />
+                    </div>
+                    <div className="text-3xl font-serif font-bold text-white mb-2">
                       {testimonials[currentIndex].rating}.0
                     </div>
-                    <div className="flex justify-center gap-1 mb-4">
-                      {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 text-white fill-current" />
-                      ))}
-                    </div>
-                    <p className="text-emerald-100 text-sm font-medium">
-                      Excellence Rating
+                    <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest">
+                      Academic Vetting
                     </p>
                   </motion.div>
                 </div>
@@ -180,31 +177,34 @@ const Testimonials = () => {
           </AnimatePresence>
 
           {/* Navigation Buttons */}
-          <button
-            onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 border border-white/20"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          <button
-            onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 border border-white/20"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
+          <div className="absolute top-1/2 -translate-y-1/2 -left-6 lg:-left-12">
+            <button
+              onClick={goToPrevious}
+              className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#0d3862] hover:bg-[#0d3862] hover:text-white transition-all shadow-lg border border-slate-100"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+          </div>
+          <div className="absolute top-1/2 -translate-y-1/2 -right-6 lg:-right-12">
+            <button
+              onClick={goToNext}
+              className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#0d3862] hover:bg-[#0d3862] hover:text-white transition-all shadow-lg border border-slate-100"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </div>
         </div>
 
         {/* Slide Indicators */}
-        <div className="flex justify-center gap-2 mt-8">
+        <div className="flex justify-center gap-3 mt-12">
           {testimonials.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                currentIndex === index
-                  ? 'w-8 bg-emerald-400'
-                  : 'bg-white/20 hover:bg-white/30'
-              }`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${currentIndex === index
+                  ? 'w-12 bg-[#0d3862]'
+                  : 'w-6 bg-slate-200 hover:bg-slate-300'
+                }`}
             />
           ))}
         </div>
@@ -214,20 +214,24 @@ const Testimonials = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mt-20"
+          className="text-center mt-24 border-t border-slate-100 pt-20"
         >
-          <h3 className="font-display text-3xl font-black text-white mb-6">
-            Ready to Build Your Success Story?
+          <h3 className="font-serif text-3xl md:text-4xl font-bold text-[#0d3862] mb-6">
+            Begin Your <span className="text-[#911116]">Journey</span> Toward Excellence
           </h3>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Link to="/discover" className="btn-premium">
-              Explore Opportunities
+          <p className="text-slate-600 mb-10 max-w-xl mx-auto">
+            Join a community of high-achievers and gain access to the most prestigious national academic opportunities.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link to="/events" className="btn-primary flex items-center gap-2 group">
+              Browse Directory
+              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <Link 
-              to="/auth" 
-              className="px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-2xl text-white font-semibold hover:bg-white/20 transition-all duration-300"
+            <Link
+              to="/auth"
+              className="px-8 py-3.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-bold hover:bg-slate-50 transition-all shadow-sm"
             >
-              Join Community
+              Join the Network
             </Link>
           </div>
         </motion.div>

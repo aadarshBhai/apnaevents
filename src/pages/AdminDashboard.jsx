@@ -43,7 +43,7 @@ const AdminDashboard = () => {
     const { user } = useAuth();
     console.log('Current user:', user);
     console.log('User role:', user?.role);
-    
+
     const [activeTab, setActiveTab] = useState('Overview');
     const [pendingOrganizers, setPendingOrganizers] = useState([]);
     const [stats, setStats] = useState({
@@ -65,13 +65,13 @@ const AdminDashboard = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState('');
     const [filterCategory, setFilterCategory] = useState('');
-    
+
     // Notification states
     const [notificationTitle, setNotificationTitle] = useState('');
     const [notificationMessage, setNotificationMessage] = useState('');
     const [notificationType, setNotificationType] = useState('info');
     const [showNotificationModal, setShowNotificationModal] = useState(false);
-    
+
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -92,46 +92,46 @@ const AdminDashboard = () => {
     // Initialize Socket.IO
     useEffect(() => {
         const newSocket = createSocket();
-                setSocket(newSocket);
-                
-                newSocket.on('connect', () => {
-                    console.log('Socket connected successfully');
-                    newSocket.emit('joinAdminRoom');
-                });
-                
-                newSocket.on('disconnect', () => {
-                    console.log('Socket disconnected');
-                });
-                
-                newSocket.on('connect_error', (error) => {
-                    console.error('Socket connection error:', error);
-                });
-                
-                newSocket.on('eventCreated', (event) => {
-                    setEvents(prev => [event, ...prev]);
-                    fetchStats();
-                });
-                
-                newSocket.on('eventUpdated', (event) => {
-                    setEvents(prev => prev.map(e => e._id === event._id ? event : e));
-                });
-                
-                newSocket.on('eventDeleted', ({ id }) => {
-                    setEvents(prev => prev.filter(e => e._id !== id));
-                    fetchStats();
-                });
-                
-                newSocket.on('organizerApproved', (organizer) => {
-                    console.log('Organizer approved:', organizer);
-                    fetchPendingOrganizers();
-                    fetchUsers();
-                });
-                
-                return () => {
-                    newSocket.close();
-                };
-            }, []);
-    
+        setSocket(newSocket);
+
+        newSocket.on('connect', () => {
+            console.log('Socket connected successfully');
+            newSocket.emit('joinAdminRoom');
+        });
+
+        newSocket.on('disconnect', () => {
+            console.log('Socket disconnected');
+        });
+
+        newSocket.on('connect_error', (error) => {
+            console.error('Socket connection error:', error);
+        });
+
+        newSocket.on('eventCreated', (event) => {
+            setEvents(prev => [event, ...prev]);
+            fetchStats();
+        });
+
+        newSocket.on('eventUpdated', (event) => {
+            setEvents(prev => prev.map(e => e._id === event._id ? event : e));
+        });
+
+        newSocket.on('eventDeleted', ({ id }) => {
+            setEvents(prev => prev.filter(e => e._id !== id));
+            fetchStats();
+        });
+
+        newSocket.on('organizerApproved', (organizer) => {
+            console.log('Organizer approved:', organizer);
+            fetchPendingOrganizers();
+            fetchUsers();
+        });
+
+        return () => {
+            newSocket.close();
+        };
+    }, []);
+
     // Fetch dashboard data
     useEffect(() => {
         fetchStats();
@@ -139,7 +139,7 @@ const AdminDashboard = () => {
         fetchUsers();
         fetchPendingOrganizers();
     }, []);
-    
+
     const fetchPendingOrganizers = async () => {
         try {
             const response = await api.get('/admin/organizers/pending');
@@ -149,19 +149,19 @@ const AdminDashboard = () => {
             setPendingOrganizers([]);
         }
     };
-    
+
     // Cleanup functions
     const triggerManualCleanup = async () => {
         try {
             setLoading(true);
             const result = await triggerEventCleanup();
             console.log('Cleanup triggered:', result);
-            
+
             // Refresh status after cleanup
             setTimeout(() => {
                 getCleanupStatusData();
             }, 2000);
-            
+
         } catch (error) {
             console.error('Cleanup error:', error);
         } finally {
@@ -221,7 +221,7 @@ const AdminDashboard = () => {
             });
 
             const data = await response.json();
-            
+
             if (data.success) {
                 alert(`✅ ${data.message}`);
                 // Refresh events list
@@ -252,7 +252,7 @@ const AdminDashboard = () => {
             });
         }
     };
-    
+
     const fetchEvents = async () => {
         try {
             setLoading(true);
@@ -261,7 +261,7 @@ const AdminDashboard = () => {
             if (searchTerm) params.append('search', searchTerm);
             if (filterStatus) params.append('status', filterStatus);
             if (filterCategory) params.append('category', filterCategory);
-            
+
             const response = await api.get(`/admin/events?${params}`);
             console.log('Events response:', response.data);
             setEvents(response.data.events || []);
@@ -272,7 +272,7 @@ const AdminDashboard = () => {
             setLoading(false);
         }
     };
-    
+
     const fetchUsers = async () => {
         try {
             const response = await api.get('/admin/users');
@@ -282,12 +282,12 @@ const AdminDashboard = () => {
             setUsers([]);
         }
     };
-    
+
     const handleEventSubmit = async (e) => {
         e.preventDefault();
         console.log('Submitting event...');
         const formDataObj = new FormData();
-        
+
         Object.keys(formData).forEach(key => {
             if (key === 'tags') {
                 formDataObj.append(key, formData[key].split(',').map(tag => tag.trim()));
@@ -295,14 +295,14 @@ const AdminDashboard = () => {
                 formDataObj.append(key, formData[key]);
             }
         });
-        
+
         if (document.getElementById('eventImage').files[0]) {
             formDataObj.append('image', document.getElementById('eventImage').files[0]);
         }
-        
+
         try {
             console.log('Sending request to:', editingEvent ? `/admin/events/${editingEvent._id}` : '/admin/events');
-            
+
             if (editingEvent) {
                 await api.put(`/admin/events/${editingEvent._id}`, formDataObj, {
                     headers: { 'Content-Type': 'multipart/form-data' }
@@ -312,7 +312,7 @@ const AdminDashboard = () => {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
             }
-            
+
             console.log('Event saved successfully');
             resetEventForm();
             fetchEvents();
@@ -322,7 +322,7 @@ const AdminDashboard = () => {
             alert(`Error saving event: ${error.response?.data?.message || error.message}`);
         }
     };
-    
+
     const handleApproveOrganizer = async (organizerId) => {
         try {
             await api.put(`/admin/organizers/${organizerId}/approve`);
@@ -333,7 +333,7 @@ const AdminDashboard = () => {
             alert('Error approving organizer. Please try again.');
         }
     };
-    
+
     const handleEditEvent = (event) => {
         setEditingEvent(event);
         setFormData({
@@ -354,7 +354,7 @@ const AdminDashboard = () => {
         });
         setShowEventModal(true);
     };
-    
+
     const resetEventForm = () => {
         setFormData({
             title: '',
@@ -376,7 +376,7 @@ const AdminDashboard = () => {
         setImagePreview(null);
         setShowEventModal(false);
     };
-    
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -387,12 +387,12 @@ const AdminDashboard = () => {
             reader.readAsDataURL(file);
         }
     };
-    
+
     const handleManage = (entity) => {
         setSelectedEntity(entity);
         setShowUserModal(true);
     };
-    
+
     const handleDelete = (id) => {
         if (window.confirm("Are you sure you want to delete this entity? This action is irreversible.")) {
             alert(`Entity ${id} has been wiped from the database.`);
@@ -407,45 +407,45 @@ const AdminDashboard = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-navy-950 text-slate-300 selection:bg-emerald-500/30">
+        <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-red-50">
             <Navbar />
-            <div className="pt-24 md:pt-32 pb-20">
+            <div className="pt-40 pb-20">
                 <div className="container mx-auto px-4">
 
                     {/* Admin Header */}
                     <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-12">
-                        <div className="bg-gradient-to-r from-navy-900 via-navy-800 to-navy-900 rounded-[3rem] p-10 md:p-12 shadow-2xl border border-white/10 relative overflow-hidden">
-                            <div className="absolute inset-0 bg-grid-white/[0.02] bg-[length:20px_20px]" />
+                        <div className="bg-slate-50 border border-slate-100 rounded-[3rem] p-10 md:p-12 shadow-xl shadow-slate-200/50 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
                             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 relative z-10">
                                 <div>
                                     <div className="flex items-center gap-4 mb-4">
-                                        <div className="bg-gradient-to-r from-red-500 to-red-600 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg shadow-red-500/25 flex items-center gap-2">
-                                            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                                        <div className="bg-blue-50 text-[#0d3862] text-[10px] font-bold px-4 py-2 rounded-xl uppercase tracking-widest border border-blue-100 flex items-center gap-2">
+                                            <div className="w-2 h-2 bg-[#0d3862] rounded-full"></div>
                                             System Root Access
                                         </div>
-                                        <div className="flex items-center gap-2 text-emerald-400 text-[10px] font-black uppercase tracking-widest">
-                                            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-                                            Live
+                                        <div className="flex items-center gap-2 text-[#911116] text-[10px] font-bold uppercase tracking-widest bg-red-50 px-3 py-1.5 rounded-xl border border-red-100">
+                                            <div className="w-2 h-2 rounded-full bg-[#911116] animate-pulse"></div>
+                                            Live Protocol
                                         </div>
                                     </div>
-                                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white mb-3">Admin Protocol</h1>
-                                    <p className="text-slate-300 font-bold text-lg">Systems operational. Logged in as: <span className="text-emerald-400">{user?.name}</span></p>
+                                    <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight text-[#0d3862] mb-3">Admin Protocol</h1>
+                                    <p className="text-slate-500 font-medium text-lg italic">Distinguished Root Admin: <span className="text-[#911116] font-bold">{user?.name}</span></p>
                                 </div>
                                 <div className="flex flex-col sm:flex-row gap-3">
-                                    <button 
+                                    <button
                                         onClick={() => {
                                             resetEventForm();
                                             setShowEventModal(true);
-                                        }} 
-                                        className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white py-4 px-6 rounded-2xl flex items-center gap-2 font-bold shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all duration-300"
+                                        }}
+                                        className="bg-[#0d3862] text-white py-4 px-8 rounded-2xl flex items-center gap-3 font-bold uppercase tracking-widest text-[10px] shadow-lg shadow-blue-900/10 hover:shadow-blue-900/20 transition-all duration-300"
                                     >
-                                        <Plus size={20} /> Create Event
+                                        <Plus size={18} /> Enroll Event
                                     </button>
-                                    <button onClick={() => alert("Downloading encrypted database dump...")} className="bg-white/10 backdrop-blur-sm text-white py-4 px-6 rounded-2xl flex items-center gap-2 font-bold border border-white/20 hover:bg-white/20 transition-all duration-300">
-                                        <Database size={20} /> Export DB
+                                    <button onClick={() => alert("Downloading encrypted database dump...")} className="bg-white text-[#0d3862] py-4 px-8 rounded-2xl flex items-center gap-3 font-bold border border-slate-200 uppercase tracking-widest text-[10px] hover:bg-slate-50 transition-all duration-300">
+                                        <Database size={18} /> Export DB
                                     </button>
-                                    <button onClick={() => alert("System Lockdown Initiated. All non-admin sessions terminated.")} className="bg-gradient-to-r from-red-500 to-red-600 text-white py-4 px-6 rounded-2xl flex items-center gap-2 font-bold shadow-lg shadow-red-500/25 hover:shadow-red-500/40 transition-all duration-300">
-                                        <Lock size={20} /> System Lock
+                                    <button onClick={() => alert("System Lockdown Initiated. All non-admin sessions terminated.")} className="bg-[#911116] text-white py-4 px-8 rounded-2xl flex items-center gap-3 font-bold uppercase tracking-widest text-[10px] shadow-lg shadow-red-900/10 hover:shadow-red-900/20 transition-all duration-300">
+                                        <Lock size={18} /> Protocol Lock
                                     </button>
                                 </div>
                             </div>
@@ -527,28 +527,27 @@ const AdminDashboard = () => {
                                 transition={{ delay: idx * 0.1 }}
                                 key={idx}
                                 whileHover={{ y: -4, scale: 1.02 }}
-                                className="bg-navy-900/50 rounded-[2rem] p-8 shadow-xl border border-white/5 hover:border-emerald-500/30 hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-300 backdrop-blur-sm"
+                                className="bg-slate-50 rounded-[2rem] p-8 shadow-xl border border-slate-100 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-900/5 transition-all duration-300"
                             >
-                                <div className={`w-16 h-16 bg-gradient-to-r ${stat.color} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
-                                    <div className="text-white">{stat.icon}</div>
+                                <div className={`w-14 h-14 bg-white border border-slate-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm`}>
+                                    <div className="text-[#0d3862]">{stat.icon}</div>
                                 </div>
-                                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">{stat.label}</div>
-                                <div className="text-3xl md:text-4xl font-black text-white">{stat.value}</div>
+                                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">{stat.label}</div>
+                                <div className="text-3xl md:text-4xl font-serif font-bold text-[#0d3862]">{stat.value}</div>
                             </motion.div>
                         ))}
                     </div>
 
                     {/* Navigation Tabs */}
-                    <div className="flex gap-4 mb-8 border-b border-white/10">
+                    <div className="flex gap-4 mb-8 border-b border-slate-100">
                         {['Overview', 'Events', 'Users', 'Organizers', 'Settings'].map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`pb-4 px-6 font-bold text-sm transition-all duration-300 border-b-2 ${
-                                    activeTab === tab
-                                        ? 'text-emerald-400 border-emerald-400'
-                                        : 'text-slate-500 border-transparent hover:text-slate-300'
-                                }`}
+                                className={`pb-4 px-6 font-bold text-[10px] uppercase tracking-widest transition-all duration-300 border-b-4 ${activeTab === tab
+                                    ? 'text-[#0d3862] border-[#0d3862]'
+                                    : 'text-slate-400 border-transparent hover:text-[#0d3862]'
+                                    }`}
                             >
                                 {tab}
                             </button>
@@ -557,27 +556,27 @@ const AdminDashboard = () => {
 
                     {/* Tab Content */}
                     {activeTab === 'Events' && (
-                        <div className="bg-navy-900/50 rounded-[2rem] p-10 shadow-xl border border-white/5 backdrop-blur-sm">
+                        <div className="bg-white rounded-[2rem] p-10 shadow-xl border border-slate-100">
                             <div className="flex justify-between items-center mb-8">
-                                <h3 className="text-2xl font-black flex items-center gap-3 text-white">
-                                    <Calendar className="text-emerald-500" /> Event Management
+                                <h3 className="text-2xl font-serif font-bold flex items-center gap-3 text-[#0d3862]">
+                                    <Calendar className="text-[#0d3862]" /> Event Management
                                 </h3>
                                 <div className="flex gap-4">
                                     <div className="relative">
-                                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                                         <input
                                             type="text"
                                             placeholder="Search events..."
                                             value={searchTerm}
                                             onChange={(e) => setSearchTerm(e.target.value)}
                                             onKeyPress={(e) => e.key === 'Enter' && fetchEvents()}
-                                            className="pl-12 pr-5 py-4 bg-navy-950 border border-white/10 rounded-2xl text-sm w-64 font-medium outline-none transition-all duration-300 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 text-slate-200 placeholder:text-slate-600"
+                                            className="pl-12 pr-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm w-64 font-medium outline-none transition-all duration-300 focus:border-blue-500/30 focus:ring-4 focus:ring-blue-500/5 text-slate-700"
                                         />
                                     </div>
                                     <select
                                         value={filterStatus}
                                         onChange={(e) => setFilterStatus(e.target.value)}
-                                        className="px-5 py-4 bg-navy-950 border border-white/10 rounded-2xl text-sm font-medium outline-none transition-all duration-300 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 text-slate-200"
+                                        className="px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-medium outline-none transition-all duration-300 focus:border-blue-500/30 focus:ring-4 focus:ring-blue-500/5 text-slate-700"
                                     >
                                         <option value="">All Status</option>
                                         <option value="upcoming">Upcoming</option>
@@ -593,7 +592,7 @@ const AdminDashboard = () => {
                                     </button>
                                 </div>
                             </div>
-                            
+
                             {loading ? (
                                 <div className="text-center py-12">
                                     <RefreshCw className="animate-spin mx-auto mb-4 text-emerald-400" size={32} />
@@ -617,8 +616,8 @@ const AdminDashboard = () => {
                                                     <td className="py-5">
                                                         <div className="flex items-center gap-4">
                                                             {event.image && (
-                                                                <img 
-                                                                    src={getImageUrl(event.image)} 
+                                                                <img
+                                                                    src={getImageUrl(event.image)}
                                                                     alt={event.title}
                                                                     className="w-12 h-12 rounded-xl object-cover"
                                                                 />
@@ -641,12 +640,11 @@ const AdminDashboard = () => {
                                                         </span>
                                                     </td>
                                                     <td className="py-5">
-                                                        <span className={`px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-wider ${
-                                                            event.status === 'upcoming' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                                                        <span className={`px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-wider ${event.status === 'upcoming' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
                                                             event.status === 'ongoing' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
-                                                            event.status === 'closed' ? 'bg-red-500/10 text-red-400 border border-red-500/20' :
-                                                            'bg-slate-500/10 text-slate-400 border border-slate-500/20'
-                                                        }`}>
+                                                                event.status === 'closed' ? 'bg-red-500/10 text-red-400 border border-red-500/20' :
+                                                                    'bg-slate-500/10 text-slate-400 border border-slate-500/20'
+                                                            }`}>
                                                             {event.status}
                                                         </span>
                                                     </td>
@@ -680,7 +678,7 @@ const AdminDashboard = () => {
                             )}
                         </div>
                     )}
-                    
+
                     {activeTab === 'Overview' && (
                         <div className="grid lg:grid-cols-3 gap-8">
                             {/* Control Panel */}
@@ -699,11 +697,10 @@ const AdminDashboard = () => {
                                                         <div className="font-bold text-slate-200">{event.title}</div>
                                                         <div className="text-sm text-slate-500">{event.category} • {new Date(event.createdAt).toLocaleDateString()}</div>
                                                     </div>
-                                                    <span className={`px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-wider ${
-                                                        event.status === 'upcoming' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                                                    <span className={`px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-wider ${event.status === 'upcoming' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
                                                         event.status === 'ongoing' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
-                                                        'bg-red-500/10 text-red-400 border border-red-500/20'
-                                                    }`}>
+                                                            'bg-red-500/10 text-red-400 border border-red-500/20'
+                                                        }`}>
                                                         {event.status}
                                                     </span>
                                                 </div>
@@ -770,7 +767,7 @@ const AdminDashboard = () => {
                             </div>
                         </div>
                     )}
-                    
+
                     {activeTab === 'Users' && (
                         <div className="bg-navy-900/50 rounded-[2rem] p-10 shadow-xl border border-white/5 backdrop-blur-sm">
                             <h3 className="text-2xl font-black flex items-center gap-3 text-white mb-8">
@@ -799,11 +796,10 @@ const AdminDashboard = () => {
                                                 </td>
                                                 <td className="py-5 text-sm text-slate-500">{user.email}</td>
                                                 <td className="py-5">
-                                                    <span className={`px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-wider ${
-                                                        user.role === 'admin' ? 'bg-red-500/10 text-red-400 border border-red-500/20' :
+                                                    <span className={`px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-wider ${user.role === 'admin' ? 'bg-red-500/10 text-red-400 border border-red-500/20' :
                                                         user.role === 'organizer' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' :
-                                                        'bg-slate-500/10 text-slate-400 border border-slate-500/20'
-                                                    }`}>
+                                                            'bg-slate-500/10 text-slate-400 border border-slate-500/20'
+                                                        }`}>
                                                         {user.role}
                                                     </span>
                                                 </td>
@@ -824,7 +820,7 @@ const AdminDashboard = () => {
                             </div>
                         </div>
                     )}
-                    
+
                     {activeTab === 'Organizers' && (
                         <div className="bg-navy-900/50 rounded-[2rem] p-10 shadow-xl border border-white/5 backdrop-blur-sm">
                             <h3 className="text-2xl font-black flex items-center gap-3 text-white mb-8">
@@ -866,18 +862,18 @@ const AdminDashboard = () => {
                             )}
                         </div>
                     )}
-                    
+
                     {activeTab === 'Settings' && (
                         <div className="bg-navy-900/50 rounded-[2rem] p-10 shadow-xl border border-white/5 backdrop-blur-sm">
                             <h3 className="text-2xl font-black flex items-center gap-3 text-white mb-8">
                                 <Settings className="text-emerald-500" /> Admin Settings
                             </h3>
-                            
+
                             <div className="grid md:grid-cols-2 gap-8">
                                 {/* Notification Broadcasting */}
                                 <div className="space-y-6">
                                     <h4 className="text-lg font-bold text-white mb-4">Send Notifications</h4>
-                                    
+
                                     <div className="space-y-4">
                                         <div>
                                             <label className="block text-sm font-medium text-slate-300 mb-2">
@@ -894,7 +890,7 @@ const AdminDashboard = () => {
                                                 <option value="error">Error</option>
                                             </select>
                                         </div>
-                                        
+
                                         <div>
                                             <label className="block text-sm font-medium text-slate-300 mb-2">
                                                 Title
@@ -907,7 +903,7 @@ const AdminDashboard = () => {
                                                 className="w-full px-4 py-3 bg-navy-800 border border-navy-700 text-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                                             />
                                         </div>
-                                        
+
                                         <div>
                                             <label className="block text-sm font-medium text-slate-300 mb-2">
                                                 Message
@@ -920,7 +916,7 @@ const AdminDashboard = () => {
                                                 className="w-full px-4 py-3 bg-navy-800 border border-navy-700 text-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none"
                                             />
                                         </div>
-                                        
+
                                         <button
                                             onClick={broadcastNotification}
                                             className="w-full btn-primary flex items-center justify-center gap-2"
@@ -934,7 +930,7 @@ const AdminDashboard = () => {
                                 {/* Cleanup Controls */}
                                 <div className="space-y-6">
                                     <h4 className="text-lg font-bold text-white mb-4">Event Management</h4>
-                                    
+
                                     <div className="space-y-4">
                                         <button
                                             onClick={addSampleEvents}
@@ -943,7 +939,7 @@ const AdminDashboard = () => {
                                             <Plus size={18} />
                                             Add Sample Events
                                         </button>
-                                        
+
                                         <button
                                             onClick={triggerManualCleanup}
                                             className="w-full btn-primary flex items-center justify-center gap-2"
@@ -951,7 +947,7 @@ const AdminDashboard = () => {
                                             <Trash2 size={18} />
                                             Cleanup Expired Events
                                         </button>
-                                        
+
                                         <button
                                             onClick={getCleanupStatus}
                                             className="w-full glass-card p-4 rounded-xl text-slate-300 hover:bg-navy-800 transition-all duration-300"
@@ -965,32 +961,31 @@ const AdminDashboard = () => {
                                 {/* Cleanup Status */}
                                 <div className="space-y-6">
                                     <h4 className="text-lg font-bold text-white mb-4">System Status</h4>
-                                    
+
                                     {cleanupStatus && (
                                         <div className="glass-card p-6 rounded-xl space-y-4">
                                             <div className="flex items-center justify-between">
                                                 <span className="text-emerald-400 font-medium">Auto-Cleanup Status:</span>
-                                                <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                                                    cleanupStatus.active 
-                                                        ? 'bg-emerald-500/20 text-emerald-300' 
-                                                        : 'bg-slate-500/20 text-slate-300'
-                                                }`}>
+                                                <span className={`px-3 py-1 rounded-full text-xs font-medium ${cleanupStatus.active
+                                                    ? 'bg-emerald-500/20 text-emerald-300'
+                                                    : 'bg-slate-500/20 text-slate-300'
+                                                    }`}>
                                                     {cleanupStatus.active ? 'Active' : 'Inactive'}
                                                 </span>
                                             </div>
-                                            
+
                                             {cleanupStatus.lastRun && (
                                                 <div className="text-sm text-slate-400">
                                                     <span className="font-medium">Last Run:</span> {new Date(cleanupStatus.lastRun).toLocaleString()}
                                                 </div>
                                             )}
-                                            
+
                                             {cleanupStatus.nextRun && (
                                                 <div className="text-sm text-slate-400">
                                                     <span className="font-medium">Next Run:</span> {new Date(cleanupStatus.nextRun).toLocaleString()}
                                                 </div>
                                             )}
-                                            
+
                                             {cleanupStatus.config && (
                                                 <div className="mt-4 pt-4 border-t border-white/10">
                                                     <h5 className="text-sm font-medium text-white mb-2">Recent Activity</h5>
@@ -1002,7 +997,7 @@ const AdminDashboard = () => {
                                                             )}
                                                         </div>
                                                     )}
-                                                    
+
                                                     {cleanupStatus.config.deletedEvents && (
                                                         <div className="mt-3 space-y-2">
                                                             <h6 className="text-xs font-medium text-slate-400 uppercase tracking-wider">Recently Deleted Events:</h6>
@@ -1017,11 +1012,11 @@ const AdminDashboard = () => {
                                             )}
                                         </div>
                                     ) || (
-                                        <div className="glass-card p-6 rounded-xl text-center">
-                                            <Database className="mx-auto mb-4 text-slate-600" size={48} />
-                                            <p className="text-slate-400">Loading cleanup status...</p>
-                                        </div>
-                                    )}
+                                            <div className="glass-card p-6 rounded-xl text-center">
+                                                <Database className="mx-auto mb-4 text-slate-600" size={48} />
+                                                <p className="text-slate-400">Loading cleanup status...</p>
+                                            </div>
+                                        )}
                                 </div>
                             </div>
                         </div>
@@ -1052,7 +1047,7 @@ const AdminDashboard = () => {
                                             <X size={20} />
                                         </button>
                                     </div>
-                                    
+
                                     <form onSubmit={handleEventSubmit} className="space-y-6">
                                         <div className="grid md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
@@ -1060,18 +1055,18 @@ const AdminDashboard = () => {
                                                 <input
                                                     type="text"
                                                     value={formData.title}
-                                                    onChange={(e) => setFormData({...formData, title: e.target.value})}
+                                                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                                                     className="w-full py-4 px-6 bg-navy-950 border border-white/10 rounded-2xl font-medium text-slate-200 placeholder:text-slate-600 outline-none transition-all duration-300 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10"
                                                     placeholder="Enter event title"
                                                     required
                                                 />
                                             </div>
-                                            
+
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Category *</label>
                                                 <select
                                                     value={formData.category}
-                                                    onChange={(e) => setFormData({...formData, category: e.target.value})}
+                                                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                                                     className="w-full py-4 px-6 bg-navy-950 border border-white/10 rounded-2xl font-medium text-slate-200 outline-none transition-all duration-300 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10"
                                                     required
                                                 >
@@ -1087,59 +1082,59 @@ const AdminDashboard = () => {
                                                 </select>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="space-y-2">
                                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Description *</label>
                                             <textarea
                                                 value={formData.description}
-                                                onChange={(e) => setFormData({...formData, description: e.target.value})}
+                                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                                 className="w-full h-32 py-4 px-6 bg-navy-950 border border-white/10 rounded-2xl font-medium text-slate-200 placeholder:text-slate-600 outline-none transition-all duration-300 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 resize-none"
                                                 placeholder="Describe your event"
                                                 required
                                             />
                                         </div>
-                                        
+
                                         <div className="grid md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Event Date *</label>
                                                 <input
                                                     type="date"
                                                     value={formData.date}
-                                                    onChange={(e) => setFormData({...formData, date: e.target.value})}
+                                                    onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                                                     className="w-full py-4 px-6 bg-navy-950 border border-white/10 rounded-2xl font-medium text-slate-200 outline-none transition-all duration-300 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10"
                                                     required
                                                 />
                                             </div>
-                                            
+
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Registration Deadline</label>
                                                 <input
                                                     type="date"
                                                     value={formData.deadline}
-                                                    onChange={(e) => setFormData({...formData, deadline: e.target.value})}
+                                                    onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
                                                     className="w-full py-4 px-6 bg-navy-950 border border-white/10 rounded-2xl font-medium text-slate-200 outline-none transition-all duration-300 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10"
                                                 />
                                             </div>
                                         </div>
-                                        
+
                                         <div className="grid md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Location *</label>
                                                 <input
                                                     type="text"
                                                     value={formData.location}
-                                                    onChange={(e) => setFormData({...formData, location: e.target.value})}
+                                                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                                                     className="w-full py-4 px-6 bg-navy-950 border border-white/10 rounded-2xl font-medium text-slate-200 placeholder:text-slate-600 outline-none transition-all duration-300 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10"
                                                     placeholder="Event location"
                                                     required
                                                 />
                                             </div>
-                                            
+
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Status</label>
                                                 <select
                                                     value={formData.status}
-                                                    onChange={(e) => setFormData({...formData, status: e.target.value})}
+                                                    onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                                                     className="w-full py-4 px-6 bg-navy-950 border border-white/10 rounded-2xl font-medium text-slate-200 outline-none transition-all duration-300 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10"
                                                 >
                                                     <option value="upcoming">Upcoming</option>
@@ -1149,7 +1144,7 @@ const AdminDashboard = () => {
                                                 </select>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="space-y-2">
                                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Event Image</label>
                                             <div className="flex items-center gap-6">
@@ -1170,7 +1165,7 @@ const AdminDashboard = () => {
                                                 </button>
                                                 {(imagePreview || (editingEvent && editingEvent.image)) && (
                                                     <div className="flex items-center gap-4">
-                                                        <img 
+                                                        <img
                                                             src={imagePreview || getImageUrl(editingEvent.image)}
                                                             alt="Preview"
                                                             className="w-16 h-16 rounded-xl object-cover"
@@ -1180,88 +1175,88 @@ const AdminDashboard = () => {
                                                 )}
                                             </div>
                                         </div>
-                                        
+
                                         <div className="grid md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Eligibility</label>
                                                 <input
                                                     type="text"
                                                     value={formData.eligibility}
-                                                    onChange={(e) => setFormData({...formData, eligibility: e.target.value})}
+                                                    onChange={(e) => setFormData({ ...formData, eligibility: e.target.value })}
                                                     className="w-full py-4 px-6 bg-navy-950 border border-white/10 rounded-2xl font-medium text-slate-200 placeholder:text-slate-600 outline-none transition-all duration-300 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10"
                                                     placeholder="Who can attend"
                                                 />
                                             </div>
-                                            
+
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Prizes</label>
                                                 <input
                                                     type="text"
                                                     value={formData.prizes}
-                                                    onChange={(e) => setFormData({...formData, prizes: e.target.value})}
+                                                    onChange={(e) => setFormData({ ...formData, prizes: e.target.value })}
                                                     className="w-full py-4 px-6 bg-navy-950 border border-white/10 rounded-2xl font-medium text-slate-200 placeholder:text-slate-600 outline-none transition-all duration-300 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10"
                                                     placeholder="Prizes and rewards"
                                                 />
                                             </div>
                                         </div>
-                                        
+
                                         <div className="grid md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Application Link</label>
                                                 <input
                                                     type="url"
                                                     value={formData.applicationLink}
-                                                    onChange={(e) => setFormData({...formData, applicationLink: e.target.value})}
+                                                    onChange={(e) => setFormData({ ...formData, applicationLink: e.target.value })}
                                                     className="w-full py-4 px-6 bg-navy-950 border border-white/10 rounded-2xl font-medium text-slate-200 placeholder:text-slate-600 outline-none transition-all duration-300 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10"
                                                     placeholder="Registration URL"
                                                 />
                                             </div>
-                                            
+
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Age Group</label>
                                                 <input
                                                     type="text"
                                                     value={formData.ageGroup}
-                                                    onChange={(e) => setFormData({...formData, ageGroup: e.target.value})}
+                                                    onChange={(e) => setFormData({ ...formData, ageGroup: e.target.value })}
                                                     className="w-full py-4 px-6 bg-navy-950 border border-white/10 rounded-2xl font-medium text-slate-200 placeholder:text-slate-600 outline-none transition-all duration-300 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10"
                                                     placeholder="Age restrictions"
                                                 />
                                             </div>
                                         </div>
-                                        
+
                                         <div className="space-y-2">
                                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Tags (comma-separated)</label>
                                             <input
                                                 type="text"
                                                 value={formData.tags}
-                                                onChange={(e) => setFormData({...formData, tags: e.target.value})}
+                                                onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
                                                 className="w-full py-4 px-6 bg-navy-950 border border-white/10 rounded-2xl font-medium text-slate-200 placeholder:text-slate-600 outline-none transition-all duration-300 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10"
                                                 placeholder="tech, innovation, workshop"
                                             />
                                         </div>
-                                        
+
                                         <div className="flex items-center gap-6">
                                             <label className="flex items-center gap-3 cursor-pointer">
                                                 <input
                                                     type="checkbox"
                                                     checked={formData.featured}
-                                                    onChange={(e) => setFormData({...formData, featured: e.target.checked})}
+                                                    onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
                                                     className="w-5 h-5 bg-navy-950 border border-white/10 rounded text-emerald-500 focus:ring-emerald-500/20"
                                                 />
                                                 <span className="text-sm font-medium text-slate-200">Featured Event</span>
                                             </label>
-                                            
+
                                             <label className="flex items-center gap-3 cursor-pointer">
                                                 <input
                                                     type="checkbox"
                                                     checked={formData.verified}
-                                                    onChange={(e) => setFormData({...formData, verified: e.target.checked})}
+                                                    onChange={(e) => setFormData({ ...formData, verified: e.target.checked })}
                                                     className="w-5 h-5 bg-navy-950 border border-white/10 rounded text-emerald-500 focus:ring-emerald-500/20"
                                                 />
                                                 <span className="text-sm font-medium text-slate-200">Verified</span>
                                             </label>
                                         </div>
-                                        
+
                                         <div className="flex gap-4 pt-6">
                                             <button
                                                 type="submit"

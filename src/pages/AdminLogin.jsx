@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Lock, AlertCircle, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Mail, Lock, AlertCircle, ShieldCheck, ArrowRight, Loader2, Shield } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/premium/Navbar';
 
@@ -28,18 +28,18 @@ const AdminLogin = () => {
 
         try {
             const res = await login(formData.email, formData.password);
-            
+
             // Strictly enforce Admin role
             if (res.user.role !== 'admin') {
                 await logout();
-                setError('Access Denied. This portal is for Administrators only.');
+                setError('Institutional Access Denied. Administrative credentials required.');
                 return;
             }
 
             navigate('/admin/dashboard');
         } catch (err) {
             console.error(err);
-            const message = err.response?.data?.message || 'Authentication failed. Verify credentials.';
+            const message = err.response?.data?.message || 'Authentication protocol failed. Verify secure credentials.';
             setError(message);
         } finally {
             setIsLoading(false);
@@ -47,28 +47,29 @@ const AdminLogin = () => {
     };
 
     return (
-        <div className="min-h-screen bg-navy-950 text-slate-300 font-body selection:bg-emerald-500/30">
+        <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-red-50">
             <Navbar />
-            
-            <div className="pt-32 pb-20 min-h-[calc(100vh-80px)] flex items-center justify-center relative overflow-hidden">
+
+            <div className="pt-40 pb-20 min-h-screen flex items-center justify-center relative overflow-hidden">
                 {/* Background Decoration */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-red-500/5 rounded-full blur-[100px] pointer-events-none" />
-                
+                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-red-500/5 rounded-full blur-[120px] pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
+
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="w-full max-w-md relative z-10 px-4"
                 >
-                    <div className="bg-navy-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl">
-                        <div className="text-center mb-10">
-                            <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-red-500/20">
-                                <ShieldCheck className="text-white" size={32} />
+                    <div className="bg-white border border-slate-100 rounded-[2.5rem] p-10 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] text-center">
+                        <div className="mb-10">
+                            <div className="w-20 h-20 bg-[#911116] rounded-[1.5rem] flex items-center justify-center mx-auto mb-8 shadow-xl shadow-red-900/10">
+                                <ShieldCheck className="text-white" size={40} />
                             </div>
-                            <h1 className="text-2xl font-black text-white mb-2 font-display tracking-tight">
-                                Admin Portal
+                            <h1 className="text-3xl font-serif font-bold text-[#0d3862] mb-3 tracking-tight">
+                                High-Level Access
                             </h1>
-                            <p className="text-slate-400 text-sm">
-                                Secure access for system administrators
+                            <p className="text-slate-500 text-sm font-medium uppercase tracking-widest leading-none">
+                                Secure Administrative Portal
                             </p>
                         </div>
 
@@ -78,45 +79,45 @@ const AdminLogin = () => {
                                     initial={{ opacity: 0, height: 0 }}
                                     animate={{ opacity: 1, height: 'auto' }}
                                     exit={{ opacity: 0, height: 0 }}
-                                    className="mb-6 overflow-hidden"
+                                    className="mb-8 overflow-hidden text-left"
                                 >
-                                    <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-start gap-3 text-red-400 text-sm">
-                                        <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                                    <div className="p-4 bg-red-50 border border-red-100 rounded-xl flex items-center gap-3 text-[#911116] text-[10px] font-bold uppercase tracking-widest">
+                                        <AlertCircle className="w-4 h-4 shrink-0" />
                                         <span>{error}</span>
                                     </div>
                                 </motion.div>
                             )}
                         </AnimatePresence>
 
-                        <form onSubmit={handleSubmit} className="space-y-5">
+                        <form onSubmit={handleSubmit} className="space-y-6 text-left">
                             <div>
-                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 ml-1">
-                                    Admin Email
+                                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-3 ml-1">
+                                    Official Credential
                                 </label>
-                                <div className="relative group">
-                                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-red-400 transition-colors" size={20} />
+                                <div className="relative">
+                                    <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
                                     <input
                                         type="email"
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        className="w-full pl-12 pr-4 py-4 bg-navy-950/50 border border-white/10 rounded-xl text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 transition-all"
-                                        placeholder="admin@ApnaEvents.com"
+                                        className="w-full pl-14 pr-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-[#0d3862] font-bold placeholder:text-slate-300 focus:outline-none focus:border-[#fcb900] shadow-inner transition-all"
+                                        placeholder="admin@apnaevents.com"
                                         required
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 ml-1">
-                                    Password
+                                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-3 ml-1">
+                                    Secure Key
                                 </label>
-                                <div className="relative group">
-                                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-red-400 transition-colors" size={20} />
+                                <div className="relative">
+                                    <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
                                     <input
                                         type="password"
                                         value={formData.password}
                                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                        className="w-full pl-12 pr-4 py-4 bg-navy-950/50 border border-white/10 rounded-xl text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 transition-all"
+                                        className="w-full pl-14 pr-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-[#0d3862] font-bold placeholder:text-slate-300 focus:outline-none focus:border-[#fcb900] shadow-inner transition-all"
                                         placeholder="••••••••"
                                         required
                                     />
@@ -126,17 +127,22 @@ const AdminLogin = () => {
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full py-4 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl font-bold shadow-lg shadow-red-500/25 hover:shadow-red-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-70 disabled:hover:scale-100 flex items-center justify-center gap-2"
+                                className="w-full py-5 bg-[#911116] text-white rounded-xl font-bold uppercase tracking-[0.2em] text-xs shadow-xl shadow-red-900/10 hover:shadow-red-900/20 active:scale-[0.98] transition-all disabled:opacity-70 flex items-center justify-center gap-3 mt-10"
                             >
                                 {isLoading ? (
-                                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                    <Loader2 className="w-6 h-6 animate-spin" />
                                 ) : (
                                     <>
-                                        Authenticate <ArrowRight size={20} />
+                                        Establish Link <ArrowRight size={18} />
                                     </>
                                 )}
                             </button>
                         </form>
+
+                        <div className="mt-12 p-4 bg-blue-50/50 rounded-xl border border-blue-100 flex items-center gap-3">
+                            <Shield className="text-[#0d3862] shrink-0" size={16} />
+                            <p className="text-[9px] font-bold text-[#0d3862] uppercase tracking-widest">Encrypted Institutional Connection Active</p>
+                        </div>
                     </div>
                 </motion.div>
             </div>

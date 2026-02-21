@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, Calendar, MapPin, Tag, ChevronDown, X, Trophy, Users, Shield, Loader2 } from 'lucide-react';
+import { Search, Filter, Calendar, MapPin, Tag, ChevronDown, X, Trophy, Users, Shield, Loader2, ArrowRight } from 'lucide-react';
 import EventCard from '../components/EventCard';
 import Navbar from '../components/premium/Navbar';
 import Footer from '../components/premium/Footer';
@@ -21,7 +21,6 @@ const EventsPage = () => {
         sortBy: 'date',
         sortOrder: 'asc'
     });
-    const [showFilters, setShowFilters] = useState(false);
     const [pagination, setPagination] = useState({
         currentPage: 1,
         totalPages: 1,
@@ -44,28 +43,19 @@ const EventsPage = () => {
         if (node) observer.current.observe(node);
     }, [loading, loadingMore, pagination.hasNext]);
 
-    // SEO Data for Events Page
-    // Initialize Socket.IO for real-time updates
     useEffect(() => {
         const newSocket = createSocket();
         setSocket(newSocket);
 
-        newSocket.on('connect', () => {
-            console.log('EventsPage: Socket connected');
-        });
-
         newSocket.on('eventCreated', (event) => {
-            console.log('EventsPage: New event created', event);
             setEvents(prev => [event, ...prev]);
         });
 
         newSocket.on('eventUpdated', (event) => {
-            console.log('EventsPage: Event updated', event);
             setEvents(prev => prev.map(e => e._id === event._id ? event : e));
         });
 
         newSocket.on('eventDeleted', ({ id }) => {
-            console.log('EventsPage: Event deleted', id);
             setEvents(prev => prev.filter(e => e._id !== id));
         });
 
@@ -74,13 +64,11 @@ const EventsPage = () => {
         };
     }, []);
 
-    // Update SEO metadata
     useEffect(() => {
         updatePageSEO('events');
     }, []);
 
     useEffect(() => {
-        // Reset when filters change
         setEvents([]);
         setPagination(prev => ({ ...prev, currentPage: 1 }));
         fetchEvents(1, true);
@@ -95,11 +83,8 @@ const EventsPage = () => {
 
     const fetchEvents = async (page = 1, isInitial = false) => {
         try {
-            if (isInitial) {
-                setLoading(true);
-            } else {
-                setLoadingMore(true);
-            }
+            if (isInitial) setLoading(true);
+            else setLoadingMore(true);
 
             const params = {
                 page,
@@ -108,11 +93,8 @@ const EventsPage = () => {
             };
             const data = await getEvents(params);
 
-            if (isInitial) {
-                setEvents(data.events || []);
-            } else {
-                setEvents(prev => [...prev, ...(data.events || [])]);
-            }
+            if (isInitial) setEvents(data.events || []);
+            else setEvents(prev => [...prev, ...(data.events || [])]);
 
             setPagination(data.pagination || {});
         } catch (error) {
@@ -136,54 +118,43 @@ const EventsPage = () => {
         setFilters(prev => ({ ...prev, [key]: value }));
     };
 
-    const formatDate = (dateString) => {
-        if (dateString instanceof Date) {
-            return dateString.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            });
-        }
-        return dateString;
-    };
-
     return (
-        <div className="min-h-screen bg-navy-950 text-slate-300 selection:bg-emerald-500/30">
+        <div className="min-h-screen bg-white text-slate-800">
             <Navbar />
 
-            <div className="pt-24 pb-20">
+            <div className="pt-32 pb-20">
                 <div className="container mx-auto px-4">
                     {/* Header */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-center mb-12"
+                        className="text-center mb-16"
                     >
-                        <h1 className="text-4xl md:text-5xl font-black text-white mb-4">
-                            Discover <span className="text-emerald-400">Opportunities</span>
+                        <h1 className="text-4xl md:text-6xl font-serif font-bold text-[#0d3862] mb-6 tracking-tight">
+                            Academic <span className="text-[#911116] italic">Directory</span>
                         </h1>
-                        <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-                            Explore verified competitions, fellowships, and programs from around the world
+                        <p className="text-lg text-slate-500 max-w-2xl mx-auto font-medium">
+                            Discover verified national competitions, research fellowships, and elite programs curated for the ambitious student.
                         </p>
                     </motion.div>
 
-                    {/* Filters */}
+                    {/* Controls Bar */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="glass-card p-6 mb-8 rounded-2xl"
+                        className="bg-[#F8FAFC] p-6 lg:p-8 mb-12 rounded-2xl border border-slate-100 shadow-sm"
                     >
                         <div className="grid md:grid-cols-4 gap-4">
                             {/* Search */}
                             <div className="relative">
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
+                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                                 <input
                                     type="text"
-                                    placeholder="Search events..."
+                                    placeholder="Search by keyword..."
                                     value={filters.search}
                                     onChange={(e) => handleFilterChange('search', e.target.value)}
-                                    className="w-full pl-10 pr-4 py-3 bg-navy-900 border border-navy-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500/50 transition-all placeholder:text-slate-500"
+                                    className="w-full pl-11 pr-4 py-3.5 bg-white border border-slate-200 rounded-xl text-slate-700 focus:outline-none focus:border-[#fcb900] transition-all placeholder:text-slate-400 font-semibold text-sm shadow-inner"
                                 />
                             </div>
 
@@ -192,16 +163,14 @@ const EventsPage = () => {
                                 <select
                                     value={filters.category}
                                     onChange={(e) => handleFilterChange('category', e.target.value)}
-                                    className="w-full px-4 py-3 bg-navy-900 border border-navy-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500/50 transition-all appearance-none"
+                                    className="w-full px-6 py-3.5 bg-white border border-slate-200 rounded-xl text-slate-600 focus:outline-none focus:border-[#fcb900] transition-all appearance-none font-bold uppercase tracking-widest text-[10px] shadow-inner"
                                 >
-                                    <option value="">All Categories</option>
+                                    <option value="">All Disciplines</option>
                                     {categories.map(cat => (
                                         <option key={cat} value={cat}>{cat}</option>
                                     ))}
                                 </select>
-                                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                                </div>
+                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" size={14} />
                             </div>
 
                             {/* Sort */}
@@ -209,15 +178,13 @@ const EventsPage = () => {
                                 <select
                                     value={filters.sortBy}
                                     onChange={(e) => handleFilterChange('sortBy', e.target.value)}
-                                    className="w-full px-4 py-3 bg-navy-900 border border-navy-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500/50 transition-all appearance-none"
+                                    className="w-full px-6 py-3.5 bg-white border border-slate-200 rounded-xl text-slate-600 focus:outline-none focus:border-[#fcb900] transition-all appearance-none font-bold uppercase tracking-widest text-[10px] shadow-inner"
                                 >
-                                    <option value="date">Sort by Date</option>
-                                    <option value="title">Sort by Name</option>
-                                    <option value="category">Sort by Category</option>
+                                    <option value="date">Chronological Order</option>
+                                    <option value="title">Lexicographical</option>
+                                    <option value="category">Categorical</option>
                                 </select>
-                                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                                </div>
+                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" size={14} />
                             </div>
 
                             {/* Status */}
@@ -225,71 +192,73 @@ const EventsPage = () => {
                                 <select
                                     value={filters.status}
                                     onChange={(e) => handleFilterChange('status', e.target.value)}
-                                    className="w-full px-4 py-3 bg-navy-900 border border-navy-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500/50 transition-all appearance-none"
+                                    className="w-full px-6 py-3.5 bg-white border border-slate-200 rounded-xl text-slate-600 focus:outline-none focus:border-[#fcb900] transition-all appearance-none font-bold uppercase tracking-widest text-[10px] shadow-inner"
                                 >
-                                    <option value="upcoming">Upcoming</option>
-                                    <option value="ongoing">Ongoing</option>
-                                    <option value="closed">Closed</option>
+                                    <option value="upcoming">Call for Entries</option>
+                                    <option value="ongoing">In Progress</option>
+                                    <option value="closed">Past Deadlines</option>
                                 </select>
-                                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                                </div>
+                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" size={14} />
                             </div>
                         </div>
                     </motion.div>
 
-                    {/* Events Grid */}
+                    {/* Results Section */}
                     {loading ? (
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {[...Array(6)].map((_, i) => (
-                                <div key={i} className="bg-navy-900 rounded-2xl border border-white/5 p-6 animate-pulse">
-                                    <div className="h-48 bg-navy-800 rounded-xl mb-4"></div>
-                                    <div className="h-6 bg-navy-800 rounded mb-2 w-3/4"></div>
-                                    <div className="h-4 bg-navy-800 rounded mb-2 w-1/2"></div>
-                                    <div className="h-4 bg-navy-800 rounded w-1/4"></div>
+                                <div key={i} className="bg-slate-50 rounded-2xl border border-slate-100 p-8 animate-pulse">
+                                    <div className="h-44 bg-slate-200 rounded-xl mb-6"></div>
+                                    <div className="h-6 bg-slate-200 rounded mb-4 w-3/4"></div>
+                                    <div className="h-4 bg-slate-100 rounded mb-4 w-1/2"></div>
+                                    <div className="h-4 bg-slate-50 rounded w-1/4"></div>
                                 </div>
                             ))}
                         </div>
                     ) : (
                         <>
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                {events.map((event, index) => (
-                                    <motion.div
-                                        key={event._id}
-                                        ref={index === events.length - 1 ? lastElementRef : null}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: (index % 12) * 0.05 }}
-                                    >
-                                        <EventCard {...event} />
-                                    </motion.div>
-                                ))}
-                            </div>
+                            {events.length > 0 ? (
+                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                    {events.map((event, index) => (
+                                        <motion.div
+                                            key={event._id}
+                                            ref={index === events.length - 1 ? lastElementRef : null}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: (index % 12) * 0.05 }}
+                                        >
+                                            <EventCard {...event} />
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="text-center py-32 bg-slate-50 rounded-3xl border border-slate-100 italic">
+                                    <Trophy size={48} className="mx-auto text-slate-300 mb-6" />
+                                    <h3 className="text-2xl font-serif text-[#0d3862] mb-3">No Opportunities Found</h3>
+                                    <p className="text-slate-500 font-medium max-w-sm mx-auto">Adjust your selection criteria to discover other items in the academic directory.</p>
+                                </div>
+                            )}
 
-                            {/* Infinite Scroll Loader */}
+                            {/* Pagination Status */}
                             {loadingMore && (
-                                <div className="flex justify-center items-center mt-12 py-8">
+                                <div className="flex justify-center items-center mt-12 py-10">
                                     <div className="flex flex-col items-center gap-4">
-                                        <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
-                                        <p className="text-slate-400 font-medium animate-pulse">Gathering more opportunities...</p>
+                                        <Loader2 className="w-8 h-8 text-[#0d3862] animate-spin" />
+                                        <p className="text-slate-400 font-bold uppercase tracking-widest text-[9px]">Retrieving Archival Data...</p>
                                     </div>
                                 </div>
                             )}
 
                             {!loading && !loadingMore && !pagination.hasNext && events.length > 0 && (
-                                <div className="text-center mt-16 py-8 border-t border-white/5">
-                                    <p className="text-slate-500 font-medium">You've reached the end! Check back later for more.</p>
+                                <div className="text-center mt-24 py-10 border-t border-slate-50">
+                                    <p className="text-slate-400 font-bold uppercase tracking-widest text-[9px]">Terminus reached • Directory updated daily</p>
                                 </div>
                             )}
-
-                            {/* Results Count */}
-                            <div className="text-center mt-8 text-sm text-slate-500">
-                                Showing {events.length} of {pagination.totalItems} events
-                            </div>
                         </>
                     )}
                 </div>
             </div>
+            <Footer stats={{ students: pagination.totalItems || '50K+', events: pagination.totalItems || '100+' }} />
         </div>
     );
 };

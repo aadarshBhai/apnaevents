@@ -20,7 +20,10 @@ import {
     Info,
     Check,
     X,
-    Laptop
+    Laptop,
+    Loader2,
+    Trophy,
+    Award
 } from 'lucide-react';
 import Navbar from '../components/premium/Navbar';
 import Footer from '../components/premium/Footer';
@@ -43,13 +46,10 @@ const EventDetail = () => {
         const fetchEvent = async () => {
             setLoading(true);
             try {
-                console.log('Fetching event with ID:', id);
                 const data = await getEventById(id);
-                console.log('Event data received:', data);
-                setEvent(data.event || data); // Handle both response formats
+                setEvent(data.event || data);
             } catch (err) {
                 console.error("Failed to fetch event", err);
-                // Fallback mock data
                 const isFootball = id?.includes('football');
                 setEvent({
                     title: isFootball ? "All-India Inter-School Football Cup" : "National Science Olympiad 2026",
@@ -63,7 +63,7 @@ const EventDetail = () => {
                         name: isFootball ? "Indian School Sports Fed" : "Global Scholar Association",
                         verified: true,
                         since: "2018",
-                        phone: "+91 98765 43210",
+                        phone: "+91 70508 19323",
                         email: isFootball ? "events@issf-sports.in" : "help@gsa-olympiad.org",
                         rating: 4.8,
                         totalStudents: "1.2M+"
@@ -77,8 +77,7 @@ const EventDetail = () => {
                         isFootball ? "Standard FIFA rules apply with 30-min halves." : "No negative marking for MCQ round."
                     ],
                     reviews: [
-                        { user: "Priya S.", rating: 5, comment: "Amazing experience! The certificate was verified and helped my applications.", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" },
-                        { user: "Rahul M.", rating: 4, comment: "Smooth registration and well-managed event.", avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=150" }
+                        { user: "Priya S.", rating: 5, comment: "Amazing experience!", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" }
                     ],
                     mode: isFootball ? "Offline" : "Online",
                     price: "Free",
@@ -117,119 +116,93 @@ const EventDetail = () => {
 
     if (loading || !event) {
         return (
-            <div className="min-h-screen bg-navy-950 flex items-center justify-center">
+            <div className="min-h-screen bg-white flex items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
-                    <p className="text-slate-400 font-bold">Verifying Competition Data...</p>
+                    <Loader2 className="w-12 h-12 text-[#0d3862] animate-spin" />
+                    <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px]">Verifying Channel Data...</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-navy-950 text-slate-300">
+        <div className="min-h-screen bg-white text-slate-800">
             <Navbar />
 
-            <div className="pt-24 md:pt-32 pb-24">
-                <div className="container-custom">
+            <div className="pt-32 pb-24">
+                <div className="container-custom px-4">
 
                     <div className="flex items-center gap-4 mb-8">
-                        <button onClick={() => navigate(-1)} className="p-2 glass-button rounded-xl text-slate-400 hover:text-emerald-400 transition-all">
+                        <button onClick={() => navigate(-1)} className="p-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-500 hover:text-[#0d3862] transition-all">
                             <ArrowLeft size={20} />
                         </button>
-                        <div className="flex items-center gap-2 text-sm font-bold text-slate-400">
-                            <Link to="/" className="hover:text-emerald-400 transition-colors">Home</Link>
-                            <ChevronRight size={14} />
-                            <span className="text-white line-clamp-1">{event.title}</span>
+                        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                            <Link to="/events" className="hover:text-[#0d3862] transition-colors">Directory</Link>
+                            <ChevronRight size={14} className="opacity-20" />
+                            <span className="text-[#0d3862] line-clamp-1">{event.title}</span>
                         </div>
                     </div>
 
-                    <div className="grid lg:grid-cols-12 gap-10">
-                        <div className="lg:col-span-8 space-y-10">
-                            <div className="rounded-3xl overflow-hidden relative shadow-2xl border border-white/5 group">
-                                <div className="h-64 md:h-96 w-full relative overflow-hidden">
+                    <div className="grid lg:grid-cols-12 gap-12">
+                        <div className="lg:col-span-8 space-y-12">
+                            <div className="rounded-3xl overflow-hidden relative shadow-lg border border-slate-100 group bg-slate-50">
+                                <div className="h-[400px] w-full relative">
                                     <img
                                         src={event.image}
                                         alt={event.title}
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-900/50 to-transparent"></div>
-                                    <div className="absolute bottom-8 left-8 right-8">
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d3862]/80 via-transparent to-transparent"></div>
+                                    <div className="absolute bottom-10 left-10 right-10">
                                         <div className="flex flex-wrap items-center gap-3 mb-4">
-                                            <span className="bg-emerald-500 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-500/20">{event.category}</span>
-                                            <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 backdrop-blur px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5">
-                                                <ShieldCheck size={14} className="text-emerald-500" />
-                                                Verified Opportunity
+                                            <span className="bg-[#fcb900] text-[#0d3862] px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-widest">{event.category}</span>
+                                            <span className="bg-white/95 backdrop-blur-sm px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 text-[#0d3862] shadow-sm">
+                                                <ShieldCheck size={14} className="text-[#0d3862]" />
+                                                Verified Enrollment
                                             </span>
                                         </div>
-                                        <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter leading-tight font-display">{event.title}</h1>
+                                        <h1 className="text-3xl md:text-5xl font-serif font-bold text-white tracking-tight leading-tight mb-4">{event.title}</h1>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="grid sm:grid-cols-2 gap-6">
-                                <div className="glass-card flex items-center gap-5 p-6 rounded-2xl">
-                                    <div className="w-14 h-14 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-blue-500/20">
-                                        <Calendar size={28} />
+                            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                {[
+                                    { icon: Calendar, label: "Schedule", value: event.date, color: "text-[#0d3862]" },
+                                    { icon: MapPin, label: "Medium", value: event.location, color: "text-[#0d3862]" },
+                                    { icon: Trophy, label: "Incentive", value: event.prizes || 'Accreditation', color: "text-[#fcb900]" },
+                                    { icon: Laptop, label: "Format", value: event.mode || 'Online', color: "text-[#911116]" }
+                                ].map((item, i) => (
+                                    <div key={i} className="bg-[#F8FAFC] border border-slate-100 p-8 rounded-2xl shadow-sm">
+                                        <item.icon className={`${item.color} mb-4`} size={24} />
+                                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{item.label}</div>
+                                        <div className="font-bold text-[#0d3862] text-sm line-clamp-1">{item.value}</div>
                                     </div>
-                                    <div>
-                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Date & Time</div>
-                                        <div className="font-bold text-white">{event.date}</div>
-                                    </div>
-                                </div>
-                                <div className="glass-card flex items-center gap-5 p-6 rounded-2xl">
-                                    <div className="w-14 h-14 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-emerald-500/20">
-                                        <MapPin size={28} />
-                                    </div>
-                                    <div>
-                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Venue</div>
-                                        <div className="font-bold text-white">{event.location}</div>
-                                    </div>
-                                </div>
-                                {event.deadline && (
-                                    <div className="glass-card flex items-center gap-5 p-6 rounded-2xl">
-                                        <div className="w-14 h-14 bg-amber-500/10 text-amber-400 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-amber-500/20">
-                                            <Calendar size={28} />
-                                        </div>
-                                        <div>
-                                            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Registration Deadline</div>
-                                            <div className="font-bold text-white">{new Date(event.deadline).toLocaleDateString()}</div>
-                                        </div>
-                                    </div>
-                                )}
-                                <div className="glass-card flex items-center gap-5 p-6 rounded-2xl">
-                                    <div className="w-14 h-14 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-purple-500/20">
-                                        <Laptop size={28} />
-                                    </div>
-                                    <div>
-                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Event Mode</div>
-                                        <div className="font-bold text-white">{event.mode || 'Online'}</div>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
 
-                            <div className="space-y-8">
+                            <div className="space-y-12">
                                 <div>
-                                    <h2 className="text-2xl font-black mb-4 tracking-tight flex items-center gap-3 text-white font-display">
-                                        <Info className="text-emerald-500" /> About the Event
+                                    <h2 className="text-2xl font-serif font-bold mb-6 text-[#0d3862] flex items-center gap-3">
+                                        <Info className="text-[#911116]" /> Prospectus Brief
                                     </h2>
-                                    <p className="text-slate-300 leading-relaxed text-lg font-medium">{event.description}</p>
+                                    <p className="text-slate-600 leading-relaxed text-lg font-medium">{event.description}</p>
                                 </div>
 
-                                <div className="glass-card p-8 md:p-10 rounded-3xl">
-                                    <h3 className="text-xl font-black mb-6 flex items-center gap-3 text-white font-display">
-                                        <FileText className="text-emerald-500" /> Participation Rules
+                                <div className="bg-[#F8FAFC] p-10 md:p-12 rounded-3xl border border-slate-100 shadow-sm">
+                                    <h3 className="text-xl font-serif font-bold mb-8 flex items-center gap-3 text-[#0d3862]">
+                                        <FileText className="text-[#0d3862]" /> Participation Protocol
                                     </h3>
-                                    <div className="grid gap-4">
+                                    <div className="grid gap-6">
                                         {(event.rules || [
                                             'Open to all interested participants.',
                                             'Registration must be completed before the deadline.',
                                             'Participants must follow all event guidelines.',
                                             'Valid ID proof may be required for verification.'
                                         ]).map((rule, idx) => (
-                                            <div key={idx} className="flex gap-4 items-start p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                                                <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-black shrink-0 mt-0.5">{idx + 1}</div>
-                                                <p className="font-bold text-slate-200 text-sm md:text-base">{rule}</p>
+                                            <div key={idx} className="flex gap-6 items-start">
+                                                <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#0d3862] flex items-center justify-center text-xs font-bold shrink-0">{idx + 1}</div>
+                                                <p className="font-semibold text-slate-600 text-base">{rule}</p>
                                             </div>
                                         ))}
                                     </div>
@@ -238,36 +211,32 @@ const EventDetail = () => {
                         </div>
 
                         <div className="lg:col-span-4 space-y-8">
-                            <div className="glass-card sticky top-28 p-8 md:p-10 rounded-3xl shadow-2xl shadow-navy-950/50">
-                                <div className="flex justify-between items-start mb-6">
+                            <div className="bg-white sticky top-32 p-10 rounded-3xl border border-slate-100 shadow-xl">
+                                <div className="flex justify-between items-start mb-8">
                                     <div>
-                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Registration Fee</div>
-                                        <div className="text-4xl font-black text-white">{event.registrationFee || event.price || 'Free'}</div>
+                                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Financial Commitment</div>
+                                        <div className="text-4xl font-serif font-bold text-[#0d3862]">{event.registrationFee || event.price || 'Scholarship Seat'}</div>
                                     </div>
                                     <div className="flex gap-2">
                                         <button
                                             onClick={() => setIsLiked(!isLiked)}
-                                            className={`p-3 rounded-xl transition-all shadow-sm ${isLiked ? 'bg-rose-500/20 text-rose-500' : 'bg-white/5 text-slate-400 hover:text-rose-500 hover:bg-white/10'}`}
+                                            className={`p-3.5 rounded-xl transition-all ${isLiked ? 'bg-red-50 text-[#911116]' : 'bg-slate-50 text-slate-400 hover:text-[#911116]'}`}
                                         >
                                             <Heart size={20} fill={isLiked ? "currentColor" : "none"} />
                                         </button>
                                         <button
                                             onClick={handleShare}
-                                            className="p-3 bg-white/5 rounded-xl text-slate-400 hover:text-emerald-400 hover:bg-white/10 transition-colors shadow-sm"
+                                            className="p-3.5 bg-slate-50 rounded-xl text-slate-400 hover:text-[#0d3862] transition-colors"
                                         >
                                             <Share2 size={20} />
                                         </button>
                                     </div>
                                 </div>
 
-                                <div className="space-y-4 mb-8">
-                                    <div className="flex items-center gap-3 text-sm font-bold text-emerald-400 bg-emerald-500/10 p-4 rounded-2xl border border-emerald-500/20">
-                                        <ShieldCheck size={20} className="shrink-0" />
-                                        <span>Free for all Students</span>
-                                    </div>
-                                    <div className="flex items-center gap-3 text-sm font-bold text-slate-300 bg-white/5 p-4 rounded-2xl border border-white/5">
-                                        <Users size={20} className="shrink-0" />
-                                        <span>84 Slots Remaining</span>
+                                <div className="space-y-4 mb-10">
+                                    <div className="flex items-center gap-3 text-[10px] font-bold text-[#0d3862] uppercase tracking-widest p-4 bg-blue-50/50 rounded-xl border border-blue-100">
+                                        <ShieldCheck size={18} className="shrink-0" />
+                                        <span>Official Academic Gateway</span>
                                     </div>
                                 </div>
 
@@ -279,46 +248,46 @@ const EventDetail = () => {
                                             setShowRegModal(true);
                                         }
                                     }}
-                                    className="btn-primary w-full py-5 text-lg rounded-2xl font-black tracking-tight flex items-center justify-center gap-2 group"
+                                    className="btn-primary w-full py-4 text-xs uppercase tracking-[0.2em] font-bold rounded-xl flex items-center justify-center gap-3 group"
                                 >
-                                    {user?.role === 'admin' ? 'Admin Protocol' :
-                                        user?.role === 'organizer' ? 'Management Hub' :
-                                            'Register Now'}
-                                    <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                                    {user?.role === 'admin' ? 'Administrative Hub' :
+                                        user?.role === 'organizer' ? 'Management Center' :
+                                            'Begin Registration'}
+                                    <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                 </button>
 
-                                <div className="mt-6 flex items-center justify-center gap-4">
-                                    <div className="flex items-center gap-1.5 opacity-40 text-slate-400">
-                                        <CreditCard size={14} /> <span className="text-[10px] font-black uppercase tracking-widest">Safe Payments</span>
+                                <div className="mt-8 flex items-center justify-center gap-4 opacity-50">
+                                    <div className="flex items-center gap-2">
+                                        <Lock size={12} /> <span className="text-[9px] font-bold uppercase tracking-widest">Encrypted Auth</span>
                                     </div>
-                                    <div className="w-1 h-1 rounded-full bg-slate-700"></div>
-                                    <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest opacity-40">Refund Policy</div>
+                                    <div className="w-1 h-1 rounded-full bg-slate-300"></div>
+                                    <div className="text-[9px] font-bold uppercase tracking-widest">SLA Verified</div>
                                 </div>
                             </div>
 
-                            <div className="glass-card p-8 rounded-3xl">
-                                <h3 className="text-[10px] font-black mb-6 uppercase tracking-widest text-slate-400">Host Entity</h3>
-                                <div className="flex items-center gap-4 mb-8">
-                                    <div className="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-500 font-black text-xl border border-emerald-500/20 shrink-0">
-                                        {(event.organizer?.name || 'Event').charAt(0)}
+                            <div className="bg-slate-50 p-10 rounded-3xl border border-slate-100">
+                                <h3 className="text-[10px] font-bold mb-8 uppercase tracking-widest text-slate-400">Institutional Host</h3>
+                                <div className="flex items-center gap-5 mb-10">
+                                    <div className="w-16 h-16 bg-[#0d3862] rounded-2xl flex items-center justify-center text-white font-serif font-bold text-2xl border border-slate-200 shrink-0 shadow-sm">
+                                        {(event.organizer?.name || 'A').charAt(0)}
                                     </div>
                                     <div>
-                                        <h4 className="font-black text-base flex items-center gap-1.5 text-white">
-                                            {event.organizer?.name || 'Event Organizer'}
-                                            <ShieldCheck size={16} className="text-emerald-500" />
+                                        <h4 className="font-serif font-bold text-lg flex items-center gap-2 text-[#0d3862]">
+                                            {event.organizer?.name || 'Academic Authority'}
+                                            <ShieldCheck size={18} className="text-[#fcb900]" />
                                         </h4>
-                                        <p className="text-[10px] font-bold text-slate-400">Trusted since {event.organizer?.since || '2020'}</p>
+                                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Verified Associate</p>
                                     </div>
                                 </div>
 
                                 <div className="space-y-3">
-                                    <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5">
-                                        <Phone size={16} className="text-emerald-500" />
-                                        <div className="text-sm font-bold text-slate-300">{event.organizer?.phone || '+91 98765 43210'}</div>
+                                    <div className="flex items-center gap-4 p-5 bg-white rounded-2xl border border-slate-100 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
+                                        <Phone size={18} className="text-[#0d3862]" />
+                                        <div className="text-xs font-bold text-slate-600">{event.organizer?.phone || '+91 70508 19323'}</div>
                                     </div>
-                                    <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5">
-                                        <Mail size={16} className="text-emerald-500" />
-                                        <div className="text-xs font-bold break-all text-slate-300">{event.contactInfo || event.organizer?.email || 'contact@event.com'}</div>
+                                    <div className="flex items-center gap-4 p-5 bg-white rounded-2xl border border-slate-100 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
+                                        <Mail size={18} className="text-[#0d3862]" />
+                                        <div className="text-xs font-bold text-slate-600 line-clamp-1">{event.contactInfo || event.organizer?.email || 'registrar@apnaevents.com'}</div>
                                     </div>
                                 </div>
                             </div>
@@ -331,172 +300,139 @@ const EventDetail = () => {
 
             <AnimatePresence>
                 {showRegModal && (
-                    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-                        {/* Backdrop */}
+                    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6 overflow-y-auto">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setShowRegModal(false)}
-                            className="fixed inset-0 bg-navy-950/90 backdrop-blur-sm"
+                            className="fixed inset-0 bg-[#0d3862]/40 backdrop-blur-sm"
                         />
 
-                        {/* Modal Content */}
                         <motion.div
-                            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                            initial={{ scale: 0.9, opacity: 0, y: 40 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
-                            exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                            className="bg-navy-900 w-full max-w-xl rounded-[2.5rem] relative shadow-2xl border border-white/10 z-10 flex flex-col overflow-hidden"
+                            exit={{ scale: 0.9, opacity: 0, y: 40 }}
+                            className="bg-white w-full max-w-xl rounded-[2rem] relative shadow-2xl border border-slate-200 z-10 flex flex-col overflow-hidden"
                             style={{ maxHeight: 'calc(100vh - 40px)' }}
                         >
-                            {isSuccess && (
+                            {isSuccess ? (
                                 <motion.div
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
-                                    className="absolute inset-0 z-50 bg-navy-900 flex flex-col items-center justify-center p-10 text-center"
+                                    className="absolute inset-0 z-50 bg-white flex flex-col items-center justify-center p-12 text-center"
                                 >
-                                    <div className="w-20 h-20 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center mb-6 border-2 border-emerald-500/30 shadow-inner">
-                                        <CheckCircle size={48} />
+                                    <div className="w-20 h-20 bg-blue-50 text-[#0d3862] rounded-full flex items-center justify-center mb-8 border border-blue-100">
+                                        <CheckCircle size={40} />
                                     </div>
-                                    {event.verified && (
-                                        <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl text-emerald-400 text-xs font-black uppercase tracking-widest shadow-lg shadow-emerald-500/5">
-                                            <ShieldCheck size={16} /> Verified Competition
-                                        </div>
-                                    )}
-                                    <h2 className="text-3xl font-black mb-4 tracking-tight text-white font-display">Spot Secured!</h2>
-                                    <p className="text-slate-400 mb-8 max-w-xs mx-auto">
-                                        You're all set for {event.title}. Check your email for the entry pass.
+                                    <h2 className="text-3xl font-serif font-bold mb-4 text-[#0d3862]">Seat Secured</h2>
+                                    <p className="text-slate-500 mb-10 font-medium text-sm">
+                                        Your registration request has been successfully filed. Please monitor your institutional email for the next steps.
                                     </p>
                                     <button
                                         onClick={() => setShowRegModal(false)}
-                                        className="btn-primary w-full py-4 rounded-xl font-bold"
+                                        className="btn-primary w-full py-4 rounded-xl"
                                     >
-                                        Done
+                                        Return to Portal
                                     </button>
                                 </motion.div>
-                            )}
-
-                            {/* Header */}
-                            <div className="p-8 border-b border-white/5 bg-navy-800/50 flex justify-between items-center">
-                                <div>
-                                    <h2 className="text-2xl font-black text-white font-display">Registration</h2>
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Step {regStep} of 2</p>
-                                </div>
-                                <button onClick={() => setShowRegModal(false)} className="p-2 bg-white/5 rounded-full hover:bg-white/10 text-slate-400 transition-colors">
-                                    <X size={20} />
-                                </button>
-                            </div>
-
-                            {/* Body */}
-                            <div className="p-8 overflow-y-auto custom-scrollbar">
-                                {regStep === 1 ? (
-                                    <div className="space-y-6">
-                                        <div className="flex items-start gap-4 p-4 bg-blue-500/10 rounded-2xl border border-blue-500/20">
-                                            <Info className="text-blue-400 shrink-0 mt-0.5" size={20} />
-                                            <div>
-                                                <h4 className="font-bold text-blue-400 text-sm mb-1">Prerequisite Check</h4>
-                                                <p className="text-xs text-blue-200/70 leading-relaxed">
-                                                    Ensure you have a valid student ID card from your institution.
-                                                    This event is strictly for current students.
-                                                </p>
-                                            </div>
+                            ) : (
+                                <>
+                                    <div className="p-10 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                                        <div>
+                                            <h2 className="text-2xl font-serif font-bold text-[#0d3862]">Registration</h2>
+                                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Verification Stage {regStep}/2</p>
                                         </div>
+                                        <button onClick={() => setShowRegModal(false)} className="p-3 bg-white border border-slate-100 rounded-xl hover:bg-slate-50 text-slate-400 transition-colors">
+                                            <X size={20} />
+                                        </button>
+                                    </div>
 
-                                        <div className="space-y-4">
-                                            <label className="flex items-center gap-4 p-4 rounded-2xl border border-white/10 cursor-pointer transition-all hover:bg-white/5 group">
-                                                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${hasPermission ? 'border-emerald-500 bg-emerald-500 text-white' : 'border-slate-600'}`}>
-                                                    {hasPermission && <Check size={14} strokeWidth={4} />}
+                                    <div className="p-10 overflow-y-auto">
+                                        {regStep === 1 ? (
+                                            <div className="space-y-8">
+                                                <div className="p-8 bg-blue-50 rounded-2xl border border-blue-100">
+                                                    <Info className="text-[#0d3862] mb-4" size={28} />
+                                                    <h4 className="font-bold text-[#0d3862] text-sm mb-2 uppercase tracking-wide">Eligibility Mandate</h4>
+                                                    <p className="text-slate-600 text-sm font-medium leading-relaxed">
+                                                        This opportunity is reserved for students with valid institutional credentials. Accreditation requires a digital copy of your student ID.
+                                                    </p>
                                                 </div>
-                                                <input
-                                                    type="checkbox"
-                                                    className="hidden"
-                                                    checked={hasPermission}
-                                                    onChange={(e) => setHasPermission(e.target.checked)}
-                                                />
-                                                <span className="font-bold text-slate-300 text-sm group-hover:text-white transition-colors">
-                                                    I confirm that I am a current student and meet the eligibility criteria.
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <form id="reg-form" onSubmit={handleRegister} className="space-y-6">
-                                        <div className="space-y-4">
-                                            <div>
-                                                <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2 pl-1">Full Name</label>
-                                                <input
-                                                    type="text"
-                                                    defaultValue={user?.name}
-                                                    className="w-full py-4 px-6 bg-white/5 border border-white/10 rounded-2xl font-medium text-white placeholder:text-slate-600 outline-none transition-all focus:border-emerald-500/50 focus:bg-white/10"
-                                                    placeholder="Enter your full name"
-                                                    required
-                                                />
-                                            </div>
-                                            <div>
-                                                <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2 pl-1">Email Address</label>
-                                                <input
-                                                    type="email"
-                                                    defaultValue={user?.email}
-                                                    className="w-full py-4 px-6 bg-white/5 border border-white/10 rounded-2xl font-medium text-white placeholder:text-slate-600 outline-none transition-all focus:border-emerald-500/50 focus:bg-white/10"
-                                                    placeholder="name@university.edu"
-                                                    required
-                                                />
-                                            </div>
-                                            <div>
-                                                <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2 pl-1">Phone Number</label>
-                                                <input
-                                                    type="tel"
-                                                    className="w-full py-4 px-6 bg-white/5 border border-white/10 rounded-2xl font-medium text-white placeholder:text-slate-600 outline-none transition-all focus:border-emerald-500/50 focus:bg-white/10"
-                                                    placeholder="+91 98765 43210"
-                                                    required
-                                                />
-                                            </div>
-                                        </div>
-                                    </form>
-                                )}
-                            </div>
 
-                            {/* Footer */}
-                            <div className="p-6 border-t border-white/5 bg-navy-800/50">
-                                {regStep === 1 ? (
-                                    <button
-                                        onClick={() => hasPermission && setRegStep(2)}
-                                        disabled={!hasPermission}
-                                        className={`w-full py-4 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-2
-                                            ${hasPermission
-                                                ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/20'
-                                                : 'bg-slate-700 text-slate-500 cursor-not-allowed'}`}
-                                    >
-                                        Continue <ArrowLeft className="rotate-180" size={20} />
-                                    </button>
-                                ) : (
-                                    <div className="flex gap-4">
-                                        <button
-                                            onClick={() => setRegStep(1)}
-                                            className="px-6 py-4 rounded-2xl font-bold text-slate-400 hover:bg-white/5 transition-colors"
-                                        >
-                                            Back
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            form="reg-form"
-                                            disabled={isSubmitting}
-                                            className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white py-4 rounded-2xl font-black text-lg transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2"
-                                        >
-                                            {isSubmitting ? (
-                                                <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                            ) : (
-                                                <>Confirm Registration <Check size={20} /></>
-                                            )}
-                                        </button>
+                                                <label className="flex items-center gap-6 p-8 bg-slate-50 border border-slate-100 rounded-2xl cursor-pointer transition-all hover:bg-slate-100 group">
+                                                    <div className={`w-7 h-7 rounded-lg border-2 flex items-center justify-center transition-colors ${hasPermission ? 'border-[#0d3862] bg-[#0d3862] text-white' : 'border-slate-300'}`}>
+                                                        {hasPermission && <Check size={16} strokeWidth={4} />}
+                                                    </div>
+                                                    <input
+                                                        type="checkbox"
+                                                        className="hidden"
+                                                        checked={hasPermission}
+                                                        onChange={(e) => setHasPermission(e.target.checked)}
+                                                    />
+                                                    <span className="font-bold text-slate-500 text-xs uppercase tracking-widest group-hover:text-[#0d3862] transition-colors">
+                                                        I affirm my academic enrollment.
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        ) : (
+                                            <form id="reg-form" onSubmit={handleRegister} className="space-y-6">
+                                                <div className="space-y-5">
+                                                    {[
+                                                        { label: "Nominee Name", placeholder: "Aadarsh Patel", value: user?.name, type: "text" },
+                                                        { label: "Institutional Email", placeholder: "scholar@university.edu", value: user?.email, type: "email" },
+                                                        { label: "Direct Contact", placeholder: "+91 00000 00000", type: "tel" }
+                                                    ].map((field, i) => (
+                                                        <div key={i}>
+                                                            <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">{field.label}</label>
+                                                            <input
+                                                                type={field.type}
+                                                                defaultValue={field.value}
+                                                                className="w-full py-4 px-6 bg-slate-50 border border-slate-200 rounded-xl font-bold text-[#0d3862] placeholder:text-slate-300 focus:border-[#fcb900] outline-none transition-all shadow-sm"
+                                                                placeholder={field.placeholder}
+                                                                required
+                                                            />
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </form>
+                                        )}
                                     </div>
-                                )}
-                            </div>
+
+                                    <div className="p-10 bg-slate-50 flex gap-4 border-t border-slate-100">
+                                        {regStep === 1 ? (
+                                            <button
+                                                onClick={() => hasPermission && setRegStep(2)}
+                                                disabled={!hasPermission}
+                                                className={`w-full py-4 rounded-xl font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 text-xs
+                                                    ${hasPermission
+                                                        ? 'bg-[#0d3862] text-white shadow-lg'
+                                                        : 'bg-slate-200 text-slate-400 cursor-not-allowed'}`}
+                                            >
+                                                Advance Protocol <ArrowLeft className="rotate-180" size={18} />
+                                            </button>
+                                        ) : (
+                                            <>
+                                                <button onClick={() => setRegStep(1)} className="px-8 py-4 rounded-xl font-bold text-slate-400 uppercase tracking-widest hover:text-[#0d3862] transition-colors text-xs">
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    type="submit"
+                                                    form="reg-form"
+                                                    disabled={isSubmitting}
+                                                    className="flex-1 bg-[#0d3862] text-white py-4 rounded-xl font-bold uppercase tracking-[0.2em] transition-all shadow-lg flex items-center justify-center gap-3 text-xs"
+                                                >
+                                                    {isSubmitting ? <Loader2 className="animate-spin" size={20} /> : 'Submit Manifest'}
+                                                </button>
+                                            </>
+                                        )}
+                                    </div>
+                                </>
+                            )}
                         </motion.div>
                     </div>
                 )}
             </AnimatePresence>
-        </div >
+        </div>
     );
 };
 

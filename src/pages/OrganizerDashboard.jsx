@@ -33,7 +33,7 @@ import {
     Mail,
     Phone
 } from 'lucide-react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/premium/Navbar';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -54,26 +54,27 @@ const OrganizerDashboard = () => {
     // Check if organizer is approved
     if (user.role === 'organizer' && !user.isApproved) {
         return (
-            <div className="min-h-screen bg-navy-950 flex items-center justify-center">
+            <div className="min-h-screen bg-white flex items-center justify-center font-sans">
                 <div className="max-w-md w-full mx-4">
-                    <div className="bg-navy-900 rounded-3xl p-8 border border-white/10 text-center">
-                        <div className="w-16 h-16 bg-yellow-500/10 text-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <AlertTriangle size={32} />
+                    <div className="bg-slate-50 border border-slate-100 rounded-[2.5rem] p-10 text-center shadow-2xl shadow-slate-200/50">
+                        <div className="w-20 h-20 bg-red-50 text-[#911116] rounded-3xl flex items-center justify-center mx-auto mb-8 border border-red-100">
+                            <AlertTriangle size={40} />
                         </div>
-                        <h2 className="text-2xl font-bold text-white mb-4">Account Pending Approval</h2>
-                        <p className="text-slate-400 mb-6">
-                            Your organizer account is waiting for admin approval. You'll be able to create events once your account is verified.
+                        <h2 className="text-3xl font-serif font-bold text-[#0d3862] mb-4">Credentials Pending</h2>
+                        <p className="text-slate-500 mb-8 font-medium italic">
+                            Your institutional organizer status is currently under scholarly review. Please allow up to 12 hours for official verification.
                         </p>
-                        <div className="bg-navy-800 rounded-2xl p-4 mb-6">
-                            <p className="text-sm text-slate-300">
-                                <strong>Next steps:</strong> An admin will review your application and approve your account shortly.
+                        <div className="bg-white border border-slate-100 rounded-2xl p-6 mb-8 text-left">
+                            <p className="text-xs font-bold text-[#0d3862] uppercase tracking-widest mb-2">Protocol Status:</p>
+                            <p className="text-sm text-slate-600 font-medium">
+                                <strong>Vetting Process:</strong> An officer will authenticate your profile and authorize your program enrollment capacity shortly.
                             </p>
                         </div>
                         <button
                             onClick={() => navigate('/')}
-                            className="w-full bg-navy-700 hover:bg-navy-600 text-white py-3 rounded-xl font-medium transition-colors"
+                            className="w-full bg-[#0d3862] hover:bg-[#0d3862]/90 text-white py-4 rounded-xl font-bold uppercase tracking-[0.2em] text-[10px] transition-all shadow-lg"
                         >
-                            Back to Home
+                            Return to Portal
                         </button>
                     </div>
                 </div>
@@ -118,41 +119,41 @@ const OrganizerDashboard = () => {
 
     const validateEventForm = () => {
         const newErrors = {};
-        
+
         if (!eventData.title.trim()) {
             newErrors.title = 'Event title is required';
         } else if (eventData.title.length < 5) {
             newErrors.title = 'Title must be at least 5 characters';
         }
-        
+
         if (!eventData.date) {
             newErrors.date = 'Event date is required';
         }
-        
+
         if (!eventData.location.trim()) {
             newErrors.location = 'Location is required';
         }
-        
+
         if (!eventData.description.trim()) {
             newErrors.description = 'Description is required';
         } else if (eventData.description.length < 50) {
             newErrors.description = 'Description must be at least 50 characters';
         }
-        
+
         if (!eventData.contactEmail.trim()) {
             newErrors.contactEmail = 'Contact email is required';
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(eventData.contactEmail)) {
             newErrors.contactEmail = 'Please enter a valid email address';
         }
-        
+
         if (eventData.contactPhone && !/^[+]?[\d\s\-\(\)]+$/.test(eventData.contactPhone)) {
             newErrors.contactPhone = 'Please enter a valid phone number';
         }
-        
+
         if (eventData.website && !/^https?:\/\//.test(eventData.website)) {
             newErrors.website = 'Please enter a valid URL starting with http:// or https://';
         }
-        
+
         setFormErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -176,11 +177,11 @@ const OrganizerDashboard = () => {
 
     const submitEvent = (e) => {
         e.preventDefault();
-        
+
         if (!validateEventForm()) {
             return;
         }
-        
+
         alert(`Event "${eventData.title}" has been submitted for vetting. It will appear on the platform within 12 hours.`);
         setShowCreateModal(false);
         setCreateStep(1);
@@ -204,7 +205,7 @@ const OrganizerDashboard = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-white font-sans selection:bg-red-50">
             <Navbar />
 
             <div className="pt-24 md:pt-32 pb-20">
@@ -212,29 +213,30 @@ const OrganizerDashboard = () => {
 
                     {/* Header */}
                     <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-12">
-                        <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-[3rem] p-10 md:p-12 shadow-2xl border border-slate-700/50">
-                            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
+                        <div className="bg-slate-50 border border-slate-100 rounded-[3rem] p-10 md:p-12 shadow-xl shadow-slate-200/50 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 relative z-10">
                                 <div>
                                     <div className="flex items-center gap-4 mb-4">
-                                        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg shadow-blue-500/25 flex items-center gap-2">
-                                            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                                            Organizer Hub
+                                        <div className="bg-blue-50 text-[#0d3862] text-[10px] font-bold px-4 py-2 rounded-xl uppercase tracking-widest border border-blue-100 flex items-center gap-2">
+                                            <div className="w-2 h-2 bg-[#0d3862] rounded-full"></div>
+                                            Scholastic Hub
                                         </div>
-                                        <div className="flex items-center gap-2 text-emerald-400 text-[10px] font-black uppercase tracking-widest">
-                                            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-                                            Live
+                                        <div className="flex items-center gap-2 text-[#911116] text-[10px] font-bold uppercase tracking-widest bg-red-50 px-3 py-1.5 rounded-xl border border-red-100">
+                                            <div className="w-2 h-2 rounded-full bg-[#911116] animate-pulse"></div>
+                                            Institutional Status
                                         </div>
                                     </div>
-                                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white mb-3">Organizer Hub</h1>
-                                    <p className="text-slate-300 font-bold text-lg">Welcome back, <span className="text-blue-400">{user.name}</span></p>
+                                    <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight text-[#0d3862] mb-3">Institutional Hub</h1>
+                                    <p className="text-slate-500 font-medium text-lg italic">Distinguished Administrator, <span className="text-[#911116] font-bold">{user.name}</span></p>
                                 </div>
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     onClick={handleCreateEvent}
-                                    className="bg-gradient-to-r from-blue-500 to-blue-600 text-white py-5 px-10 rounded-2xl flex items-center gap-3 font-bold shadow-xl shadow-blue-500/30 hover:shadow-blue-500/40 transition-all duration-300"
+                                    className="bg-[#911116] text-white py-5 px-10 rounded-2xl flex items-center gap-3 font-bold uppercase tracking-widest text-xs shadow-xl shadow-red-900/10 hover:shadow-red-900/20 transition-all duration-300"
                                 >
-                                    <Plus size={24} /> Create Event
+                                    <Plus size={24} /> Enlist Program
                                 </motion.button>
                             </div>
                         </div>
@@ -279,11 +281,10 @@ const OrganizerDashboard = () => {
                                                             type="text"
                                                             placeholder="e.g. National Robotics Championship 2026"
                                                             required
-                                                            className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${
-                                                                formErrors.title && touched.title
-                                                                    ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
-                                                                    : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                                            }`}
+                                                            className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${formErrors.title && touched.title
+                                                                ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
+                                                                : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
+                                                                }`}
                                                             value={eventData.title}
                                                             onChange={(e) => handleEventInputChange('title', e.target.value)}
                                                             onBlur={() => handleEventBlur('title')}
@@ -299,7 +300,7 @@ const OrganizerDashboard = () => {
                                                             </motion.p>
                                                         )}
                                                     </div>
-                                                    
+
                                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                         <div className="space-y-2">
                                                             <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-widest pl-1 flex items-center gap-2">
@@ -308,11 +309,10 @@ const OrganizerDashboard = () => {
                                                                 <span className="text-red-500">*</span>
                                                             </label>
                                                             <select
-                                                                className={`w-full appearance-none py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 outline-none transition-all duration-300 ${
-                                                                    formErrors.category && touched.category
-                                                                        ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
-                                                                        : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                                                }`}
+                                                                className={`w-full appearance-none py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 outline-none transition-all duration-300 ${formErrors.category && touched.category
+                                                                    ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
+                                                                    : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
+                                                                    }`}
                                                                 value={eventData.category}
                                                                 onChange={(e) => handleEventInputChange('category', e.target.value)}
                                                                 onBlur={() => handleEventBlur('category')}
@@ -334,11 +334,10 @@ const OrganizerDashboard = () => {
                                                                 <span className="text-red-500">*</span>
                                                             </label>
                                                             <select
-                                                                className={`w-full appearance-none py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 outline-none transition-all duration-300 ${
-                                                                    formErrors.mode && touched.mode
-                                                                        ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
-                                                                        : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                                                }`}
+                                                                className={`w-full appearance-none py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 outline-none transition-all duration-300 ${formErrors.mode && touched.mode
+                                                                    ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
+                                                                    : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
+                                                                    }`}
                                                                 value={eventData.mode}
                                                                 onChange={(e) => handleEventInputChange('mode', e.target.value)}
                                                                 onBlur={() => handleEventBlur('mode')}
@@ -349,7 +348,7 @@ const OrganizerDashboard = () => {
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                         <div className="space-y-2">
                                                             <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-widest pl-1 flex items-center gap-2">
@@ -360,11 +359,10 @@ const OrganizerDashboard = () => {
                                                             <input
                                                                 type="date"
                                                                 required
-                                                                className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 outline-none transition-all duration-300 ${
-                                                                    formErrors.date && touched.date
-                                                                        ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
-                                                                        : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                                                }`}
+                                                                className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 outline-none transition-all duration-300 ${formErrors.date && touched.date
+                                                                    ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
+                                                                    : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
+                                                                    }`}
                                                                 value={eventData.date}
                                                                 onChange={(e) => handleEventInputChange('date', e.target.value)}
                                                                 onBlur={() => handleEventBlur('date')}
@@ -393,7 +391,7 @@ const OrganizerDashboard = () => {
                                                             />
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div className="space-y-2">
                                                         <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-widest pl-1 flex items-center gap-2">
                                                             <MapPin size={14} />
@@ -404,11 +402,10 @@ const OrganizerDashboard = () => {
                                                             type="text"
                                                             placeholder="e.g. Nehru Centre, Mumbai"
                                                             required
-                                                            className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${
-                                                                formErrors.location && touched.location
-                                                                    ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
-                                                                    : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                                            }`}
+                                                            className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${formErrors.location && touched.location
+                                                                ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
+                                                                : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
+                                                                }`}
                                                             value={eventData.location}
                                                             onChange={(e) => handleEventInputChange('location', e.target.value)}
                                                             onBlur={() => handleEventBlur('location')}
@@ -424,7 +421,7 @@ const OrganizerDashboard = () => {
                                                             </motion.p>
                                                         )}
                                                     </div>
-                                                    
+
                                                     <button
                                                         type="button"
                                                         onClick={() => setCreateStep(2)}
@@ -445,11 +442,10 @@ const OrganizerDashboard = () => {
                                                             placeholder="Provide detailed information about your event including objectives, target audience, format, and what participants should expect..."
                                                             required
                                                             rows={6}
-                                                            className={`w-full h-32 p-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 resize-none ${
-                                                                formErrors.description && touched.description
-                                                                    ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
-                                                                    : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                                            }`}
+                                                            className={`w-full h-32 p-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 resize-none ${formErrors.description && touched.description
+                                                                ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
+                                                                : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
+                                                                }`}
                                                             value={eventData.description}
                                                             onChange={(e) => handleEventInputChange('description', e.target.value)}
                                                             onBlur={() => handleEventBlur('description')}
@@ -465,7 +461,7 @@ const OrganizerDashboard = () => {
                                                             </motion.p>
                                                         )}
                                                     </div>
-                                                    
+
                                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                         <div className="space-y-2">
                                                             <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-widest pl-1 flex items-center gap-2">
@@ -496,7 +492,7 @@ const OrganizerDashboard = () => {
                                                             />
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div className="space-y-2">
                                                         <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-widest pl-1 flex items-center gap-2">
                                                             <Trophy size={14} />
@@ -510,7 +506,7 @@ const OrganizerDashboard = () => {
                                                             onChange={(e) => handleEventInputChange('prizes', e.target.value)}
                                                         />
                                                     </div>
-                                                    
+
                                                     <div className="space-y-2">
                                                         <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-widest pl-1 flex items-center gap-2">
                                                             <FileText size={14} />
@@ -524,7 +520,7 @@ const OrganizerDashboard = () => {
                                                             onChange={(e) => handleEventInputChange('rules', e.target.value)}
                                                         />
                                                     </div>
-                                                    
+
                                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                         <div className="space-y-2">
                                                             <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-widest pl-1 flex items-center gap-2">
@@ -536,11 +532,10 @@ const OrganizerDashboard = () => {
                                                                 type="email"
                                                                 placeholder="contact@organization.com"
                                                                 required
-                                                                className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${
-                                                                    formErrors.contactEmail && touched.contactEmail
-                                                                        ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
-                                                                        : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                                                }`}
+                                                                className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${formErrors.contactEmail && touched.contactEmail
+                                                                    ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
+                                                                    : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
+                                                                    }`}
                                                                 value={eventData.contactEmail}
                                                                 onChange={(e) => handleEventInputChange('contactEmail', e.target.value)}
                                                                 onBlur={() => handleEventBlur('contactEmail')}
@@ -564,11 +559,10 @@ const OrganizerDashboard = () => {
                                                             <input
                                                                 type="tel"
                                                                 placeholder="+91 98765 43210"
-                                                                className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${
-                                                                    formErrors.contactPhone && touched.contactPhone
-                                                                        ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
-                                                                        : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                                                }`}
+                                                                className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${formErrors.contactPhone && touched.contactPhone
+                                                                    ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
+                                                                    : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
+                                                                    }`}
                                                                 value={eventData.contactPhone}
                                                                 onChange={(e) => handleEventInputChange('contactPhone', e.target.value)}
                                                                 onBlur={() => handleEventBlur('contactPhone')}
@@ -585,7 +579,7 @@ const OrganizerDashboard = () => {
                                                             )}
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div className="space-y-2">
                                                         <label className="text-[11px] font-extrabold text-slate-600 uppercase tracking-widest pl-1 flex items-center gap-2">
                                                             <Globe size={14} />
@@ -594,11 +588,10 @@ const OrganizerDashboard = () => {
                                                         <input
                                                             type="url"
                                                             placeholder="https://example.com/event"
-                                                            className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${
-                                                                formErrors.website && touched.website
-                                                                    ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
-                                                                    : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
-                                                            }`}
+                                                            className={`w-full py-4 px-6 bg-white border-2 rounded-2xl font-medium text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300 ${formErrors.website && touched.website
+                                                                ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100'
+                                                                : 'border-slate-200 focus:bg-white focus:border-primary/30 focus:ring-4 focus:ring-primary/10 hover:border-slate-300'
+                                                                }`}
                                                             value={eventData.website}
                                                             onChange={(e) => handleEventInputChange('website', e.target.value)}
                                                             onBlur={() => handleEventBlur('website')}
@@ -614,7 +607,7 @@ const OrganizerDashboard = () => {
                                                             </motion.p>
                                                         )}
                                                     </div>
-                                                    
+
                                                     <div className="flex gap-4">
                                                         <button
                                                             type="button"
@@ -650,14 +643,14 @@ const OrganizerDashboard = () => {
                                 key={idx}
                                 className="bg-white rounded-[2rem] p-8 shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-300"
                             >
-                                <div className={`w-16 h-16 bg-gradient-to-r ${stat.color} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
-                                    <div className="text-white">{stat.icon}</div>
+                                <div className={`w-14 h-14 bg-blue-50 border border-blue-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm`}>
+                                    <div className="text-[#0d3862]">{stat.icon}</div>
                                 </div>
-                                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">{stat.label}</div>
-                                <div className="text-3xl md:text-4xl font-black text-slate-900 mb-2">{stat.value}</div>
+                                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">{stat.label}</div>
+                                <div className="text-3xl md:text-4xl font-serif font-bold text-[#0d3862] mb-2">{stat.value}</div>
                                 <div className="flex items-center gap-2">
-                                    <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
-                                    <span className="text-sm font-bold text-emerald-600">{stat.change}</span>
+                                    <div className="w-2 h-2 rounded-full bg-[#911116]"></div>
+                                    <span className="text-sm font-bold text-[#911116]">{stat.change}</span>
                                 </div>
                             </motion.div>
                         ))}
@@ -673,13 +666,13 @@ const OrganizerDashboard = () => {
                             <div className="bg-gradient-to-br from-white via-white to-slate-50/30 rounded-[2.5rem] p-10 shadow-2xl border border-slate-100/50">
                                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-8">
                                     <div>
-                                        <h3 className="text-3xl font-black tracking-tighter flex items-center gap-4 mb-2">
-                                            <div className="w-12 h-12 bg-gradient-to-r from-primary to-primary/80 rounded-2xl flex items-center justify-center shadow-xl shadow-primary/30">
-                                                <Zap size={28} className="text-white" />
+                                        <h3 className="text-3xl font-serif font-bold tracking-tighter flex items-center gap-4 mb-2">
+                                            <div className="w-12 h-12 bg-blue-50 border border-blue-100 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-900/5">
+                                                <Zap size={24} className="text-[#0d3862]" />
                                             </div>
-                                            Active Competitions
+                                            Academic Portfolio
                                         </h3>
-                                        <p className="text-slate-500 font-medium">Manage and monitor your live events</p>
+                                        <p className="text-slate-500 font-medium">Verified list of active scholarly programs</p>
                                     </div>
                                     <div className="relative w-full lg:w-96">
                                         <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400" size={22} />
@@ -704,12 +697,11 @@ const OrganizerDashboard = () => {
                                         >
                                             {/* Background decoration */}
                                             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
-                                            
-                                            <div className={`w-20 h-20 rounded-3xl flex items-center justify-center shrink-0 relative z-10 ${
-                                                event.status === 'Live' ? 'bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-2xl shadow-green-500/30' :
+
+                                            <div className={`w-20 h-20 rounded-3xl flex items-center justify-center shrink-0 relative z-10 ${event.status === 'Live' ? 'bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-2xl shadow-green-500/30' :
                                                 event.status === 'Draft' ? 'bg-gradient-to-br from-slate-500 to-slate-700 text-white shadow-2xl shadow-slate-500/30' :
-                                                'bg-gradient-to-br from-orange-500 to-red-600 text-white shadow-2xl shadow-orange-500/30'
-                                            }`}>
+                                                    'bg-gradient-to-br from-orange-500 to-red-600 text-white shadow-2xl shadow-orange-500/30'
+                                                }`}>
                                                 <Calendar size={36} />
                                                 {event.status === 'Live' && (
                                                     <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 rounded-full animate-pulse border-2 border-white"></div>
@@ -721,11 +713,10 @@ const OrganizerDashboard = () => {
                                                     <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-4 bg-slate-100 px-3 py-1 rounded-2xl">{event.date}</span>
                                                 </div>
                                                 <div className="flex items-center gap-4 mb-4">
-                                                    <span className={`text-[10px] font-black px-4 py-2 rounded-2xl uppercase tracking-wider font-bold ${
-                                                        event.status === 'Live' ? 'bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border-2 border-green-300 shadow-sm' :
+                                                    <span className={`text-[10px] font-black px-4 py-2 rounded-2xl uppercase tracking-wider font-bold ${event.status === 'Live' ? 'bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border-2 border-green-300 shadow-sm' :
                                                         event.status === 'Draft' ? 'bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700 border-2 border-slate-300 shadow-sm' :
-                                                        'bg-gradient-to-r from-orange-100 to-red-100 text-orange-800 border-2 border-orange-300 shadow-sm'
-                                                    }`}>
+                                                            'bg-gradient-to-r from-orange-100 to-red-100 text-orange-800 border-2 border-orange-300 shadow-sm'
+                                                        }`}>
                                                         {event.status}
                                                     </span>
                                                     <div className="flex items-center gap-2 text-sm font-bold text-slate-600">
@@ -769,7 +760,7 @@ const OrganizerDashboard = () => {
                                     <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full -mr-48 -mt-48 blur-3xl animate-pulse"></div>
                                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full -ml-32 -mb-32 blur-2xl animate-pulse delay-1000"></div>
                                 </div>
-                                
+
                                 <div className="relative z-10">
                                     <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-8">
                                         <div>
@@ -785,7 +776,7 @@ const OrganizerDashboard = () => {
                                             <MessageSquare size={40} className="text-white" />
                                         </div>
                                     </div>
-                                    
+
                                     <div className="space-y-8">
                                         <div className="flex flex-wrap gap-4">
                                             {['All Participants', 'Winners Only', 'Volunteers', 'Judges'].map((target, idx) => (
@@ -803,7 +794,7 @@ const OrganizerDashboard = () => {
                                                 </motion.button>
                                             ))}
                                         </div>
-                                        
+
                                         <div className="relative">
                                             <textarea
                                                 value={broadcastMsg}
@@ -815,7 +806,7 @@ const OrganizerDashboard = () => {
                                                 {broadcastMsg.length}/500
                                             </div>
                                         </div>
-                                        
+
                                         <div className="flex flex-col sm:flex-row justify-between items-center gap-8">
                                             <div className="flex items-center gap-4">
                                                 <div className="w-4 h-4 rounded-full bg-emerald-400 animate-pulse shadow-2xl shadow-emerald-400/50"></div>
@@ -827,7 +818,7 @@ const OrganizerDashboard = () => {
                                             <motion.button
                                                 whileHover={{ scale: 1.05 }}
                                                 whileTap={{ scale: 0.95 }}
-                                                onClick={() => alert('Broadcast feature coming soon!')} 
+                                                onClick={() => alert('Broadcast feature coming soon!')}
                                                 className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white py-6 px-12 rounded-3xl font-black text-lg shadow-2xl shadow-emerald-500/40 hover:shadow-emerald-500/60 transition-all duration-300 flex items-center gap-3"
                                             >
                                                 <MessageSquare size={24} /> Send Broadcast Now
@@ -850,7 +841,7 @@ const OrganizerDashboard = () => {
                             >
                                 {/* Background decoration */}
                                 <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/10 rounded-full -mr-24 -mt-24 blur-2xl"></div>
-                                
+
                                 <div className="relative z-10">
                                     <h3 className="text-2xl font-black mb-6 flex items-center gap-4 tracking-tight">
                                         <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/25">
@@ -930,11 +921,10 @@ const OrganizerDashboard = () => {
                                         { label: 'Contact Person Assigned', done: false }
                                     ].map((item, idx) => (
                                         <motion.div key={idx} whileHover={{ x: 4 }} className="flex items-center gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-                                            <div className={`w-8 h-8 rounded-2xl flex items-center justify-center border-2 transition-all duration-300 ${
-                                                item.done 
-                                                    ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 border-emerald-600 text-white shadow-lg shadow-emerald-500/25' 
-                                                    : 'bg-slate-100 border-slate-300 text-slate-400'
-                                            }`}>
+                                            <div className={`w-8 h-8 rounded-2xl flex items-center justify-center border-2 transition-all duration-300 ${item.done
+                                                ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 border-emerald-600 text-white shadow-lg shadow-emerald-500/25'
+                                                : 'bg-slate-100 border-slate-300 text-slate-400'
+                                                }`}>
                                                 {item.done && <CheckCircle2 size={18} />}
                                             </div>
                                             <span className={`text-sm font-bold ${item.done ? 'text-slate-900' : 'text-slate-500'}`}>{item.label}</span>

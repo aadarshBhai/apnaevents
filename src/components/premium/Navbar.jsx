@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon, ChevronDown } from 'lucide-react';
+import { Menu, X, Sun, Moon, ChevronDown, Shield } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
@@ -71,8 +71,8 @@ const Navbar = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-          ? 'glass-dark shadow-2xl'
-          : 'bg-transparent'
+          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200'
+          : 'bg-white/50 backdrop-blur-sm'
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,32 +80,31 @@ const Navbar = () => {
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-3 group">
               <motion.div
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.8 }}
-                className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-amber-500/25"
+                whileHover={{ scale: 1.05 }}
+                className="w-10 h-10 bg-[#0d3862] rounded-lg flex items-center justify-center shadow-md"
               >
-                <svg className="w-7 h-7 text-navy-950" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
-                </svg>
+                <div className="text-white">
+                  <Shield size={20} fill="currentColor" />
+                </div>
               </motion.div>
               <div>
-                <h1 className="font-display text-2xl font-black text-white leading-none">
-                  apna<span className="text-amber-500">events</span>
+                <h1 className="font-serif text-2xl font-bold text-[#0d3862] leading-none tracking-tight">
+                  apna<span className="text-[#911116]">events</span>
                 </h1>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Merit Pipeline</p>
+                <p className="text-[9px] text-slate-500 font-bold uppercase tracking-[0.2em] mt-1">Ashoka Academic Network</p>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8">
-              <div className="flex items-center space-x-6">
+            <div className="hidden lg:flex items-center space-x-1">
+              <div className="flex items-center space-x-1">
                 {navLinks.map((link) => (
                   <Link
                     key={link.name}
                     to={link.path}
-                    className={`relative px-4 py-2 rounded-lg text-sm font-bold transition-all duration-200 ${location.pathname === link.path
-                      ? 'bg-amber-500/10 text-amber-500'
-                      : 'text-slate-300 hover:text-white hover:bg-white/5'
+                    className={`px-4 py-2 rounded-lg text-[13px] font-bold transition-all duration-200 ${location.pathname === link.path
+                      ? 'text-[#0d3862] bg-slate-100'
+                      : 'text-slate-600 hover:text-[#0d3862] hover:bg-slate-50'
                       }`}
                   >
                     {link.name}
@@ -115,15 +114,15 @@ const Navbar = () => {
 
               {/* User Menu */}
               {user ? (
-                <div className="relative">
+                <div className="relative ml-4">
                   <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="flex items-center space-x-3 px-4 py-2 bg-white/5 backdrop-blur-sm rounded-2xl text-white hover:bg-white/10 transition-all duration-200 border border-white/5"
+                    className="flex items-center space-x-3 px-4 py-2 bg-slate-100 rounded-lg text-slate-700 hover:bg-slate-200 transition-all duration-200 border border-slate-200"
                   >
-                    <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center">
-                      <span className="text-navy-950 text-sm font-black">
+                    <div className="w-8 h-8 bg-[#0d3862] rounded-full flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">
                         {user.name.charAt(0).toUpperCase()}
                       </span>
                     </div>
@@ -134,10 +133,10 @@ const Navbar = () => {
                   <AnimatePresence>
                     {isDropdownOpen && (
                       <motion.div
-                        initial={{ opacity: 0, y: -10 }}
+                        initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className="absolute right-0 mt-2 w-56 glass-dark rounded-2xl shadow-2xl border border-white/10 overflow-hidden"
+                        exit={{ opacity: 0, y: 10 }}
+                        className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden"
                       >
                         <div className="py-2">
                           {userLinks.map((link) => (
@@ -145,17 +144,17 @@ const Navbar = () => {
                               key={link.name}
                               to={link.path}
                               onClick={() => setIsDropdownOpen(false)}
-                              className="block px-4 py-3 text-sm font-bold text-slate-300 hover:bg-white/10 hover:text-white transition-colors duration-200"
+                              className="block px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-[#0d3862] transition-colors duration-200"
                             >
                               {link.name}
                             </Link>
                           ))}
-                          <div className="border-t border-white/10 my-2"></div>
+                          <div className="border-t border-slate-100 my-2"></div>
                           <button
                             onClick={handleLogout}
-                            className="block w-full text-left px-4 py-3 text-sm font-bold text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors duration-200"
+                            className="block w-full text-left px-4 py-3 text-sm font-bold text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors duration-200"
                           >
-                            Sign Out
+                            Logout
                           </button>
                         </div>
                       </motion.div>
@@ -163,39 +162,29 @@ const Navbar = () => {
                   </AnimatePresence>
                 </div>
               ) : (
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-4 ml-4">
                   <Link
                     to="/auth"
-                    className="text-sm font-bold text-slate-300 hover:text-white transition-colors duration-200"
+                    className="text-sm font-bold text-slate-600 hover:text-[#0d3862] transition-colors duration-200"
                   >
-                    Sign In
+                    Student Login
                   </Link>
                   <Link
                     to="/submit-event"
-                    className="btn-premium text-sm px-6 py-3 bg-amber-500 hover:bg-amber-600 border-none text-navy-950 font-black"
+                    className="bg-[#0d3862] text-white text-[13px] px-6 py-2.5 rounded-lg font-bold hover:bg-[#0a2c4d] shadow-sm transition-all"
                   >
-                    List Your Competition
+                    Post Competition
                   </Link>
                 </div>
               )}
-
-              {/* Dark Mode Toggle */}
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={toggleDarkMode}
-                className="p-2.5 rounded-2xl bg-white/5 backdrop-blur-sm text-slate-300 hover:bg-white/10 border border-white/5 transition-all duration-200"
-              >
-                {isDarkMode ? <Sun className="w-5 h-5 text-amber-500" /> : <Moon className="w-5 h-5 text-amber-500" />}
-              </motion.button>
             </div>
 
             {/* Mobile Menu Button */}
             <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2.5 rounded-2xl bg-white/5 backdrop-blur-sm text-slate-300 hover:bg-white/10 border border-white/5 transition-all duration-200"
+              className="lg:hidden p-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all duration-200"
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </motion.button>
@@ -209,7 +198,7 @@ const Navbar = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden glass-dark border-t border-white/10"
+              className="lg:hidden bg-white border-t border-slate-200"
             >
               <div className="px-4 py-6 space-y-4">
                 {navLinks.map((link) => (
@@ -218,8 +207,8 @@ const Navbar = () => {
                     to={link.path}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`block text-base font-bold transition-colors duration-200 ${location.pathname === link.path
-                      ? 'text-amber-500'
-                      : 'text-slate-300 hover:text-white'
+                      ? 'text-[#0d3862]'
+                      : 'text-slate-600 hover:text-[#0d3862]'
                       }`}
                   >
                     {link.name}
@@ -228,13 +217,13 @@ const Navbar = () => {
 
                 {user ? (
                   <>
-                    <div className="border-t border-white/10 pt-4">
+                    <div className="border-t border-slate-100 pt-4">
                       {userLinks.map((link) => (
                         <Link
                           key={link.name}
                           to={link.path}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-base font-medium text-slate-200 hover:text-white transition-colors duration-200 py-2"
+                          className="block text-base font-bold text-slate-600 hover:text-[#0d3862] transition-colors duration-200 py-2"
                         >
                           {link.name}
                         </Link>
@@ -244,27 +233,27 @@ const Navbar = () => {
                           handleLogout();
                           setIsMobileMenuOpen(false);
                         }}
-                        className="block w-full text-left text-base font-medium text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors duration-200 py-2 rounded-xl"
+                        className="block w-full text-left text-base font-bold text-red-600 hover:text-red-700 py-2"
                       >
-                        Sign Out
+                        Logout
                       </button>
                     </div>
                   </>
                 ) : (
-                  <div className="border-t border-white/10 pt-4 space-y-3">
+                  <div className="border-t border-slate-100 pt-4 space-y-3">
                     <Link
                       to="/auth"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block text-base font-medium text-slate-200 hover:text-white transition-colors duration-200"
+                      className="block text-base font-bold text-slate-600 hover:text-[#0d3862]"
                     >
-                      Sign In
+                      Student Login
                     </Link>
                     <Link
                       to="/submit-event"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block btn-premium text-center bg-amber-500 text-navy-950 font-black"
+                      className="block text-center bg-[#0d3862] text-white font-bold py-3 rounded-lg"
                     >
-                      List Your Competition
+                      Post Competition
                     </Link>
                   </div>
                 )}

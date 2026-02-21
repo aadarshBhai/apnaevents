@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 
-const SEO = ({ 
-  title, 
-  description, 
-  keywords, 
-  image, 
-  url, 
+const SEO = ({
+  title,
+  description,
+  keywords,
+  image,
+  url,
   type = 'website',
   publishedTime,
   modifiedTime,
@@ -27,7 +27,7 @@ const SEO = ({
       '@type': 'WebSite',
       url: siteUrl,
       name: 'ApnaEvents',
-      alternateName: 'EventDekho',
+      alternateName: 'India\'s Premier Merit Pipeline',
       potentialAction: {
         '@type': 'SearchAction',
         target: `${siteUrl}/discover?q={search_term_string}`,

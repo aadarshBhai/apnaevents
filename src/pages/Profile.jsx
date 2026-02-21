@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ShieldCheck, Calendar, Trophy, Award, MapPin, Building2, Download, Share2, ChevronRight, Activity, TrendingUp, Lock, Plus } from 'lucide-react';
+import { ShieldCheck, Calendar, Trophy, Award, MapPin, Building2, Download, Share2, ChevronRight, Activity, TrendingUp, Lock, Plus, Shield } from 'lucide-react';
 import Navbar from '../components/premium/Navbar';
 import Footer from '../components/premium/Footer';
 import { useAuth } from '../context/AuthContext';
@@ -12,47 +12,47 @@ const Profile = () => {
 
     useEffect(() => {
         if (!loading && !user) {
-            // navigate('/'); // Optional: redirect to home if not logged in
+            // navigate('/'); 
         }
     }, [user, loading, navigate]);
 
     const participationHistory = [
         { event: "National Science Olympiad", status: "Gold Medalist", date: "Jan 2026", category: "Academic" },
         { event: "Mumbai Inter-School Debates", status: "Qualified", date: "Dec 2025", category: "Speech" },
-        { event: "Zonal Football Championship", status: "Captain / Finalist", date: "Oct 2025", category: "Sports" },
+        { event: "Zonal Football Championship", status: "Honorable Mention", date: "Oct 2025", category: "Sports" },
     ];
 
     const badges = [
-        { icon: <Trophy className="text-yellow-400" />, label: "Top 1% National", color: "bg-yellow-500/10 border-yellow-500/20 text-yellow-400" },
-        { icon: <Award className="text-blue-400" />, label: "Tech Wizard", color: "bg-blue-500/10 border-blue-500/20 text-blue-400" },
-        { icon: <ShieldCheck className="text-emerald-400" />, label: "Verified Student", color: "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" },
+        { icon: <Trophy className="text-[#fcb900]" />, label: "Academic Elite 1%", color: "bg-amber-50 border-amber-100 text-[#926300]" },
+        { icon: <Award className="text-[#0d3862]" />, label: "Scholastic Pioneer", color: "bg-blue-50 border-blue-100 text-[#0d3862]" },
+        { icon: <ShieldCheck className="text-[#911116]" />, label: "Verified Candidate", color: "bg-red-50 border-red-100 text-[#911116]" },
     ];
 
     const handleDownload = () => {
-        alert("Generating your Digital Passport PDF... Your verified credentials will be ready in a moment.");
+        alert("Generating your Verified Academic Transcript... Your credentials will be ready in a moment.");
     };
 
     const handleShare = () => {
         if (navigator.share) {
             navigator.share({
-                title: `ApnaEvents Profile - ${user?.name || 'Aadarsh Kumar'}`,
-                text: 'Check out my student profile and verified participations on ApnaEvents!',
+                title: `Academic Profile - ${user?.name || 'Candidate'}`,
+                text: 'Check out my verified academic trajectory on the ApnaEvents Network.',
                 url: window.location.href,
             }).catch(console.error);
         } else {
-            alert("Profile link copied to clipboard!");
+            alert("Institutional link copied to clipboard.");
         }
     };
 
     if (loading || !user) return null;
 
     return (
-        <div className="min-h-screen bg-navy-950 text-slate-300 selection:bg-emerald-500/30">
+        <div className="min-h-screen bg-white text-slate-800 font-sans">
             <Navbar />
 
-            <div className="pt-24 md:pt-32 pb-20">
+            <div className="pt-40 pb-24">
                 <div className="container mx-auto px-4">
-                    <div className="grid lg:grid-cols-12 gap-8">
+                    <div className="grid lg:grid-cols-12 gap-12">
 
                         {/* Left Sidebar - Profile Summary */}
                         <motion.div
@@ -60,51 +60,51 @@ const Profile = () => {
                             animate={{ opacity: 1, x: 0 }}
                             className="lg:col-span-4"
                         >
-                            <div className="bg-navy-900/50 backdrop-blur-md border border-white/5 rounded-3xl p-8 text-center sticky top-28 lg:top-32 shadow-xl shadow-navy-950/50">
-                                <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-6">
-                                    <div className="w-full h-full bg-navy-800 rounded-[2.5rem] overflow-hidden border-4 border-navy-700 shadow-2xl">
-                                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150" alt="Profile" className="w-full h-full object-cover" />
+                            <div className="bg-slate-50 border border-slate-100 rounded-3xl p-10 text-center sticky top-36 shadow-xl shadow-slate-200/50">
+                                <div className="relative w-40 h-40 mx-auto mb-8">
+                                    <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden border-4 border-white shadow-2xl">
+                                        <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=0d3862&color=fff&size=512&bold=true`} alt="Profile" className="w-full h-full object-cover" />
                                     </div>
-                                    <div className="absolute -bottom-2 -right-2 bg-emerald-500 text-white p-2 rounded-2xl border-4 border-navy-900 shadow-lg">
-                                        <ShieldCheck size={20} />
+                                    <div className="absolute -bottom-2 -right-2 bg-[#911116] text-white p-2.5 rounded-2xl border-4 border-slate-50 shadow-lg">
+                                        <ShieldCheck size={24} />
                                     </div>
                                 </div>
 
-                                <h2 className="text-2xl md:text-3xl font-black mb-1 tracking-tight text-white">{user.name}</h2>
-                                <p className="text-slate-400 font-bold mb-6">{user.role === 'student' ? 'Student' : 'Organizer'}</p>
+                                <h2 className="text-3xl font-serif font-bold mb-2 tracking-tight text-[#0d3862]">{user.name}</h2>
+                                <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-8">{user.role === 'student' ? 'Scholastic Candidate' : 'Institutional Host'}</p>
 
-                                <div className="flex flex-col gap-3 mb-8 text-left">
-                                    <div className="flex items-center gap-4 text-sm font-bold text-slate-200 bg-navy-800/50 p-4 rounded-2xl border border-white/5 hover:border-emerald-500/30 transition-colors">
-                                        <div className="w-8 h-8 rounded-lg bg-navy-700 flex items-center justify-center shadow-sm text-emerald-400">
-                                            <Building2 size={18} />
+                                <div className="flex flex-col gap-4 mb-10 text-left">
+                                    <div className="flex items-center gap-4 text-xs font-bold text-slate-700 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                                        <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-[#0d3862] border border-slate-100">
+                                            <Building2 size={20} />
                                         </div>
-                                        <span className="line-clamp-1">Modern Public School, Delhi</span>
+                                        <span className="line-clamp-1">Institutional Affiliation Active</span>
                                     </div>
-                                    <div className="flex items-center gap-4 text-sm font-bold text-slate-200 bg-navy-800/50 p-4 rounded-2xl border border-white/5 hover:border-emerald-500/30 transition-colors">
-                                        <div className="w-8 h-8 rounded-lg bg-navy-700 flex items-center justify-center shadow-sm text-emerald-400">
-                                            <MapPin size={18} />
+                                    <div className="flex items-center gap-4 text-xs font-bold text-slate-700 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                                        <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-[#911116] border border-slate-100">
+                                            <MapPin size={20} />
                                         </div>
-                                        <span>New Delhi, India</span>
+                                        <span>Verified Academic Region</span>
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-4 mb-8">
-                                    <div className="p-5 bg-blue-500/10 rounded-2xl border border-blue-500/20">
-                                        <div className="text-3xl font-black text-blue-400 mb-1">12</div>
-                                        <div className="text-[10px] font-black text-blue-400/60 uppercase tracking-widest leading-none">Participations</div>
+                                <div className="grid grid-cols-2 gap-4 mb-10">
+                                    <div className="p-6 bg-blue-50/50 rounded-2xl border border-blue-100 text-center">
+                                        <div className="text-3xl font-serif font-bold text-[#0d3862] mb-1">12</div>
+                                        <div className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none">Records</div>
                                     </div>
-                                    <div className="p-5 bg-emerald-500/10 rounded-2xl border border-emerald-500/20">
-                                        <div className="text-3xl font-black text-emerald-400 mb-1">4</div>
-                                        <div className="text-[10px] font-black text-emerald-400/60 uppercase tracking-widest leading-none">Awards Won</div>
+                                    <div className="p-6 bg-red-50/50 rounded-2xl border border-red-100 text-center">
+                                        <div className="text-3xl font-serif font-bold text-[#911116] mb-1">4</div>
+                                        <div className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none">Distinctions</div>
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col gap-3">
-                                    <button onClick={handleDownload} className="w-full py-4 text-base bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2">
-                                        <Download size={20} /> Download Passport
+                                <div className="flex flex-col gap-4">
+                                    <button onClick={handleDownload} className="w-full py-4 bg-[#0d3862] text-white font-bold uppercase tracking-widest text-xs rounded-xl transition-all shadow-lg shadow-blue-900/10 flex items-center justify-center gap-3">
+                                        <Download size={18} /> Merit Transcript
                                     </button>
-                                    <button onClick={handleShare} className="w-full py-4 text-base bg-navy-800 hover:bg-navy-700 text-white font-bold rounded-xl transition-all border border-white/5 flex items-center justify-center gap-2">
-                                        <Share2 size={20} /> Share Profile
+                                    <button onClick={handleShare} className="w-full py-4 bg-white text-[#0d3862] border border-slate-200 font-bold uppercase tracking-widest text-xs rounded-xl transition-all flex items-center justify-center gap-3 hover:bg-slate-50">
+                                        <Share2 size={18} /> Public Profile
                                     </button>
                                 </div>
                             </div>
@@ -115,169 +115,132 @@ const Profile = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
-                            className="lg:col-span-8 flex flex-col gap-6 md:gap-8"
+                            className="lg:col-span-8 space-y-12"
                         >
 
                             {/* Badges Section */}
-                            <div className="bg-navy-900/50 backdrop-blur-md border border-white/5 p-6 md:p-10 rounded-3xl">
-                                <div className="flex items-center justify-between mb-8">
-                                    <h3 className="text-xl md:text-2xl font-black flex items-center gap-3 tracking-tight text-white">
-                                        <Award className="text-emerald-400" /> Achievement Badges
+                            <div className="bg-white border border-slate-100 p-8 md:p-12 rounded-[2.5rem] shadow-sm">
+                                <div className="flex items-center justify-between mb-10">
+                                    <h3 className="text-2xl font-serif font-bold flex items-center gap-4 text-[#0d3862]">
+                                        <Award className="text-[#fcb900]" size={32} /> Scholastic Distinctions
                                     </h3>
-                                    <button className="text-emerald-400 text-sm font-bold hover:underline">View All</button>
+                                    <button className="text-[#911116] text-[10px] font-bold uppercase tracking-widest hover:underline">View All Records</button>
                                 </div>
-                                <div className="flex flex-wrap gap-4">
+                                <div className="flex flex-wrap gap-6">
                                     {badges.map((badge, idx) => (
                                         <motion.div
-                                            whileHover={{ scale: 1.05 }}
                                             key={idx}
-                                            className={`${badge.color} px-5 py-4 rounded-3xl flex items-center gap-3 border border-white/5 shadow-sm`}
+                                            whileHover={{ y: -5 }}
+                                            className={`${badge.color} px-6 py-5 rounded-[2rem] flex items-center gap-4 border shadow-sm`}
                                         >
-                                            <div className="p-2 bg-navy-950/30 rounded-xl">
+                                            <div className="p-3 bg-white/50 rounded-2xl">
                                                 {badge.icon}
                                             </div>
-                                            <span className="font-bold text-sm tracking-tight">{badge.label}</span>
+                                            <span className="font-bold text-xs uppercase tracking-widest">{badge.label}</span>
                                         </motion.div>
                                     ))}
                                     <div
-                                        onClick={() => alert("Keep participating in events to unlock new badges and specialized student tracks!")}
-                                        className="border-2 border-dashed border-slate-700 px-6 py-4 rounded-3xl flex items-center gap-3 text-slate-500 font-bold text-sm cursor-pointer hover:bg-navy-800 transition-colors"
+                                        onClick={() => alert("Participate in verified events to unlock institutional recognition.")}
+                                        className="border-2 border-dashed border-slate-200 px-8 py-5 rounded-[2rem] flex items-center gap-4 text-slate-400 font-bold text-xs uppercase tracking-widest cursor-pointer hover:bg-slate-50 transition-colors"
                                     >
-                                        <div className="w-8 h-8 rounded-full border-2 border-slate-700 flex items-center justify-center">+</div>
-                                        <span>New Goal</span>
+                                        <div className="w-8 h-8 rounded-full border-2 border-slate-200 flex items-center justify-center">+</div>
+                                        <span>New Mandate</span>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Verified Activity Section */}
-                            <div className="bg-navy-900/50 backdrop-blur-md border border-white/5 p-6 md:p-10 rounded-3xl">
-                                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+                            <div className="bg-white border border-slate-100 p-8 md:p-12 rounded-[2.5rem] shadow-sm">
+                                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
                                     <div>
-                                        <h3 className="text-xl md:text-2xl font-black flex items-center gap-3 mb-1 tracking-tight text-white">
-                                            <ShieldCheck size={28} className="text-emerald-500" /> My Activity Hub
+                                        <h3 className="text-2xl font-serif font-bold flex items-center gap-4 text-[#0d3862] mb-2">
+                                            <ShieldCheck size={32} className="text-[#911116]" /> Academic Manifest
                                         </h3>
-                                        <p className="text-slate-400 text-sm font-bold">All participations are manually vetted by ApnaEvents team.</p>
+                                        <p className="text-slate-500 text-sm font-medium">Verified historical record of scholastic participations.</p>
                                     </div>
-                                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 text-xs font-black uppercase tracking-widest border border-emerald-500/20">
-                                        <Activity size={14} /> 100% Verified
+                                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-50 text-[#0d3862] text-[10px] font-bold uppercase tracking-widest border border-blue-100">
+                                        <Shield size={14} /> Institutional Integrity Active
                                     </div>
                                 </div>
 
-                                <div className="space-y-4">
+                                <div className="space-y-6">
                                     {participationHistory.map((item, idx) => (
                                         <motion.div
                                             whileHover={{ x: 10 }}
                                             key={idx}
-                                            className="flex items-center gap-4 md:gap-6 p-5 rounded-[2rem] bg-navy-800/30 hover:bg-navy-800 transition-all group cursor-pointer border border-transparent hover:border-emerald-500/20"
+                                            className="flex items-center gap-6 p-6 rounded-[2rem] bg-slate-50 hover:bg-white transition-all group cursor-pointer border border-transparent hover:border-slate-200 hover:shadow-xl hover:shadow-slate-100"
                                         >
-                                            <div className="w-14 h-14 md:w-16 md:h-16 bg-navy-900 rounded-2xl shadow-sm border border-white/5 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white transition-colors shrink-0">
-                                                {item.category === 'Academic' ? <Trophy size={24} /> : item.category === 'Sports' ? <MapPin size={24} /> : <Award size={24} />}
+                                            <div className="w-16 h-16 bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center text-[#0d3862] group-hover:bg-[#0d3862] group-hover:text-white transition-all transform group-hover:rotate-6">
+                                                {item.category === 'Academic' ? <Trophy size={28} /> : item.category === 'Sports' ? <MapPin size={28} /> : <Award size={28} />}
                                             </div>
                                             <div className="flex-grow">
-                                                <div className="flex justify-between items-start mb-1">
-                                                    <h4 className="font-black text-lg line-clamp-1 text-white">{item.event}</h4>
-                                                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest shrink-0 ml-2">{item.date}</span>
+                                                <div className="flex justify-between items-start mb-2">
+                                                    <h4 className="font-serif font-bold text-xl text-[#0d3862]">{item.event}</h4>
+                                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-4">{item.date}</span>
                                                 </div>
                                                 <div className="flex items-center gap-4">
-                                                    <p className="text-sm text-slate-400 font-bold">{item.category}</p>
-                                                    <div className="w-1 h-1 rounded-full bg-slate-600"></div>
-                                                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-wider">
+                                                    <p className="text-xs text-slate-500 font-bold uppercase tracking-widest">{item.category}</p>
+                                                    <div className="w-1 h-1 rounded-full bg-slate-300"></div>
+                                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-50 text-[#0d3862] text-[9px] font-bold uppercase tracking-wider border border-blue-100">
                                                         {item.status}
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="text-slate-600 group-hover:text-emerald-500 transition-colors hidden sm:block">
-                                                <ChevronRight size={24} />
+                                            <div className="text-slate-200 group-hover:text-[#911116] transition-colors hidden sm:block">
+                                                <ChevronRight size={28} />
                                             </div>
                                         </motion.div>
                                     ))}
                                 </div>
 
                                 <button
-                                    onClick={() => alert("Viewing complete verified trajectory... This feature is part of the Premium Passport track.")}
-                                    className="w-full mt-10 py-5 text-center text-sm md:text-base font-black text-emerald-400 hover:bg-emerald-500/10 rounded-[2rem] transition-all border-2 border-transparent hover:border-emerald-500/20 flex items-center justify-center gap-2"
+                                    onClick={() => alert("Full trajectory visualization is available for verified candidates.")}
+                                    className="w-full mt-12 py-6 text-center text-xs font-bold uppercase tracking-[0.2em] text-[#0d3862] hover:bg-slate-50 rounded-[2rem] transition-all border border-slate-100 flex items-center justify-center gap-3"
                                 >
-                                    View Full Career Trajectory <TrendingUp size={18} />
+                                    Chronological Career Archive <TrendingUp size={18} />
                                 </button>
                             </div>
 
-                            {/* Project Showcase */}
-                            <div className="bg-navy-900/50 backdrop-blur-md border border-white/5 p-6 md:p-10 rounded-3xl">
-                                <div className="flex items-center justify-between mb-8">
-                                    <h3 className="text-xl md:text-2xl font-black flex items-center gap-3 tracking-tight text-white">
-                                        <Lock className="text-emerald-400" /> Project Showcase
-                                    </h3>
-                                    <button
-                                        onClick={() => alert("Launching Secure Project Vault...")}
-                                        className="px-4 py-2 text-xs font-black uppercase tracking-widest rounded-xl hover:bg-navy-800 text-slate-300 transition-all flex items-center gap-2 border border-white/10"
-                                    >
-                                        Add New <Plus size={14} />
-                                    </button>
-                                </div>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                    <div className="group cursor-pointer">
-                                        <div className="relative h-48 rounded-[2rem] overflow-hidden mb-4 bg-navy-800">
-                                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Cybersecurity" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent flex items-end p-6">
-                                                <span className="text-white text-xs font-black uppercase tracking-widest shadow-black drop-shadow-md">Verified Project</span>
-                                            </div>
-                                        </div>
-                                        <h4 className="font-black text-lg mb-1 group-hover:text-emerald-400 transition-colors text-white">Neural Network Sandbox</h4>
-                                        <p className="text-slate-400 text-sm font-bold">A Python-based deep learning playground for high schoolers.</p>
-                                    </div>
-                                    <div
-                                        onClick={() => alert("Upload your competition project to build a professional portfolio.")}
-                                        className="border-4 border-dashed border-navy-800 rounded-[2.5rem] flex flex-col items-center justify-center p-10 text-center hover:bg-navy-800/50 transition-all cursor-pointer group"
-                                    >
-                                        <div className="w-16 h-16 bg-navy-800 rounded-[1.5rem] flex items-center justify-center text-emerald-400 mb-4 group-hover:scale-110 transition-transform">
-                                            <Plus size={32} />
-                                        </div>
-                                        <span className="text-sm font-black text-slate-500 uppercase tracking-widest group-hover:text-emerald-400/70">Upload Submission</span>
-                                    </div>
-                                </div>
-                            </div>
+                            {/* Talent Analytics Visualizer */}
+                            <div className="bg-[#0d3862] p-10 md:p-16 text-white overflow-hidden relative rounded-[3.5rem] shadow-2xl overflow-hidden group">
+                                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full -mr-32 -mt-32 blur-[100px] pointer-events-none group-hover:bg-white/10 transition-all duration-1000"></div>
 
-                            {/* Skills Visualizer */}
-                            <div className="bg-gradient-to-br from-navy-900 to-navy-950 p-8 md:p-12 text-white overflow-hidden relative rounded-[3rem] border border-white/5">
                                 <div className="relative z-10">
-                                    <div className="flex items-center gap-3 mb-10">
-                                        <div className="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                                            <TrendingUp size={24} />
+                                    <div className="flex items-center gap-5 mb-12">
+                                        <div className="w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20">
+                                            <Activity size={32} className="text-[#fcb900]" />
                                         </div>
                                         <div>
-                                            <h3 className="text-2xl font-black tracking-tight">Talent Analytics</h3>
-                                            <p className="text-slate-400 text-sm font-bold">Data-driven performance insights</p>
+                                            <h3 className="text-3xl font-serif font-bold tracking-tight">Merit Analytics</h3>
+                                            <p className="text-blue-200/80 text-xs font-bold uppercase tracking-widest">Digital Intelligence Quotient</p>
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
                                         {[
-                                            { label: 'Coding', val: '80%', color: 'bg-blue-500' },
-                                            { label: 'Speech', val: '65%', color: 'bg-purple-500' },
-                                            { label: 'Teamwork', val: '95%', color: 'bg-emerald-500' },
-                                            { label: 'Logic', val: '88%', color: 'bg-orange-500' }
+                                            { label: 'Critical Syntax', val: '80%', color: 'bg-[#fcb900]' },
+                                            { label: 'Rhetoric', val: '65%', color: 'bg-[#911116]' },
+                                            { label: 'Synergy', val: '95%', color: 'bg-emerald-500' },
+                                            { label: 'Quant Logic', val: '88%', color: 'bg-blue-400' }
                                         ].map(s => (
                                             <div key={s.label}>
-                                                <div className="flex justify-between items-end mb-3">
-                                                    <div className="text-slate-400 text-xs font-black uppercase tracking-widest">{s.label}</div>
-                                                    <div className="text-sm font-black text-white">{s.val}</div>
+                                                <div className="flex justify-between items-end mb-4">
+                                                    <div className="text-blue-100/60 text-[9px] font-bold uppercase tracking-[0.2em]">{s.label}</div>
+                                                    <div className="text-sm font-bold text-white">{s.val}</div>
                                                 </div>
-                                                <div className="h-2.5 bg-white/10 rounded-full overflow-hidden">
+                                                <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
                                                     <motion.div
                                                         initial={{ width: 0 }}
                                                         whileInView={{ width: s.val }}
                                                         viewport={{ once: true }}
-                                                        transition={{ duration: 1.5, ease: "easeOut" }}
-                                                        className={`h-full ${s.color} rounded-full shadow-[0_0_15px_rgba(255,255,255,0.2)]`}
+                                                        transition={{ duration: 2, ease: "circOut" }}
+                                                        className={`h-full ${s.color} rounded-full`}
                                                     ></motion.div>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
-                                {/* Abstract shape */}
-                                <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full -mr-20 -mt-20 blur-[80px]"></div>
-                                <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-500/10 rounded-full -ml-10 -mb-10 blur-[60px]"></div>
                             </div>
 
                         </motion.div>

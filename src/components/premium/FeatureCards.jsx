@@ -4,171 +4,57 @@ import { Shield, Users, Trophy, Zap, Globe, Award, Target, Sparkles } from 'luci
 const FeatureCards = () => {
   const features = [
     {
-      icon: <Shield className="w-8 h-8" />,
-      title: "Vetted Opportunities",
-      description: "Every competition is manually verified by our Academic Excellence Committee for authenticity.",
-      gradient: "from-amber-500 to-orange-600",
-      stats: "Verified Seal"
+      icon: <Shield className="w-10 h-10" />,
+      title: "Verified Events",
+      description: "Every competition is manually vetted for academic excellence and authenticity.",
+      isOrange: true
     },
     {
-      icon: <Users className="w-8 h-8" />,
-      title: "Inter-School Network",
-      description: "Connect with high-achieving students from prestigious institutions across the nation.",
-      gradient: "from-blue-600 to-indigo-700",
-      stats: "500+ Schools"
+      icon: <Users className="w-10 h-10" />,
+      title: "Prestigious Network",
+      description: "Connect with high-achieving students from 500+ top-tier institutions.",
+      isOrange: false
     },
     {
-      icon: <Trophy className="w-8 h-8" />,
+      icon: <Trophy className="w-10 h-10" />,
       title: "Merit Portfolios",
-      description: "Build a digital record of achievements recognized by top tier universities.",
-      gradient: "from-rose-600 to-crimson-700",
-      stats: "Career Guard"
+      description: "Build a digital record of achievements recognized by elite global universities.",
+      isOrange: true
     },
     {
-      icon: <Zap className="w-8 h-8" />,
-      title: "Timely Alerts",
-      description: "Never miss a deadline with our centralized academic notification system.",
-      gradient: "from-violet-600 to-purple-700",
-      stats: "Real-time"
-    },
-    {
-      icon: <Globe className="w-8 h-8" />,
-      title: "National Merit",
-      description: "Access state and national level olympiads that build your competitive edge.",
-      gradient: "from-cyan-600 to-blue-700",
-      stats: "Pan India"
-    },
-    {
-      icon: <Award className="w-8 h-8" />,
-      title: "Certified Skills",
-      description: "Earn badges and certificates that validate your talent to the world.",
-      gradient: "from-amber-600 to-yellow-700",
-      stats: "Gold Standard"
+      icon: <Award className="w-10 h-10" />,
+      title: "National Standard",
+      description: "Access state and national olympiads that define your competitive edge.",
+      isOrange: false
     }
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
-    },
-  };
-
   return (
-    <section className="py-32 bg-navy-950 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-emerald-600/5 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px]"></div>
-      </div>
-
-      <div className="container-custom px-4 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-24"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full mb-8">
-            <Sparkles className="w-4 h-4 text-emerald-400" />
-            <span className="text-emerald-400 text-[10px] font-black uppercase tracking-widest">Platform DNA</span>
-          </div>
-          <h2 className="text-4xl md:text-6xl font-display font-black text-white mb-8 tracking-tighter">
-            The Infrastructure of <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">Student Merit</span>
-          </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
-            We've built the most secure and trusted bridge between ambitious students and world-class opportunities.
-          </p>
-        </motion.div>
-
-        {/* Feature Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              whileHover={{ y: -12 }}
-              className="group relative"
-            >
-              {/* Card */}
-              <div className="glass-card h-full p-10 rounded-[2.5rem] border-white/5 hover:border-emerald-500/30 transition-all duration-500 relative z-10">
-                {/* Icon Container */}
-                <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center text-white mb-8 shadow-2xl shadow-emerald-500/10 group-hover:scale-110 transition-transform duration-500`}>
-                  {feature.icon}
-                </div>
-
-                {/* Content */}
-                <h3 className="text-2xl font-display font-black text-white mb-4">
-                  {feature.title}
-                </h3>
-                <p className="text-slate-400 leading-relaxed mb-8 text-sm">
-                  {feature.description}
-                </p>
-
-                {/* Stats Badge */}
-                <div className="flex items-center gap-3">
-                  <div className={`px-4 py-1.5 rounded-xl bg-white/5 border border-white/10`}>
-                    <span className={`text-[10px] font-black uppercase tracking-widest text-emerald-400`}>
-                      {feature.stats}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Hover Glow */}
-              <div className="absolute inset-x-4 inset-y-4 bg-emerald-500/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Bottom CTA Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-24 p-1 rounded-[3rem] bg-gradient-to-r from-white/10 via-white/[0.15] to-white/10"
-        >
-          <div className="p-8 md:p-12 bg-navy-950 rounded-[2.8rem] flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden group">
-            {/* Background pattern */}
-            <div className="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:20px_20px]"></div>
-
-            <div className="relative z-10 text-center md:text-left">
-              <h3 className="text-3xl md:text-4xl font-display font-black text-white mb-4">
-                Join the <span className="text-emerald-400">Winning</span> Pipeline
-              </h3>
-              <p className="text-slate-400 max-w-xl">
-                Ready to showcase your talent? Get verified, compete with the best, and build a profile that top universities can't ignore.
-              </p>
+    <section className="bg-white">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 w-full">
+        {features.map((feature, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1 }}
+            className={`p-12 md:p-14 flex flex-col items-center text-center group cursor-default transition-all duration-500 ${feature.isOrange
+              ? 'bg-[#0d3862] text-white hover:bg-[#0a2c4d]'
+              : 'bg-[#F8FAFC] text-[#0d3862] hover:bg-slate-100 border-x border-slate-50'
+              }`}
+          >
+            <div className={`mb-8 transform group-hover:scale-110 transition-transform duration-300 ${feature.isOrange ? 'text-[#fcb900]' : 'text-[#911116]'}`}>
+              {feature.icon}
             </div>
-            <button className="btn-primary px-10 py-5 rounded-2xl group-hover:scale-105 transition-transform">
-              Discover Opps Now
-            </button>
-          </div>
-        </motion.div>
+            <h3 className="text-xl font-serif font-bold mb-6 tracking-tight">
+              {feature.title}
+            </h3>
+            <p className={`text-sm leading-relaxed max-w-[280px] font-medium ${feature.isOrange ? 'opacity-80' : 'text-slate-500'}`}>
+              {feature.description}
+            </p>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
