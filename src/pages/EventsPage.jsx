@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, Calendar, MapPin, Tag, ChevronDown, X, Trophy, Users, Shield } from 'lucide-react';
+import { Search, Filter, Calendar, MapPin, Tag, ChevronDown, X, Trophy, Users, Shield, Loader2 } from 'lucide-react';
 import EventCard from '../components/EventCard';
 import Navbar from '../components/premium/Navbar';
 import Footer from '../components/premium/Footer';
@@ -13,6 +13,7 @@ const EventsPage = () => {
     const [events, setEvents] = useState([]);
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [loadingMore, setLoadingMore] = useState(false);
     const [filters, setFilters] = useState({
         search: '',
         category: '',
@@ -24,35 +25,50 @@ const EventsPage = () => {
     const [pagination, setPagination] = useState({
         currentPage: 1,
         totalPages: 1,
-        totalItems: 0
+        totalItems: 0,
+        hasNext: false
     });
     const [socket, setSocket] = useState(null);
+    const observer = useRef();
+
+    const lastElementRef = useCallback(node => {
+        if (loading || loadingMore) return;
+        if (observer.current) observer.current.disconnect();
+
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && pagination.hasNext) {
+                setPagination(prev => ({ ...prev, currentPage: prev.currentPage + 1 }));
+            }
+        });
+
+        if (node) observer.current.observe(node);
+    }, [loading, loadingMore, pagination.hasNext]);
 
     // SEO Data for Events Page
     // Initialize Socket.IO for real-time updates
     useEffect(() => {
         const newSocket = createSocket();
         setSocket(newSocket);
-        
+
         newSocket.on('connect', () => {
             console.log('EventsPage: Socket connected');
         });
-        
+
         newSocket.on('eventCreated', (event) => {
             console.log('EventsPage: New event created', event);
             setEvents(prev => [event, ...prev]);
         });
-        
+
         newSocket.on('eventUpdated', (event) => {
             console.log('EventsPage: Event updated', event);
             setEvents(prev => prev.map(e => e._id === event._id ? event : e));
         });
-        
+
         newSocket.on('eventDeleted', ({ id }) => {
             console.log('EventsPage: Event deleted', id);
             setEvents(prev => prev.filter(e => e._id !== id));
         });
-        
+
         return () => {
             newSocket.close();
         };
@@ -64,25 +80,46 @@ const EventsPage = () => {
     }, []);
 
     useEffect(() => {
-        fetchEvents();
+        // Reset when filters change
+        setEvents([]);
+        setPagination(prev => ({ ...prev, currentPage: 1 }));
+        fetchEvents(1, true);
         fetchCategories();
     }, [filters]);
 
-    const fetchEvents = async () => {
+    useEffect(() => {
+        if (pagination.currentPage > 1) {
+            fetchEvents(pagination.currentPage, false);
+        }
+    }, [pagination.currentPage]);
+
+    const fetchEvents = async (page = 1, isInitial = false) => {
         try {
-            setLoading(true);
+            if (isInitial) {
+                setLoading(true);
+            } else {
+                setLoadingMore(true);
+            }
+
             const params = {
-                page: pagination.currentPage,
+                page,
                 limit: 12,
                 ...filters
             };
             const data = await getEvents(params);
-            setEvents(data.events || []);
+
+            if (isInitial) {
+                setEvents(data.events || []);
+            } else {
+                setEvents(prev => [...prev, ...(data.events || [])]);
+            }
+
             setPagination(data.pagination || {});
         } catch (error) {
             console.error('Failed to fetch events:', error);
         } finally {
             setLoading(false);
+            setLoadingMore(false);
         }
     };
 
@@ -97,19 +134,14 @@ const EventsPage = () => {
 
     const handleFilterChange = (key, value) => {
         setFilters(prev => ({ ...prev, [key]: value }));
-        setPagination(prev => ({ ...prev, currentPage: 1 }));
-    };
-
-    const handlePageChange = (page) => {
-        setPagination(prev => ({ ...prev, currentPage: page }));
     };
 
     const formatDate = (dateString) => {
         if (dateString instanceof Date) {
-            return dateString.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'short', 
-                day: 'numeric' 
+            return dateString.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
             });
         }
         return dateString;
@@ -118,7 +150,7 @@ const EventsPage = () => {
     return (
         <div className="min-h-screen bg-navy-950 text-slate-300 selection:bg-emerald-500/30">
             <Navbar />
-            
+
             <div className="pt-24 pb-20">
                 <div className="container mx-auto px-4">
                     {/* Header */}
@@ -224,42 +256,30 @@ const EventsPage = () => {
                                 {events.map((event, index) => (
                                     <motion.div
                                         key={event._id}
+                                        ref={index === events.length - 1 ? lastElementRef : null}
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: index * 0.1 }}
+                                        transition={{ delay: (index % 12) * 0.05 }}
                                     >
                                         <EventCard {...event} />
                                     </motion.div>
                                 ))}
                             </div>
 
-                            {/* Pagination */}
-                            {pagination.totalPages > 1 && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className="flex justify-center items-center gap-4 mt-12"
-                                >
-                                    <button
-                                        onClick={() => handlePageChange(pagination.currentPage - 1)}
-                                        disabled={!pagination.hasPrev}
-                                        className="px-4 py-2 bg-navy-900 border border-navy-700 text-slate-300 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-navy-800 hover:text-white transition-colors"
-                                    >
-                                        Previous
-                                    </button>
-                                    
-                                    <span className="text-sm font-medium text-slate-400">
-                                        Page {pagination.currentPage} of {pagination.totalPages}
-                                    </span>
-                                    
-                                    <button
-                                        onClick={() => handlePageChange(pagination.currentPage + 1)}
-                                        disabled={!pagination.hasNext}
-                                        className="px-4 py-2 bg-navy-900 border border-navy-700 text-slate-300 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-navy-800 hover:text-white transition-colors"
-                                    >
-                                        Next
-                                    </button>
-                                </motion.div>
+                            {/* Infinite Scroll Loader */}
+                            {loadingMore && (
+                                <div className="flex justify-center items-center mt-12 py-8">
+                                    <div className="flex flex-col items-center gap-4">
+                                        <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
+                                        <p className="text-slate-400 font-medium animate-pulse">Gathering more opportunities...</p>
+                                    </div>
+                                </div>
+                            )}
+
+                            {!loading && !loadingMore && !pagination.hasNext && events.length > 0 && (
+                                <div className="text-center mt-16 py-8 border-t border-white/5">
+                                    <p className="text-slate-500 font-medium">You've reached the end! Check back later for more.</p>
+                                </div>
                             )}
 
                             {/* Results Count */}
