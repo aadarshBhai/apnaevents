@@ -35,6 +35,7 @@ const allowedOrigins = [
     'https://apnaevents.in',
     'https://www.apnaevents.in',
     'https://apnaevents.onrender.com',
+    'https://apnaevents.onrender.com',
     ...envOrigins
 ];
 
@@ -66,7 +67,7 @@ const corsOptions = {
         // Allow requests with no origin (like mobile apps or curl)
         if (!origin) return callback(null, true);
 
-        if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes(origin)) {
+        if (allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
             console.log('Origin blocked by CORS:', origin);
