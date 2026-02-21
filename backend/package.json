@@ -1,7 +1,7 @@
 {
-    "name": "eventdekho-backend",
+    "name": "apnaevents-backend",
     "version": "1.0.0",
-    "description": "Backend for EventDekho",
+    "description": "Backend for ApnaEvents",
     "main": "server.js",
     "type": "module",
     "scripts": {
