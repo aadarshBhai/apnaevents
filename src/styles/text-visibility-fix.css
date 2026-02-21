@@ -1,0 +1,127 @@
+/* Fix for text visibility issues */
+
+/* Ensure proper text visibility on dark backgrounds */
+.bg-navy-950 {
+  background-color: #0B0D14;
+}
+
+.bg-navy-900 {
+  background-color: #0F172A;
+}
+
+.bg-navy-800 {
+  background-color: #1E293B;
+}
+
+/* Text colors for dark backgrounds */
+.text-slate-300 {
+  color: #CBD5E1 !important;
+}
+
+.text-slate-400 {
+  color: #94A3B8 !important;
+}
+
+.text-white {
+  color: #FFFFFF !important;
+}
+
+/* Ensure headings are visible */
+.text-white h1,
+.text-white h2,
+.text-white h3,
+.text-white h4,
+.text-white h5,
+.text-white h6 {
+  color: #FFFFFF !important;
+}
+
+/* Fix for glass cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.glass-card * {
+  color: inherit !important;
+}
+
+/* Fix for button text */
+.btn-primary {
+  color: #FFFFFF !important;
+}
+
+/* Fix for input fields */
+.input-field {
+  color: #1E293B !important;
+  background-color: #F8FAFC !important;
+}
+
+/* Fix for navigation text */
+.nav-text {
+  color: #CBD5E1 !important;
+}
+
+.nav-text:hover {
+  color: #FFFFFF !important;
+}
+
+/* Ensure all text is visible on dark backgrounds */
+.bg-navy-950 *,
+.bg-navy-900 *,
+.bg-navy-800 * {
+  color: inherit;
+}
+
+/* Override any transparent text */
+.text-transparent,
+.color-transparent {
+  color: inherit !important;
+}
+
+/* Fix for selection color */
+::selection {
+  background-color: #10B981 !important;
+  color: #FFFFFF !important;
+}
+
+/* Fix for focus states */
+.focus\:text-white:focus {
+  color: #FFFFFF !important;
+}
+
+/* Ensure links are visible */
+a {
+  color: #10B981 !important;
+}
+
+a:hover {
+  color: #059669 !important;
+}
+
+/* Fix for form labels */
+label {
+  color: #CBD5E1 !important;
+}
+
+/* Fix for placeholder text */
+::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Fix for error messages */
+.error-text {
+  color: #EF4444 !important;
+}
+
+/* Fix for success messages */
+.success-text {
+  color: #10B981 !important;
+}
+
+/* Fix for warning messages */
+.warning-text {
+  color: #F59E0B !important;
+}
