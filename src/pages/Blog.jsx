@@ -36,6 +36,26 @@ const BLOG_POSTS = [
         category: "Institutional Growth",
         image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800",
         slug: "building-college-profile-through-competitions"
+    },
+    {
+        id: '4',
+        title: "Top 5 Olympiads for Class 10 Students in 2026: Academic Roadmap",
+        excerpt: "An essential guide for Class 10 students looking to excel in national competitions and secure their academic future. Register now for the upcoming season.",
+        date: "Feb 24, 2026",
+        author: "Education Expert",
+        category: "Class 10 Focus",
+        image: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&q=80&w=800",
+        slug: "top-5-olympiads-class-10-2026"
+    },
+    {
+        id: '5',
+        title: "Navigating Class 12 Olympiads: Balancing Board Exams & National Competitions",
+        excerpt: "Success strategies for Class 12 students to maintain high academic standards in both board examinations and competitive Olympiads. Expert insights inside.",
+        date: "Feb 23, 2026",
+        author: "Academic Advisor",
+        category: "Class 12 Focus",
+        image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=800",
+        slug: "class-12-olympiad-balancing-act"
     }
 ];
 

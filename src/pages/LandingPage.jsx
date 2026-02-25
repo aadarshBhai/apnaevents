@@ -199,9 +199,9 @@ const LandingPage = () => {
                             transition={{ duration: 0.6 }}
                             className="text-center mb-16"
                         >
-                            <h2 className="text-3xl md:text-5xl font-serif font-bold text-[#0d3862] mb-6 tracking-tight">
-                                Academic <span className="text-[#911116] italic">Excellence Hub</span>
-                            </h2>
+                            <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#0d3862] mb-6 tracking-tight">
+                                Online <span className="text-[#911116] italic">Olympiad Competitions</span>
+                            </h1>
                             <p className="text-slate-600 text-lg max-w-3xl mx-auto mb-12">
                                 We believe in holistic development and critical thinking. Our curated pipeline connects students with world-class opportunities that go beyond traditional testing.
                             </p>
@@ -265,7 +265,7 @@ const LandingPage = () => {
                             {/* Recently Added */}
                             <div>
                                 <div className="flex justify-between items-end mb-8 border-b border-slate-200 pb-4">
-                                    <h2 className="text-2xl font-serif font-bold text-[#0d3862]">Recent <span className="text-[#911116]">Additions</span></h2>
+                                    <h2 className="text-2xl font-serif font-bold text-[#0d3862]">School <span className="text-[#911116]">Competitions India</span></h2>
                                     <button onClick={() => navigate('/events?sortBy=createdAt')} className="text-[10px] font-bold text-[#0d3862] uppercase tracking-[0.2em] hover:opacity-70 transition-all">Archives</button>
                                 </div>
                                 <div className="grid gap-4">
@@ -391,11 +391,14 @@ const LandingPage = () => {
                                 Join our network of over {stats.students} students discovering their path to excellence.
                             </p>
                             <div className="flex flex-col sm:flex-row justify-center gap-4">
-                                <button onClick={() => navigate('/signup')} className="btn-primary px-12 py-4">
-                                    Create Student Profile
+                                <button onClick={() => navigate('/auth')} className="btn-primary px-12 py-4">
+                                    Register Now
                                 </button>
-                                <button onClick={() => navigate('/events')} className="px-12 py-4 bg-white border border-slate-200 text-slate-700 rounded-lg font-bold hover:bg-slate-50 transition-all shadow-sm">
+                                <button onClick={() => navigate('/events')} className="px-12 py-4 bg-[#F8FAFC] border border-slate-200 text-[#0d3862] rounded-lg font-bold hover:bg-slate-50 transition-all shadow-sm">
                                     Browse Contests
+                                </button>
+                                <button className="px-12 py-4 bg-white border border-[#911116] text-[#911116] rounded-lg font-bold hover:bg-red-50 transition-all shadow-sm">
+                                    Join Free Webinar
                                 </button>
                             </div>
                         </motion.div>

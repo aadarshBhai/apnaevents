@@ -131,11 +131,19 @@ const EventsPage = () => {
                         className="text-center mb-16"
                     >
                         <h1 className="text-4xl md:text-6xl font-serif font-bold text-[#0d3862] mb-6 tracking-tight">
-                            Academic <span className="text-[#911116] italic">Directory</span>
+                            Browse <span className="text-[#911116] italic">School Competitions India</span>
                         </h1>
-                        <p className="text-lg text-slate-500 max-w-2xl mx-auto font-medium">
-                            Discover verified national competitions, research fellowships, and elite programs curated for the ambitious student.
+                        <p className="text-lg text-slate-500 max-w-2xl mx-auto font-medium mb-8">
+                            Discover verified national competitions, online Olympiads, and student competitions online curated for the ambitious student.
                         </p>
+                        <div className="flex justify-center gap-4">
+                            <button className="bg-[#911116] text-white px-8 py-3 rounded-lg font-bold text-sm hover:bg-[#7a0e13] transition-all">
+                                Subscribe for Updates
+                            </button>
+                            <button onClick={() => window.scrollTo({ top: 600, behavior: 'smooth' })} className="border border-[#0d3862] text-[#0d3862] px-8 py-3 rounded-lg font-bold text-sm hover:bg-slate-50 transition-all">
+                                Find Competitions
+                            </button>
+                        </div>
                     </motion.div>
 
                     {/* Controls Bar */}

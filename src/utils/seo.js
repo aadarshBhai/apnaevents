@@ -1,34 +1,34 @@
 // SEO metadata configuration for different pages
 export const SEO_CONFIG = {
   home: {
-    title: "Online Olympiad Competitions for Class 9–12 Students in India | ApnaEvents",
-    description: "Discover and participate in verified online olympiad competitions for Class 9-12 students across India. Build your academic profile with ApnaEvents.",
-    keywords: "online olympiad, class 9 olympiad, class 10 olympiad, class 11 olympiad, class 12 olympiad, india competitions, student competitions"
+    title: "Online Olympiad Competitions for Class 9–12 Students India | ApnaEvents",
+    description: "Participate in verified online olympiad competitions for Class 9-12 students in India. Find student competitions online and boost your academic profile with ApnaEvents.",
+    keywords: "school competitions India, class 9–12 Olympiad, student competitions online, online olympiad, class 9 olympiad, class 10 olympiad, class 11 olympiad, class 12 olympiad, india competitions, student competitions"
   },
   events: {
-    title: "Browse School Competitions in India | Academic Events for Students",
-    description: "Browse verified school competitions, academic contests, and olympiads for Indian students. Filter by class, subject, and location on ApnaEvents.",
-    keywords: "school competitions, academic contests, student events, class competitions, inter-school competitions, india student events"
+    title: "Browse School Competitions India | Class 9–12 Olympiads & Contests",
+    description: "Explore a directory of school competitions in India. From class 9–12 Olympiads to student competitions online, find every academic opportunity on ApnaEvents.",
+    keywords: "school competitions India, student competitions online, class 9–12 Olympiad, academic contests, student events, class competitions, inter-school competitions"
   },
   about: {
-    title: "About ApnaEvents - Empowering Indian Students Through Verified Competitions",
-    description: "Learn how ApnaEvents is democratizing access to verified academic competitions for students across India. Our mission and impact.",
-    keywords: "about apnaevents, student platform, education competitions india, academic opportunities, student development"
+    title: "About ApnaEvents - Verified Student Competitions Online in India",
+    description: "ApnaEvents connects Indian students with verified school competitions and online Olympiads. Our mission is to democratize academic opportunities for Class 9-12.",
+    keywords: "about apnaevents, student platform, school competitions India, academic opportunities, student development, class 9-12 competitions"
   },
   contact: {
-    title: "Contact ApnaEvents - Support for Student Competitions in India",
-    description: "Get in touch with ApnaEvents for support, partnerships, or questions about student competitions and academic events in India.",
-    keywords: "contact apnaevents, student support, competition help, education partnership, apnaevents team"
+    title: "Contact ApnaEvents | Support for School Competitions India",
+    description: "Need help with online Olympiad registrations or student competitions in India? Contact the ApnaEvents support team for assistance.",
+    keywords: "contact apnaevents, student support, competition help, school competitions India, student competitions online"
   },
   auth: {
-    title: "Student Login & Registration | Join ApnaEvents Competitions",
-    description: "Create your free student account on ApnaEvents to participate in verified competitions and build your academic profile.",
-    keywords: "student registration, student login, create account, join competitions, student profile"
+    title: "Student Registration | Join Online Olympiad Competitions India",
+    description: "Create your ApnaEvents account to register for school competitions in India and online Olympiads for Class 9-12 students.",
+    keywords: "student registration, student login, school competitions India, class 9-12 Olympiad, join competitions"
   },
   admin: {
-    title: "Admin Dashboard - Manage Student Competitions | ApnaEvents",
-    description: "Administrative dashboard for managing student competitions, events, and user accounts on ApnaEvents platform.",
-    keywords: "admin login, competition management, event dashboard, administrator portal"
+    title: "Admin Dashboard | Manage School Competitions India",
+    description: "Administrative portal for managing student competitions, event listings, and user registrations on the ApnaEvents platform.",
+    keywords: "admin login, competition management, event dashboard, administrator portal, school competitions hub"
   }
 };
 
@@ -39,7 +39,7 @@ export const updatePageSEO = (pageKey) => {
 
   // Update title
   document.title = config.title;
-  
+
   // Update or create meta description
   let metaDescription = document.querySelector('meta[name="description"]');
   if (!metaDescription) {
@@ -48,7 +48,7 @@ export const updatePageSEO = (pageKey) => {
     document.head.appendChild(metaDescription);
   }
   metaDescription.content = config.description;
-  
+
   // Update or create meta keywords
   let metaKeywords = document.querySelector('meta[name="keywords"]');
   if (!metaKeywords) {
