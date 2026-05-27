@@ -35,45 +35,46 @@ const BookGuidance = () => {
       
       <CareerGuidanceNavbar />
 
-      <main className="pt-32 pb-20 px-6">
+      <main className="pt-24 md:pt-32 pb-16 md:pb-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           {/* Hero Section */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-12 md:mb-16">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <span className="inline-block px-4 py-1.5 bg-[#f8f9fa] text-[#495057] text-xs uppercase tracking-widest font-bold rounded-full mb-6">
+              <span className="inline-block px-3 md:px-4 py-1.5 bg-brand-bgLight text-brand-body text-[10px] md:text-xs uppercase tracking-widest font-bold rounded-full mb-4 md:mb-6">
                 Free Career Guidance
               </span>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 font-serif text-[#212529]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 font-serif text-brand-heading">
                 Book Your Free
-                <span className="text-[#721c24] block mt-2">
+                <span className="text-brand-maroon block mt-2">
                   Guidance Session
                 </span>
               </h1>
-              <p className="text-xl text-[#495057] max-w-2xl mx-auto mb-8 font-sans">
+              <p className="text-base sm:text-lg md:text-xl text-brand-body max-w-2xl mx-auto mb-6 md:mb-8 font-sans">
                 Get personalized advice from our expert career counselors. Choose a 30-minute slot that fits your schedule.
               </p>
             </motion.div>
           </div>
 
           {!isSubmitted ? (
-            <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
               {/* Form Section */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
+                className="order-2 md:order-1"
               >
-                <div className="bg-[#f8f9fa] rounded-2xl p-8 border border-gray-200">
-                  <h2 className="text-2xl font-bold mb-6 font-serif text-[#212529]">
+                <div className="bg-brand-bgLight rounded-2xl p-6 md:p-8 border border-gray-200">
+                  <h2 className="text-xl md:text-2xl font-bold mb-6 font-serif text-brand-heading">
                     Student Details
                   </h2>
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
                     <div>
-                      <label className="block text-sm font-bold text-[#495057] mb-2 uppercase tracking-wide">
+                      <label className="block text-xs md:text-sm font-bold text-brand-body mb-2 uppercase tracking-wide">
                         Full Name
                       </label>
                       <input
@@ -82,13 +83,13 @@ const BookGuidance = () => {
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-[#212529] focus:outline-none focus:ring-2 focus:ring-[#721c24] focus:border-transparent transition-all"
+                        className="w-full px-3 md:px-4 py-2.5 md:py-3 bg-white border border-gray-300 rounded-lg text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-maroon focus:border-transparent transition-all text-sm"
                         placeholder="Enter your full name"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-[#495057] mb-2 uppercase tracking-wide">
+                      <label className="block text-xs md:text-sm font-bold text-brand-body mb-2 uppercase tracking-wide">
                         Email Address
                       </label>
                       <input
@@ -97,13 +98,13 @@ const BookGuidance = () => {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-[#212529] focus:outline-none focus:ring-2 focus:ring-[#721c24] focus:border-transparent transition-all"
+                        className="w-full px-3 md:px-4 py-2.5 md:py-3 bg-white border border-gray-300 rounded-lg text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-maroon focus:border-transparent transition-all text-sm"
                         placeholder="student@example.com"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-[#495057] mb-2 uppercase tracking-wide">
+                      <label className="block text-xs md:text-sm font-bold text-brand-body mb-2 uppercase tracking-wide">
                         Phone Number
                       </label>
                       <input
@@ -112,13 +113,13 @@ const BookGuidance = () => {
                         required
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-[#212529] focus:outline-none focus:ring-2 focus:ring-[#721c24] focus:border-transparent transition-all"
+                        className="w-full px-3 md:px-4 py-2.5 md:py-3 bg-white border border-gray-300 rounded-lg text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-maroon focus:border-transparent transition-all text-sm"
                         placeholder="+91 98765 43210"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-[#495057] mb-2 uppercase tracking-wide">
+                      <label className="block text-xs md:text-sm font-bold text-brand-body mb-2 uppercase tracking-wide">
                         Current Grade
                       </label>
                       <select
@@ -126,7 +127,7 @@ const BookGuidance = () => {
                         required
                         value={formData.grade}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-[#212529] focus:outline-none focus:ring-2 focus:ring-[#721c24] focus:border-transparent transition-all"
+                        className="w-full px-3 md:px-4 py-2.5 md:py-3 bg-white border border-gray-300 rounded-lg text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-maroon focus:border-transparent transition-all text-sm"
                       >
                         <option value="">Select your grade</option>
                         <option value="10">Class 10</option>
@@ -137,14 +138,14 @@ const BookGuidance = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-[#495057] mb-2 uppercase tracking-wide">
+                      <label className="block text-xs md:text-sm font-bold text-brand-body mb-2 uppercase tracking-wide">
                         Stream (if applicable)
                       </label>
                       <select
                         name="stream"
                         value={formData.stream}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-[#212529] focus:outline-none focus:ring-2 focus:ring-[#721c24] focus:border-transparent transition-all"
+                        className="w-full px-3 md:px-4 py-2.5 md:py-3 bg-white border border-gray-300 rounded-lg text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-maroon focus:border-transparent transition-all text-sm"
                       >
                         <option value="">Select stream</option>
                         <option value="science">Science</option>
@@ -154,23 +155,23 @@ const BookGuidance = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-[#495057] mb-2 uppercase tracking-wide">
+                      <label className="block text-xs md:text-sm font-bold text-brand-body mb-2 uppercase tracking-wide">
                         Your Questions
                       </label>
                       <textarea
                         name="message"
                         required
-                        rows={4}
+                        rows={3}
                         value={formData.message}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-[#212529] focus:outline-none focus:ring-2 focus:ring-[#721c24] focus:border-transparent transition-all resize-none"
+                        className="w-full px-3 md:px-4 py-2.5 md:py-3 bg-white border border-gray-300 rounded-lg text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-maroon focus:border-transparent transition-all resize-none text-sm"
                         placeholder="What do you want to discuss in your session?"
                       />
                     </div>
 
                     <button
                       type="submit"
-                      className="w-full py-4 bg-[#721c24] text-white font-bold rounded-lg hover:bg-[#5a161d] transition-all duration-200 uppercase tracking-widest"
+                      className="w-full py-3 md:py-4 bg-brand-maroon text-white font-bold rounded-lg hover:bg-[#5a161d] transition-all duration-200 uppercase tracking-widest text-sm"
                     >
                       Book Session
                     </button>
@@ -183,71 +184,71 @@ const BookGuidance = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="space-y-8"
+                className="space-y-6 md:space-y-8 order-1 md:order-2"
               >
-                <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
-                  <h3 className="text-2xl font-bold mb-6 font-serif text-[#212529]">
+                <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm">
+                  <h3 className="text-xl md:text-2xl font-bold mb-6 font-serif text-brand-heading">
                     What to Expect
                   </h3>
                   <div className="space-y-4">
-                    <div className="flex items-start space-x-4">
-                      <div className="flex-shrink-0 w-10 h-10 bg-[#721c24]/10 rounded-full flex items-center justify-center">
-                        <Clock className="w-5 h-5 text-[#721c24]" />
+                    <div className="flex items-start space-x-3 md:space-x-4">
+                      <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-brand-maroon/10 rounded-full flex items-center justify-center">
+                        <Clock className="w-4 h-4 md:w-5 md:h-5 text-brand-maroon" />
                       </div>
                       <div>
-                        <h4 className="font-bold text-[#212529]">30-Minute Session</h4>
-                        <p className="text-[#495057] text-sm">Personalized one-on-one guidance</p>
+                        <h4 className="font-bold text-brand-heading text-sm md:text-base">30-Minute Session</h4>
+                        <p className="text-brand-body text-xs md:text-sm">Personalized one-on-one guidance</p>
                       </div>
                     </div>
 
-                    <div className="flex items-start space-x-4">
-                      <div className="flex-shrink-0 w-10 h-10 bg-[#721c24]/10 rounded-full flex items-center justify-center">
-                        <Users className="w-5 h-5 text-[#721c24]" />
+                    <div className="flex items-start space-x-3 md:space-x-4">
+                      <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-brand-maroon/10 rounded-full flex items-center justify-center">
+                        <Users className="w-4 h-4 md:w-5 md:h-5 text-brand-maroon" />
                       </div>
                       <div>
-                        <h4 className="font-bold text-[#212529]">Expert Counselors</h4>
-                        <p className="text-[#495057] text-sm">Experienced career guidance professionals</p>
+                        <h4 className="font-bold text-brand-heading text-sm md:text-base">Expert Counselors</h4>
+                        <p className="text-brand-body text-xs md:text-sm">Experienced career guidance professionals</p>
                       </div>
                     </div>
 
-                    <div className="flex items-start space-x-4">
-                      <div className="flex-shrink-0 w-10 h-10 bg-[#721c24]/10 rounded-full flex items-center justify-center">
-                        <Calendar className="w-5 h-5 text-[#721c24]" />
+                    <div className="flex items-start space-x-3 md:space-x-4">
+                      <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-brand-maroon/10 rounded-full flex items-center justify-center">
+                        <Calendar className="w-4 h-4 md:w-5 md:h-5 text-brand-maroon" />
                       </div>
                       <div>
-                        <h4 className="font-bold text-[#212529]">Flexible Scheduling</h4>
-                        <p className="text-[#495057] text-sm">Choose a time that works for you</p>
+                        <h4 className="font-bold text-brand-heading text-sm md:text-base">Flexible Scheduling</h4>
+                        <p className="text-brand-body text-xs md:text-sm">Choose a time that works for you</p>
                       </div>
                     </div>
 
-                    <div className="flex items-start space-x-4">
-                      <div className="flex-shrink-0 w-10 h-10 bg-[#721c24]/10 rounded-full flex items-center justify-center">
-                        <Mail className="w-5 h-5 text-[#721c24]" />
+                    <div className="flex items-start space-x-3 md:space-x-4">
+                      <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-brand-maroon/10 rounded-full flex items-center justify-center">
+                        <Mail className="w-4 h-4 md:w-5 md:h-5 text-brand-maroon" />
                       </div>
                       <div>
-                        <h4 className="font-bold text-[#212529]">Follow-Up Support</h4>
-                        <p className="text-[#495057] text-sm">Email support after your session</p>
+                        <h4 className="font-bold text-brand-heading text-sm md:text-base">Follow-Up Support</h4>
+                        <p className="text-brand-body text-xs md:text-sm">Email support after your session</p>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-[#721c24] rounded-2xl p-8 text-white">
-                  <h3 className="text-2xl font-bold mb-4 font-serif">
+                <div className="bg-brand-maroon rounded-2xl p-6 md:p-8 text-white">
+                  <h3 className="text-xl md:text-2xl font-bold mb-4 font-serif">
                     Why Choose Us?
                   </h3>
-                  <ul className="space-y-3">
-                    <li className="flex items-center space-x-3">
-                      <CheckCircle className="w-5 h-5" />
-                      <span>10+ years of experience</span>
+                  <ul className="space-y-2 md:space-y-3">
+                    <li className="flex items-center space-x-2 md:space-x-3">
+                      <CheckCircle className="w-4 h-4 md:w-5 md:h-5" />
+                      <span className="text-sm md:text-base">10+ years of experience</span>
                     </li>
-                    <li className="flex items-center space-x-3">
-                      <CheckCircle className="w-5 h-5" />
-                      <span>10,000+ students guided</span>
+                    <li className="flex items-center space-x-2 md:space-x-3">
+                      <CheckCircle className="w-4 h-4 md:w-5 md:h-5" />
+                      <span className="text-sm md:text-base">10,000+ students guided</span>
                     </li>
-                    <li className="flex items-center space-x-3">
-                      <CheckCircle className="w-5 h-5" />
-                      <span>95% satisfaction rate</span>
+                    <li className="flex items-center space-x-2 md:space-x-3">
+                      <CheckCircle className="w-4 h-4 md:w-5 md:h-5" />
+                      <span className="text-sm md:text-base">95% satisfaction rate</span>
                     </li>
                   </ul>
                 </div>
@@ -260,19 +261,19 @@ const BookGuidance = () => {
               transition={{ duration: 0.5 }}
               className="max-w-2xl mx-auto text-center"
             >
-              <div className="bg-[#f8f9fa] rounded-2xl p-12 border border-gray-200">
-                <div className="w-20 h-20 bg-[#721c24] rounded-full flex items-center justify-center mx-auto mb-8">
-                  <CheckCircle className="w-10 h-10 text-white" />
+              <div className="bg-brand-bgLight rounded-2xl p-8 md:p-12 border border-gray-200">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-brand-maroon rounded-full flex items-center justify-center mx-auto mb-6 md:mb-8">
+                  <CheckCircle className="w-8 h-8 md:w-10 md:h-10 text-white" />
                 </div>
-                <h2 className="text-4xl font-bold mb-4 font-serif text-[#212529]">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 font-serif text-brand-heading">
                   Session Booked!
                 </h2>
-                <p className="text-xl text-[#495057] mb-8 font-sans">
+                <p className="text-base sm:text-lg md:text-xl text-brand-body mb-6 md:mb-8 font-sans">
                   Thank you, {formData.name}! We've received your booking request. Our team will contact you within 24 hours to confirm your session.
                 </p>
-                <div className="space-y-4">
-                  <p className="text-sm text-[#495057]">
-                    <strong className="text-[#212529]">Confirmation email sent to:</strong> {formData.email}
+                <div className="space-y-2 md:space-y-4">
+                  <p className="text-xs md:text-sm text-brand-body">
+                    <strong className="text-brand-heading">Confirmation email sent to:</strong> {formData.email}
                   </p>
                 </div>
               </div>
