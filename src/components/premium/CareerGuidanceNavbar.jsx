@@ -242,30 +242,30 @@ const CareerGuidanceNavbar = () => {
               </div>
 
               {/* Search Bar - Institutional Style */}
-              <form onSubmit={handleSearch} className="relative ml-4">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#495057]" />
+              <form onSubmit={handleSearch} className="relative mx-4 hidden md:block">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-brand-body" />
                 <input
                   type="text"
                   placeholder="Search careers, colleges, exams..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2.5 bg-[#f8f9fa] border border-gray-200 rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-[#721c24] focus:border-transparent w-64 transition-all duration-200 font-sans text-[#212529]"
+                  className="pl-10 pr-4 py-2.5 bg-brand-bgLight border border-gray-200 rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-maroon focus:border-transparent w-64 md:w-72 transition-all duration-200 font-sans text-brand-heading"
                 />
               </form>
 
               {/* Right Side Buttons - Institutional Style */}
-              <div className="flex items-center space-x-3 ml-4">
+              <div className="flex items-center space-x-2 md:space-x-3">
                 <Link
                   to="/career-quiz"
-                  className="px-5 py-2.5 bg-[#ced4da] text-white text-[13px] font-semibold rounded-lg hover:bg-[#adb5bd] transition-all duration-200 font-sans"
+                  className="px-4 py-2.5 md:px-5 bg-brand-cta text-white text-xs md:text-[13px] font-bold rounded-lg hover:bg-[#adb5bd] transition-all duration-200 font-sans uppercase tracking-wide"
                 >
-                  Take Career Quiz
+                  Take Quiz
                 </Link>
                 <Link
                   to="/book-guidance"
-                  className="px-5 py-2.5 bg-[#721c24] text-white text-[13px] font-semibold rounded-lg hover:bg-[#5a161d] transition-all duration-200 font-sans"
+                  className="px-4 py-2.5 md:px-5 bg-brand-maroon text-white text-xs md:text-[13px] font-bold rounded-lg hover:bg-[#5a161d] transition-all duration-200 font-sans uppercase tracking-wide shadow-sm"
                 >
-                  Book Free Guidance
+                  Book Free
                 </Link>
 
                 {/* User Menu - Institutional Style */}
@@ -275,15 +275,15 @@ const CareerGuidanceNavbar = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => toggleDropdown('user')}
-                      className="flex items-center space-x-3 px-4 py-2.5 bg-[#f8f9fa] rounded-lg text-[#495057] hover:bg-[#e9ecef] transition-all duration-200 border border-gray-200 font-sans"
+                      className="flex items-center space-x-2 md:space-x-3 px-3 md:px-4 py-2.5 bg-brand-bgLight rounded-lg text-brand-body hover:bg-[#e9ecef] transition-all duration-200 border border-gray-200 font-sans"
                     >
-                      <div className="w-8 h-8 bg-[#721c24] rounded-full flex items-center justify-center">
-                        <span className="text-white text-xs font-bold font-serif">
+                      <div className="w-7 h-7 md:w-8 md:h-8 bg-brand-maroon rounded-full flex items-center justify-center">
+                        <span className="text-white text-[10px] md:text-xs font-bold font-serif">
                           {user.name.charAt(0).toUpperCase()}
                         </span>
                       </div>
-                      <span className="text-sm font-semibold">{user.name}</span>
-                      <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen === 'user' ? 'rotate-180' : ''}`} />
+                      <span className="text-xs md:text-sm font-semibold hidden md:inline">{user.name}</span>
+                      <ChevronDown className={`w-3 h-3 md:w-4 md:h-4 transition-transform duration-200 ${isDropdownOpen === 'user' ? 'rotate-180' : ''}`} />
                     </motion.button>
 
                     <AnimatePresence>
@@ -300,7 +300,7 @@ const CareerGuidanceNavbar = () => {
                                 key={link.name}
                                 to={link.path}
                                 onClick={() => setIsDropdownOpen(null)}
-                                className="block px-4 py-3 text-sm font-semibold text-[#495057] hover:bg-[#f8f9fa] hover:text-[#721c24] transition-colors duration-200 font-sans"
+                                className="block px-4 py-3 text-sm font-semibold text-brand-body hover:bg-brand-bgLight hover:text-brand-maroon transition-colors duration-200 font-sans"
                               >
                                 {link.name}
                               </Link>
@@ -308,7 +308,7 @@ const CareerGuidanceNavbar = () => {
                             <div className="border-t border-gray-200 my-2"></div>
                             <button
                               onClick={handleLogout}
-                              className="block w-full text-left px-4 py-3 text-sm font-semibold text-[#721c24] hover:bg-[#f8f9fa] transition-colors duration-200 font-sans"
+                              className="block w-full text-left px-4 py-3 text-sm font-semibold text-brand-maroon hover:bg-brand-bgLight transition-colors duration-200 font-sans"
                             >
                               Logout
                             </button>
@@ -325,15 +325,21 @@ const CareerGuidanceNavbar = () => {
             <div className="lg:hidden flex items-center space-x-2">
               <Link
                 to="/career-quiz"
-                className="px-4 py-2 bg-[#ced4da] text-white text-[12px] font-semibold rounded-lg hover:bg-[#adb5bd] transition-all duration-200 font-sans"
+                className="px-3 py-2 bg-brand-cta text-white text-[11px] font-bold rounded-lg hover:bg-[#adb5bd] transition-all duration-200 font-sans uppercase tracking-wide"
               >
-                Career Quiz
+                Quiz
+              </Link>
+              <Link
+                to="/book-guidance"
+                className="px-3 py-2 bg-brand-maroon text-white text-[11px] font-bold rounded-lg hover:bg-[#5a161d] transition-all duration-200 font-sans uppercase tracking-wide shadow-sm"
+              >
+                Book
               </Link>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-lg bg-[#f8f9fa] text-[#495057] hover:bg-[#e9ecef] transition-all duration-200"
+                className="p-2 rounded-lg bg-brand-bgLight text-brand-body hover:bg-[#e9ecef] transition-all duration-200"
               >
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </motion.button>
