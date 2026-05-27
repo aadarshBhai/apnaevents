@@ -16,6 +16,7 @@ import CollegesCategoryDetail from './pages/CollegesCategoryDetail';
 import ExamsCategoryDetail from './pages/ExamsCategoryDetail';
 import ScholarshipsCategoryDetail from './pages/ScholarshipsCategoryDetail';
 import Search from './pages/Search';
+import BookGuidance from './pages/BookGuidance';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import { NotificationProvider } from './components/NotificationSystem';
@@ -35,6 +36,7 @@ function App() {
                             <Route path="/submit-event" element={<SubmitEvent />} />
                             <Route path="/career-quiz" element={<CareerQuizPage />} />
                             <Route path="/careers" element={<CareersPage />} />
+                            <Route path="/book-guidance" element={<BookGuidance />} />
                             <Route path="/careers/:category" element={<CareerCategoryDetail />} />
                             <Route path="/colleges/:category" element={<CollegesCategoryDetail />} />
                             <Route path="/exams/:category" element={<ExamsCategoryDetail />} />
