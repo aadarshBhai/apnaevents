@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #1E293B;
+  --ashoka-blue: #0d3862;
+  --ashoka-red: #911116;
+  --ashoka-gold: #fcb900;
+  --ashoka-light: #F8FAFC;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-slate-800 font-sans antialiased overflow-x-hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif text-[#0d3862] tracking-tight font-bold;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white border border-slate-200/60 backdrop-blur-xl shadow-sm hover:shadow-md transition-shadow;
+  }
+
+  .glass-dark {
+    @apply bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-sm;
+  }
+
+  .glass-button {
+    @apply bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-all duration-300;
+  }
+
+  .btn-primary {
+    @apply bg-[#0d3862] hover:bg-[#0a2c4d] text-white font-bold px-8 py-3.5 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 text-sm;
+  }
+
+  .btn-premium {
+    @apply bg-gradient-to-r from-[#0d3862] to-[#1e4e7a] hover:from-[#911116] hover:to-[#b11b21] text-white font-bold px-6 py-3 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6;
+  }
+
+  .input-field {
+    @apply w-full bg-slate-50 border border-slate-200 rounded-lg px-6 py-3.5 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#0d3862] focus:ring-1 focus:ring-[#0d3862] transition-all duration-300 text-sm;
+  }
+
+  .varsity-badge {
+    @apply px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest border transition-all;
+  }
+}
+
+/* Custom Scrollbar for Light Theme */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 5px;
+  border: 2px solid #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
