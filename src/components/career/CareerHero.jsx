@@ -80,7 +80,7 @@ const CareerHero = () => {
                                 onClick={() => navigate('/career-quiz')}
                                 onMouseEnter={() => setHoveredButton('quiz')}
                                 onMouseLeave={() => setHoveredButton(null)}
-                                className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-brand-cta text-white font-semibold rounded-xl hover:bg-[#adb5bd] transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden shadow-sm font-sans"
+                                className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-brand-heading text-white font-semibold rounded-xl hover:bg-slate-700 transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden shadow-sm font-sans"
                             >
                                 <span className="relative z-10">Take Career Quiz</span>
                                 <ArrowRight className={`w-4 sm:w-5 h-4 sm:h-5 transition-transform duration-300 ${hoveredButton === 'quiz' ? 'translate-x-1' : ''}`} />

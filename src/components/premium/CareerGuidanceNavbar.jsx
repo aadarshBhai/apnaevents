@@ -257,7 +257,7 @@ const CareerGuidanceNavbar = () => {
               <div className="flex items-center space-x-2 md:space-x-3">
                 <Link
                   to="/career-quiz"
-                  className="px-4 py-2.5 md:px-5 bg-brand-cta text-white text-xs md:text-[13px] font-bold rounded-lg hover:bg-[#adb5bd] transition-all duration-200 font-sans uppercase tracking-wide"
+                  className="px-4 py-2.5 md:px-5 bg-brand-heading text-white text-xs md:text-[13px] font-bold rounded-lg hover:bg-slate-700 transition-all duration-200 font-sans uppercase tracking-wide"
                 >
                   Take Quiz
                 </Link>
@@ -325,7 +325,7 @@ const CareerGuidanceNavbar = () => {
             <div className="lg:hidden flex items-center space-x-2">
               <Link
                 to="/career-quiz"
-                className="px-3 py-2 bg-brand-cta text-white text-[11px] font-bold rounded-lg hover:bg-[#adb5bd] transition-all duration-200 font-sans uppercase tracking-wide"
+                className="px-3 py-2 bg-brand-heading text-white text-[11px] font-bold rounded-lg hover:bg-slate-700 transition-all duration-200 font-sans uppercase tracking-wide"
               >
                 Quiz
               </Link>
