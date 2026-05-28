@@ -69,7 +69,7 @@ const Contact = () => {
 
                                     <div className="space-y-8">
                                         {[
-                                            { icon: Mail, label: "Academic Support", value: "admin@apnaevents.com", color: "text-[#0d3862]" },
+                                            { icon: Mail, label: "Career Guidance", value: "aadarshgolucky@gmail.com", color: "text-[#0d3862]" },
                                             { icon: Phone, label: "Tele-Channel", value: "+91 98765 43210", color: "text-[#0d3862]" },
                                             { icon: MapPin, label: "Central Archive", value: "123 Academic Lane, New Delhi, India", color: "text-[#911116]" }
                                         ].map((item, i) => (

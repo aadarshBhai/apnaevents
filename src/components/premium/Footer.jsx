@@ -102,7 +102,7 @@ const Footer = ({ stats }) => {
                 <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-all shadow-sm">
                   <Github size={18} />
                 </a>
-                <a href="mailto:admissions@apnaevents.in" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-all shadow-sm">
+                <a href="mailto:aadarshgolucky@gmail.com" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-all shadow-sm">
                   <Mail size={18} />
                 </a>
               </div>
@@ -175,15 +175,15 @@ const Footer = ({ stats }) => {
               </div>
               <div className="flex items-center gap-3 text-white/80">
                 <Mail size={16} className="text-[#ced4da]" />
-                <span className="text-xs font-bold italic font-sans">admissions@apnaevents.in</span>
+                <span className="text-xs font-bold italic font-sans">aadarshgolucky@gmail.com</span>
               </div>
               <a
-                href="https://wa.me/917050819323?text=Hello%20ApnaEvents%20support%20team,%20I%20need%20help%20with%20your%20service"
+                href="https://wa.me/917050819323?text=Hello%20ApnaEvents%20team,%20I%20want%20to%20know%20more%20about%20career%20guidance"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 w-full px-5 py-3 mt-4 text-sm font-semibold text-white bg-[#721c24] rounded-xl hover:bg-[#5a161d] transition-colors font-sans"
               >
-                <span>WhatsApp Support</span>
+                <span>WhatsApp for Career Guidance</span>
               </a>
               <div className="pt-4 mt-4 border-t border-white/10 text-center">
                 <button onClick={scrollToTop} className="text-[10px] font-bold text-white/40 hover:text-white flex items-center gap-2 mx-auto uppercase tracking-widest font-sans">
