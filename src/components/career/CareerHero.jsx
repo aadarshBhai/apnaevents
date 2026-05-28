@@ -27,7 +27,7 @@ const CareerHero = () => {
 
     return (
         <section className="relative min-h-[90vh] bg-brand-bgLight overflow-hidden pt-32 pb-20">
-            <div className="container-custom px-4 relative z-10">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <motion.div
                         variants={containerVariants}

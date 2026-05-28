@@ -162,7 +162,7 @@ const CareerGuidanceNavbar = () => {
           : 'bg-white/90 backdrop-blur-sm'
           }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4">
           <div className="flex justify-between items-center h-20">
             {/* Logo + Brand - Academic Prestige */}
             <Link to="/" className="flex items-center space-x-3 group">
@@ -242,14 +242,14 @@ const CareerGuidanceNavbar = () => {
               </div>
 
               {/* Search Bar - Institutional Style */}
-              <form onSubmit={handleSearch} className="relative mx-4 hidden md:block">
+              <form onSubmit={handleSearch} className="relative mx-2 hidden md:block">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-brand-body" />
                 <input
                   type="text"
                   placeholder="Search careers, colleges, exams..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2.5 bg-brand-bgLight border border-gray-200 rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-maroon focus:border-transparent w-64 md:w-72 transition-all duration-200 font-sans text-brand-heading"
+                  className="pl-10 pr-4 py-2.5 bg-brand-bgLight border border-gray-200 rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-maroon focus:border-transparent w-48 md:w-56 transition-all duration-200 font-sans text-brand-heading"
                 />
               </form>
 
