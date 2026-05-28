@@ -167,8 +167,8 @@ const LandingPage = () => {
         <div className="min-h-screen bg-white">
             <SEO
                 title="Best Career Options After 12th | Career Guidance in India"
-                description="Get expert career guidance for students in India. Explore best career options after 12th, college application guidance, entrance exam preparation (JEE, NEET, CUET, CLAT), and student mentorship."
-                keywords="career guidance for students, career counselling after 12th, best career options after 12th, career guidance in India, student mentorship platform, college application guidance, career planning for students, future career guidance, best careers after 12th science, PCB career options, PCM career options, courses after 12th science, best careers after 12th commerce, best careers after arts, humanities career options, law career guidance"
+                description="Get expert career guidance for students in India. Explore best career options after 12th, government colleges after 12th, private colleges after 12th, high salary courses after 12th science and arts, college application guidance, and entrance exam preparation."
+                keywords="career guidance for students, career counselling after 12th, best career options after 12th, career guidance in India, student mentorship platform, college application guidance, career planning for students, future career guidance, government college after 12th grade, college after 12th grade science, private college after 12th grade, college after 12th grade maths, high salary courses after 12th Science, college after 12th grade biology, best college after 12th grade, high salary courses after 12th Arts"
             />
             <CareerGuidanceNavbar />
 

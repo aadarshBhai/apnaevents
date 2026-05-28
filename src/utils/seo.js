@@ -1,9 +1,9 @@
 // SEO metadata configuration for different pages
 export const SEO_CONFIG = {
   home: {
-    title: "Online Olympiad Competitions for Class 9–12 Students India | ApnaEvents",
-    description: "Participate in verified online olympiad competitions for Class 9-12 students in India. Find student competitions online and boost your academic profile with ApnaEvents.",
-    keywords: "school competitions India, class 9–12 Olympiad, student competitions online, online olympiad, class 9 olympiad, class 10 olympiad, class 11 olympiad, class 12 olympiad, india competitions, student competitions"
+    title: "Best Career Options After 12th | Career Guidance in India",
+    description: "Get expert career guidance for students in India. Explore best career options after 12th, government colleges after 12th, private colleges after 12th, high salary courses after 12th science and arts, college application guidance, and entrance exam preparation.",
+    keywords: "career guidance for students, career counselling after 12th, best career options after 12th, career guidance in India, student mentorship platform, college application guidance, career planning for students, future career guidance, government college after 12th grade, college after 12th grade science, private college after 12th grade, college after 12th grade maths, high salary courses after 12th Science, college after 12th grade biology, best college after 12th grade, high salary courses after 12th Arts"
   },
   events: {
     title: "Browse School Competitions India | Class 9–12 Olympiads & Contests",

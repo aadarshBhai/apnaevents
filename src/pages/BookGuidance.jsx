@@ -25,6 +25,8 @@ const BookGuidance = () => {
     setIsSubmitted(true);
   };
 
+  const guidanceImage = "https://images.unsplash.com/photo-1520697222861-972e7d38de45?auto=format&fit=crop&q=80&w=1200";
+
   return (
     <div className="min-h-screen bg-white text-slate-800">
       <SEO

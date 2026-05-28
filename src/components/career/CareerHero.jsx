@@ -55,7 +55,7 @@ const CareerHero = () => {
 
                         {/* Subheading text */}
                         <motion.p variants={itemVariants} className="text-base sm:text-lg md:text-xl text-brand-body mb-8 leading-relaxed font-sans">
-                            We help you make smarter decisions. Find the right career, target the best colleges, and build your roadmap—all in one place.
+                            We help you make smarter decisions. Explore government colleges after 12th, private colleges after 12th, high salary courses after 12th science and arts, college after 12th grade biology and maths, and find the best career path for you.
                         </motion.p>
 
                         {/* Stats */}
