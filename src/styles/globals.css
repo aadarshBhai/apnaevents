@@ -89,7 +89,7 @@ body {
 
 /* Focus Styles */
 .focus-ring {
-  @apply focus:outline-none focus:ring-2 focus:ring-primary-maroon focus:ring-offset-2 focus:ring-offset-white;
+  @apply focus:outline-none focus:ring-2 focus:ring-brand-maroon focus:ring-offset-2 focus:ring-offset-white;
 }
 
 /* Animations */
@@ -151,7 +151,7 @@ body {
 
 /* Brand CTA Button Styles */
 .btn-brand {
-  @apply relative inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-gray-300 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 overflow-hidden group;
+  @apply relative inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-gray-300 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 overflow-hidden;
 }
 
 .btn-brand::before {

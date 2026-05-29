@@ -34,40 +34,9 @@ const Footer = ({ stats }) => {
   };
 
   return (
-    <footer className="bg-[#212529] text-white pt-24 pb-12 relative overflow-hidden">
+    <footer className="bg-[#002D62] text-white pt-24 pb-12 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Newsletter / CTA Row */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20 pb-16 border-b border-white/10">
-          <div>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-              Join the <span className="text-[#721c24]">Academic Network</span>
-            </h2>
-            <p className="text-white/60 text-lg leading-relaxed max-w-xl font-medium font-sans">
-              Receive notifications about verified national competitions and exclusive institutional opportunities.
-            </p>
-          </div>
-          <div>
-            <form onSubmit={handleSubscribe} className="flex gap-3">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Institutional or student email"
-                className="flex-1 px-6 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[#721c24] transition-all font-sans"
-                required
-              />
-              <button
-                type="submit"
-                className="px-8 bg-[#ced4da] text-[#212529] font-bold rounded-xl hover:bg-[#adb5bd] transition-colors font-sans"
-              >
-                {isSubscribed ? 'Opted-in' : 'Subscribe'}
-              </button>
-            </form>
-            <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest mt-4 font-sans">
-              Institutional privacy protocols apply.
-            </p>
-          </div>
-        </div>
+        {/* Newsletter / CTA Row removed as requested */}
 
         {/* Info Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
@@ -79,7 +48,7 @@ const Footer = ({ stats }) => {
               </div>
               <div>
                 <h1 className="font-serif text-2xl font-bold text-white leading-none tracking-tight">
-                  apna<span className="text-[#ced4da]">events</span>
+                  We<span className="text-[#ced4da]">Bridge</span>
                 </h1>
                 <p className="text-[9px] text-white/40 font-bold uppercase tracking-[0.2em] mt-1 font-sans">Ashoka Network Affiliate</p>
               </div>

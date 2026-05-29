@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import axios from 'axios';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, Users, Mail, Phone, CheckCircle } from 'lucide-react';
+import { Calendar, Clock, Users, Mail, Phone, CheckCircle, Loader2 } from 'lucide-react';
 import CareerGuidanceNavbar from '../components/premium/CareerGuidanceNavbar';
 import Footer from '../components/premium/Footer';
 import SEO from '../components/seo/SEO';
@@ -15,14 +16,27 @@ const BookGuidance = () => {
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setIsLoading(true);
+    setError('');
+    
+    try {
+      await axios.post('http://localhost:5000/api/bookings', formData);
+      setIsSubmitted(true);
+    } catch (err) {
+      console.error('Error submitting booking:', err);
+      setError(err.response?.data?.message || 'Failed to submit booking. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const guidanceImage = "https://images.unsplash.com/photo-1520697222861-972e7d38de45?auto=format&fit=crop&q=80&w=1200";
@@ -30,7 +44,7 @@ const BookGuidance = () => {
   return (
     <div className="min-h-screen bg-white text-slate-800">
       <SEO
-        title="Book Free Career Guidance Session | CareerPilot"
+        title="Book Free Career Guidance Session | WeBridge"
         description="Book a free 30-minute career guidance session with our expert counselors. Get personalized advice for your career path after 12th."
         keywords="book career guidance, free career counseling, career advice for students, career guidance session"
       />
@@ -171,11 +185,19 @@ const BookGuidance = () => {
                       />
                     </div>
 
+                    {error && (
+                      <div className="p-3 bg-red-50 text-red-600 text-sm rounded-lg border border-red-200">
+                        {error}
+                      </div>
+                    )}
+
                     <button
                       type="submit"
-                      className="w-full py-3 md:py-4 bg-brand-maroon text-white font-bold rounded-lg hover:bg-[#5a161d] transition-all duration-200 uppercase tracking-widest text-sm"
+                      disabled={isLoading}
+                      className="w-full py-3 md:py-4 bg-brand-maroon text-white font-bold rounded-lg hover:bg-[#5a161d] transition-all duration-200 uppercase tracking-widest text-sm disabled:opacity-70 flex items-center justify-center gap-2"
                     >
-                      Book Session
+                      {isLoading && <Loader2 className="w-4 h-4 animate-spin" />}
+                      {isLoading ? 'Booking...' : 'Book Session'}
                     </button>
                   </form>
                 </div>

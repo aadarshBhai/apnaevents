@@ -11,12 +11,12 @@ const SEO = ({
   modifiedTime,
   author
 }) => {
-  const siteTitle = 'CareerPilot - Career Guidance for Students in India';
+  const siteTitle = 'WeBridge - Career Guidance for Students in India';
   const siteDescription = 'Get expert career guidance, college application support, and student mentorship. Explore best career options after 12th, entrance exam preparation, and scholarships.';
   const siteUrl = 'https://apnaevents.in'; // Replace with actual domain
   const defaultImage = `${siteUrl}/images/og-image.jpg`; // Ensure this image exists
 
-  const fullTitle = title ? `${title} | CareerPilot` : siteTitle;
+  const fullTitle = title ? `${title} | WeBridge` : siteTitle;
   const metaDescription = description || siteDescription;
   const metaImage = image ? (image.startsWith('http') ? image : `${siteUrl}${image}`) : defaultImage;
   const metaUrl = url ? (url.startsWith('http') ? url : `${siteUrl}${url}`) : siteUrl;

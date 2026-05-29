@@ -8,37 +8,23 @@ const CareerGuidanceNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(null);
-  const [announcementIndex, setAnnouncementIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-
-  const announcements = [
-    "Free Career Webinar This Sunday",
-    "Scholarship Deadlines Updated",
-    "New Career Quiz Available",
-    "Top Colleges After CUET",
-  ];
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
 
-    const rotateAnnouncements = () => {
-      setAnnouncementIndex((prev) => (prev + 1) % announcements.length);
-    };
-
     handleScroll();
     window.addEventListener('scroll', handleScroll);
-    const announcementInterval = setInterval(rotateAnnouncements, 4000);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      clearInterval(announcementInterval);
     };
-  }, [announcements.length]);
+  }, []);
 
   const handleLogout = async () => {
     await logout();
@@ -132,37 +118,16 @@ const CareerGuidanceNavbar = () => {
 
   return (
     <>
-      {/* Announcement Bar - Institutional Style */}
-      <div className="bg-[#721c24] text-white py-2 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={announcementIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-                className="text-xs font-medium text-center tracking-wide uppercase"
-              >
-                <Sparkles className="inline w-3 h-3 mr-2" />
-                {announcements[announcementIndex]}
-              </motion.p>
-            </AnimatePresence>
-          </div>
-        </div>
-      </div>
-
       {/* Main Navbar - Institutional Elite Gatekeeper Style */}
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-8 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-200'
-          : 'bg-white/90 backdrop-blur-sm'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+          ? 'bg-[#002D62]/95 backdrop-blur-md shadow-sm border-b border-[#002D62]'
+          : 'bg-[#002D62]/90 backdrop-blur-sm'
           }`}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo + Brand - Academic Prestige */}
             <Link to="/" className="flex items-center space-x-3 group">
@@ -173,10 +138,10 @@ const CareerGuidanceNavbar = () => {
                 <GraduationCap className="w-7 h-7 text-white" />
               </motion.div>
               <div>
-                <h1 className="font-serif text-2xl font-bold text-[#212529] leading-none tracking-tight">
+                <h1 className="font-serif text-2xl font-bold text-white leading-none tracking-tight">
                   Career<span className="text-[#721c24]">Pilot</span>
                 </h1>
-                <p className="text-[9px] text-[#495057] font-semibold uppercase tracking-[0.2em] mt-1 font-sans">
+                <p className="text-[9px] text-gray-300 font-semibold uppercase tracking-[0.2em] mt-1 font-sans">
                   Guiding India's Students Beyond School
                 </p>
               </div>
@@ -192,8 +157,8 @@ const CareerGuidanceNavbar = () => {
                         whileHover={{ scale: 1.02 }}
                         onClick={() => toggleDropdown(link.name)}
                         className={`flex items-center space-x-1.5 px-3 py-2 rounded-lg text-[12px] font-semibold transition-all duration-200 font-sans ${isDropdownOpen === link.name
-                          ? 'text-[#721c24] bg-[#f8f9fa]'
-                          : 'text-[#495057] hover:text-[#721c24] hover:bg-[#f8f9fa]'
+                          ? 'text-white bg-white/10'
+                          : 'text-gray-300 hover:text-white hover:bg-white/10'
                           }`}
                       >
                         {link.icon}
@@ -204,8 +169,8 @@ const CareerGuidanceNavbar = () => {
                       <Link
                         to={link.path}
                         className={`flex items-center space-x-1.5 px-3 py-2 rounded-lg text-[12px] font-semibold transition-all duration-200 font-sans ${location.pathname === link.path
-                          ? 'text-[#721c24] bg-[#f8f9fa]'
-                          : 'text-[#495057] hover:text-[#721c24] hover:bg-[#f8f9fa]'
+                          ? 'text-white bg-white/10'
+                          : 'text-gray-300 hover:text-white hover:bg-white/10'
                           }`}
                       >
                         {link.icon}
@@ -242,7 +207,7 @@ const CareerGuidanceNavbar = () => {
               </div>
 
               {/* Search Bar - Institutional Style */}
-              <form onSubmit={handleSearch} className="relative mx-2 hidden md:block">
+              <form onSubmit={handleSearch} className="relative mx-2 hidden xl:block">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-brand-body" />
                 <input
                   type="text"
@@ -254,16 +219,16 @@ const CareerGuidanceNavbar = () => {
               </form>
 
               {/* Right Side Buttons - Institutional Style */}
-              <div className="flex items-center space-x-2 md:space-x-3">
+              <div className="flex items-center space-x-2 md:space-x-2">
                 <Link
                   to="/career-quiz"
-                  className="px-4 py-2.5 md:px-5 bg-white text-brand-maroon border-2 border-brand-maroon text-xs md:text-[13px] font-bold rounded-lg hover:bg-brand-maroon hover:text-white transition-all duration-200 font-sans uppercase tracking-wide"
+                  className="px-3 py-2 md:px-4 md:py-2.5 bg-white text-brand-maroon border-2 border-brand-maroon text-xs md:text-[13px] font-bold rounded-lg hover:bg-brand-maroon hover:text-white transition-all duration-200 font-sans uppercase tracking-wide whitespace-nowrap"
                 >
                   Take Quiz
                 </Link>
                 <Link
                   to="/book-guidance"
-                  className="px-4 py-2.5 md:px-5 bg-brand-maroon text-white text-xs md:text-[13px] font-bold rounded-lg hover:bg-[#5a161d] transition-all duration-200 font-sans uppercase tracking-wide shadow-sm"
+                  className="px-3 py-2 md:px-4 md:py-2.5 bg-brand-maroon text-white text-xs md:text-[13px] font-bold rounded-lg hover:bg-[#5a161d] transition-all duration-200 font-sans uppercase tracking-wide shadow-sm whitespace-nowrap"
                 >
                   Book Free
                 </Link>
@@ -275,7 +240,7 @@ const CareerGuidanceNavbar = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => toggleDropdown('user')}
-                      className="flex items-center space-x-2 md:space-x-3 px-3 md:px-4 py-2.5 bg-brand-bgLight rounded-lg text-brand-body hover:bg-[#e9ecef] transition-all duration-200 border border-gray-200 font-sans"
+                      className="flex items-center space-x-2 md:space-x-3 px-3 md:px-4 py-2.5 bg-white/10 rounded-lg text-white hover:bg-white/20 transition-all duration-200 border border-white/20 font-sans"
                     >
                       <div className="w-7 h-7 md:w-8 md:h-8 bg-brand-maroon rounded-full flex items-center justify-center">
                         <span className="text-white text-[10px] md:text-xs font-bold font-serif">
@@ -339,7 +304,7 @@ const CareerGuidanceNavbar = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-lg bg-brand-bgLight text-brand-body hover:bg-[#e9ecef] transition-all duration-200"
+                className="p-2 rounded-lg text-white hover:bg-white/10 transition-all duration-200"
               >
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </motion.button>

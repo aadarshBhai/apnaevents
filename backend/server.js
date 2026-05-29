@@ -16,6 +16,8 @@ import contactRoutes from './routes/contactRoutes.js';
 import cleanupRoutes from './routes/cleanupRoutes.js';
 import addSampleEventsRoutes from './routes/addSampleEvents.js';
 import proposalRoutes from './routes/proposalRoutes.js';
+import bookingRoutes from './routes/bookingRoutes.js';
+import mentorshipRoutes from './routes/mentorshipRoutes.js';
 
 dotenv.config();
 
@@ -135,6 +137,8 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/cleanup', cleanupRoutes);
 app.use('/api/events', addSampleEventsRoutes);
 app.use('/api/proposals', proposalRoutes);
+app.use('/api/bookings', bookingRoutes);
+app.use('/api/mentorship-application', mentorshipRoutes);
 
 app.get('/', (req, res) => {
     res.send('API is running...');

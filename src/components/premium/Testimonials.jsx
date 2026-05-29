@@ -10,33 +10,23 @@ const Testimonials = () => {
   const testimonials = [
     {
       id: 1,
-      name: "Sakshi Mehta",
-      role: "Class 12 Student",
-      school: "Government School, Uttar Pradesh",
-      avatar: "https://i.pravatar.cc/150?u=sakshi",
-      content: "I had no idea how to present my story for liberal arts colleges. The counsellor helped me build a strong resume and application, and I received an offer from Azim Premji University.",
+      name: "Priti Kumar",
+      role: "Student",
+      school: "Azim Premji University",
+      avatar: "https://i.pravatar.cc/150?u=priti",
+      content: "WeBridge helped me discover the right competitions and guided me through the application process. Their support was crucial for my admission to Azim Premji University.",
       rating: 5,
       achievement: "Azim Premji University Admit"
     },
     {
       id: 2,
-      name: "Amit Singh",
-      role: "Class 11 Student",
-      school: "Vidya Mandir, Jaipur",
-      avatar: "https://i.pravatar.cc/150?u=amit",
-      content: "Mock interviews and essay feedback changed how I approached college admissions. I now feel ready to apply to Ashoka and other liberal arts programs.",
+      name: "Vivek Kumar",
+      role: "Student",
+      school: "Ashoka University",
+      avatar: "https://i.pravatar.cc/150?u=vivek",
+      content: "Thanks to WeBridge, I found exclusive opportunities and received mentorship that made my Ashoka University journey possible. Highly recommended for any student!",
       rating: 5,
-      achievement: "Ashoka Application Prep"
-    },
-    {
-      id: 3,
-      name: "Neha Rao",
-      role: "Class 12 Student",
-      school: "State School, Kerala",
-      avatar: "https://i.pravatar.cc/150?u=neha",
-      content: "My parents wanted transparent support for my college journey. The team gave us clear timelines, career guidance, and a personalized resume that helped me gain confidence.",
-      rating: 5,
-      achievement: "College Readiness"
+      achievement: "Ashoka University Admit"
     }
   ];
 

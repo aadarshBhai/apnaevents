@@ -11,12 +11,13 @@ import ResetPassword from './pages/ResetPassword';
 import SubmitEvent from './pages/SubmitEvent';
 import CareerQuizPage from './pages/CareerQuizPage';
 import CareersPage from './pages/CareersPage';
+import BookGuidance from './pages/BookGuidance';
+import MentorshipRegistration from './pages/MentorshipRegistration';
 import CareerCategoryDetail from './pages/CareerCategoryDetail';
 import CollegesCategoryDetail from './pages/CollegesCategoryDetail';
 import ExamsCategoryDetail from './pages/ExamsCategoryDetail';
 import ScholarshipsCategoryDetail from './pages/ScholarshipsCategoryDetail';
 import Search from './pages/Search';
-import BookGuidance from './pages/BookGuidance';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import { NotificationProvider } from './components/NotificationSystem';
@@ -37,6 +38,7 @@ function App() {
                             <Route path="/career-quiz" element={<CareerQuizPage />} />
                             <Route path="/careers" element={<CareersPage />} />
                             <Route path="/book-guidance" element={<BookGuidance />} />
+                            <Route path="/mentorship-registration" element={<MentorshipRegistration />} />
                             <Route path="/careers/:category" element={<CareerCategoryDetail />} />
                             <Route path="/colleges/:category" element={<CollegesCategoryDetail />} />
                             <Route path="/exams/:category" element={<ExamsCategoryDetail />} />
