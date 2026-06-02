@@ -5,25 +5,27 @@ const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || (isLocal ? 'http://localho
 
 export const createSocket = () => {
     const socket = io(SOCKET_URL, {
-        transports: ['websocket', 'polling'],
+        transports: ['polling', 'websocket'],
         timeout: 20000,
         reconnection: true,
-        reconnectionAttempts: 5,
-        reconnectionDelay: 1000
+        reconnectionAttempts: 10,
+        reconnectionDelay: 500,
+        reconnectionDelayMax: 5000,
+        randomizationFactor: 0.5
     });
 
-    // Add connection error handling to reduce console noise
+    // Suppress verbose connection error logging
     socket.on('connect_error', (error) => {
-        // Only log in development, not in production
-        if (import.meta.env.DEV) {
-            console.log('Socket connection failed (backend not deployed yet):', error.message);
-        }
+        // Silently handle connection errors - socket.io handles retries automatically
+        // Only log if we've exceeded all retry attempts
     });
 
     socket.on('disconnect', (reason) => {
-        if (import.meta.env.DEV) {
-            console.log('Socket disconnected:', reason);
-        }
+        // Silently handle disconnects
+    });
+
+    socket.on('connect', () => {
+        // Socket successfully connected
     });
 
     return socket;

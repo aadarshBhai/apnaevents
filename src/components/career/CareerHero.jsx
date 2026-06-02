@@ -37,7 +37,7 @@ const CareerHero = () => {
                     >
                         {/* Subheading - Institutional Style */}
                         <motion.div variants={itemVariants} className="mb-6 inline-block">
-                            <span className="px-4 py-2 bg-brand-bgLight border border-brand-cta text-brand-body rounded-full text-xs font-semibold uppercase tracking-[0.2em] font-sans">
+                            <span className="px-4 py-2 bg-white border border-[#002D62] text-[#002D62] rounded-full text-xs font-semibold uppercase tracking-[0.2em] font-sans">
                                 For Class 11–12 Students in India
                             </span>
                         </motion.div>

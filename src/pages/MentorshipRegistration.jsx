@@ -491,23 +491,24 @@ const MentorshipRegistration = () => {
               
               {/* Progress Bar Header */}
               <div className="bg-[#002D62] p-8 text-white">
-                <h1 className="text-3xl font-serif font-bold mb-6">Mentorship Intake Application</h1>
+                <h1 className="text-3xl font-serif font-bold mb-8">Mentorship Intake Application</h1>
                 
-                <div className="flex items-center justify-between mb-2">
+                <div className="relative flex items-start justify-between pb-8">
+                  {/* Progress Line behind circles */}
+                  <div className="absolute left-4 right-4 top-4 h-1 bg-white/20">
+                    <div className="h-full bg-white transition-all duration-500 ease-out" style={{ width: `${(currentStep / (steps.length - 1)) * 100}%` }} />
+                  </div>
+
                   {steps.map((step, idx) => (
                     <div key={idx} className="flex flex-col items-center relative z-10">
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${currentStep >= idx ? 'bg-white text-[#002D62] shadow-lg' : 'bg-white/20 text-white/50'}`}>
                         {currentStep > idx ? <CheckCircle className="w-5 h-5" /> : (idx + 1)}
                       </div>
-                      <span className={`text-[10px] uppercase tracking-wider font-bold mt-2 absolute top-10 whitespace-nowrap transition-all duration-300 ${currentStep >= idx ? 'text-white' : 'text-white/50'}`}>
+                      <span className={`text-[10px] uppercase tracking-wider font-bold mt-2 text-center whitespace-nowrap transition-all duration-300 ${currentStep >= idx ? 'text-white' : 'text-white/50'}`}>
                         {step}
                       </span>
                     </div>
                   ))}
-                  {/* Progress Line */}
-                  <div className="absolute left-10 right-10 top-[110px] h-1 bg-white/20 -z-0">
-                    <div className="h-full bg-white transition-all duration-500 ease-out" style={{ width: `${(currentStep / (steps.length - 1)) * 100}%` }} />
-                  </div>
                 </div>
               </div>
 

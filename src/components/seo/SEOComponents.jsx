@@ -90,7 +90,7 @@ export const SEOInternalLinks = ({ links }) => (
                 className="max-w-4xl mx-auto text-center"
             >
                 <h2 className="text-3xl font-serif font-bold text-[#0d3862] mb-12">
-                    Institutional <span className="text-[#911116] italic">Resources</span>
+                    Institutional <span className="text-[#911116] italic">Guidance</span>
                 </h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {links.map((link, index) => (

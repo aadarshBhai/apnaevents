@@ -23,7 +23,7 @@
   h4,
   h5,
   h6 {
-    @apply font-serif text-[#0d3862] tracking-tight font-bold;
+    @apply font-serif tracking-tight font-bold;
   }
 }
 

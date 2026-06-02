@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
                 <h2>Booking Confirmation: Career Guidance Session</h2>
                 <p>Hi ${name},</p>
-                <p>Thank you for booking a free career guidance session with CareerPilot.</p>
+                <p>Thank you for booking a free career guidance session with WeBridge.</p>
                 <p>We have received your request successfully. Our expert mentor will review your details and contact you within 24 hours to schedule the exact timing of your session.</p>
                 <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 20px;">
                     <h3>Your Booking Summary:</h3>
@@ -50,7 +50,7 @@ router.post('/', async (req, res) => {
                     <p><strong>Questions:</strong> ${message}</p>
                 </div>
                 <p>If you have any urgent questions, feel free to reply to this email.</p>
-                <p>Best regards,<br>The CareerPilot Team</p>
+                <p>Best regards,<br>The WeBridge Team</p>
             </div>
         `;
 

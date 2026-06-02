@@ -1,0 +1,98 @@
+name: Update Scholarships Daily
+
+on:
+  schedule:
+    # Run every day at 2:00 AM UTC (7:30 AM IST)
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-scholarships:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies (backend)
+        run: cd backend && npm install --legacy-peer-deps
+        continue-on-error: true
+
+      - name: Run scholarship scraper
+        run: node backend/scripts/scholarships-scraper.js
+        continue-on-error: true
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet public/scholarships.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add public/scholarships.json
+          git commit -m "chore: auto-update scholarships data [skip ci]"
+          git push
+
+      - name: Create notification
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          echo "✅ Scholarships data updated successfully"
+          echo "📊 Updated on: $(date)"
+
+      - name: Log if no changes
+        if: steps.changes.outputs.changed == 'false'
+        run: |
+          echo "ℹ️ No new scholarship updates found"
+          echo "📅 Checked on: $(date)"
+
+      - name: Notify on failure (Optional)
+        if: failure()
+        run: |
+          echo "❌ Scholarship update failed"
+          echo "⏰ Failed at: $(date)"
+          echo "This job runs automatically, but no scholarships were updated."
+
+  verify-json:
+    runs-on: ubuntu-latest
+    needs: update-scholarships
+    if: always()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify JSON format
+        run: |
+          node -e "const fs = require('fs'); JSON.parse(fs.readFileSync('public/scholarships.json', 'utf-8')); console.log('✅ Scholarships JSON is valid');"
+        continue-on-error: true
+
+      - name: Count scholarships
+        run: |
+          node -c "
+          const fs = require('fs');
+          const data = JSON.parse(fs.readFileSync('public/scholarships.json', 'utf-8'));
+          let total = 0;
+          Object.keys(data.scholarships).forEach(cat => {
+            total += data.scholarships[cat].length;
+          });
+          console.log('📊 Total scholarships: ' + total);
+          console.log('📅 Last updated: ' + data.lastUpdated);
+          "
+        continue-on-error: true

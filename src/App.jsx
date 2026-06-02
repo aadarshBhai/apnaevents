@@ -38,7 +38,7 @@ function App() {
                             <Route path="/career-quiz" element={<CareerQuizPage />} />
                             <Route path="/careers" element={<CareersPage />} />
                             <Route path="/book-guidance" element={<BookGuidance />} />
-                            <Route path="/mentorship-registration" element={<MentorshipRegistration />} />
+                            <Route path="/mentorship" element={<MentorshipRegistration />} />
                             <Route path="/careers/:category" element={<CareerCategoryDetail />} />
                             <Route path="/colleges/:category" element={<CollegesCategoryDetail />} />
                             <Route path="/exams/:category" element={<ExamsCategoryDetail />} />

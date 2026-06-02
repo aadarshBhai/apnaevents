@@ -12,77 +12,77 @@ const CollegesCategoryDetail = () => {
             name: 'Engineering Colleges',
             description: 'Top engineering colleges in India with excellent infrastructure and placement records',
             colleges: [
-                { name: 'IIT Bombay', location: 'Mumbai', ranking: 1, fee: '₹2.5 LPA' },
-                { name: 'IIT Delhi', location: 'Delhi', ranking: 2, fee: '₹2.4 LPA' },
-                { name: 'IIT Madras', location: 'Chennai', ranking: 3, fee: '₹2.3 LPA' },
-                { name: 'NIT Trichy', location: 'Trichy', ranking: 4, fee: '₹1.8 LPA' },
-                { name: 'BITS Pilani', location: 'Pilani', ranking: 5, fee: '₹4.5 LPA' },
+                { name: 'IIT Bombay', location: 'Mumbai', ranking: 1, fee: '₹2.5 LPA', link: 'https://www.iitb.ac.in' },
+                { name: 'IIT Delhi', location: 'Delhi', ranking: 2, fee: '₹2.4 LPA', link: 'https://home.iitd.ac.in' },
+                { name: 'IIT Madras', location: 'Chennai', ranking: 3, fee: '₹2.3 LPA', link: 'https://www.iitm.ac.in' },
+                { name: 'NIT Trichy', location: 'Trichy', ranking: 4, fee: '₹1.8 LPA', link: 'https://www.nitt.edu' },
+                { name: 'BITS Pilani', location: 'Pilani', ranking: 5, fee: '₹4.5 LPA', link: 'https://www.bits-pilani.ac.in' },
             ]
         },
         'medical': {
             name: 'Medical Colleges',
             description: 'Prestigious medical colleges offering MBBS and other medical courses',
             colleges: [
-                { name: 'AIIMS Delhi', location: 'Delhi', ranking: 1, fee: '₹1.5 LPA' },
-                { name: 'PGIMER Chandigarh', location: 'Chandigarh', ranking: 2, fee: '₹1.4 LPA' },
-                { name: 'CMC Vellore', location: 'Vellore', ranking: 3, fee: '₹2.0 LPA' },
-                { name: 'KEM Hospital Mumbai', location: 'Mumbai', ranking: 4, fee: '₹1.3 LPA' },
-                { name: 'MGIMS Wardha', location: 'Wardha', ranking: 5, fee: '₹1.6 LPA' },
+                { name: 'AIIMS Delhi', location: 'Delhi', ranking: 1, fee: '₹1.5 LPA', link: 'https://www.aiimsdelhi.edu.in' },
+                { name: 'PGIMER Chandigarh', location: 'Chandigarh', ranking: 2, fee: '₹1.4 LPA', link: 'https://www.pgimer.edu.in' },
+                { name: 'CMC Vellore', location: 'Vellore', ranking: 3, fee: '₹2.0 LPA', link: 'https://www.cmcvellore.ac.in' },
+                { name: 'KEM Hospital Mumbai', location: 'Mumbai', ranking: 4, fee: '₹1.3 LPA', link: 'https://www.kemhospitalpune.edu' },
+                { name: 'MGIMS Wardha', location: 'Wardha', ranking: 5, fee: '₹1.6 LPA', link: 'https://www.mgims.ac.in' },
             ]
         },
         'law': {
             name: 'Law Colleges',
             description: 'Top law colleges in India offering 5-year integrated and 3-year LLB courses',
             colleges: [
-                { name: 'NLSIU Bangalore', location: 'Bangalore', ranking: 1, fee: '₹2.8 LPA' },
-                { name: 'NLU Delhi', location: 'Delhi', ranking: 2, fee: '₹2.7 LPA' },
-                { name: 'NALSAR Hyderabad', location: 'Hyderabad', ranking: 3, fee: '₹2.6 LPA' },
-                { name: 'NUJS Kolkata', location: 'Kolkata', ranking: 4, fee: '₹2.5 LPA' },
-                { name: 'GNLU Gandhinagar', location: 'Gandhinagar', ranking: 5, fee: '₹2.4 LPA' },
+                { name: 'NLSIU Bangalore', location: 'Bangalore', ranking: 1, fee: '₹2.8 LPA', link: 'https://nlsiu.ac.in' },
+                { name: 'NLU Delhi', location: 'Delhi', ranking: 2, fee: '₹2.7 LPA', link: 'https://www.nludelhi.ac.in' },
+                { name: 'NALSAR Hyderabad', location: 'Hyderabad', ranking: 3, fee: '₹2.6 LPA', link: 'https://www.nalsar.ac.in' },
+                { name: 'NUJS Kolkata', location: 'Kolkata', ranking: 4, fee: '₹2.5 LPA', link: 'https://www.nujs.edu' },
+                { name: 'GNLU Gandhinagar', location: 'Gandhinagar', ranking: 5, fee: '₹2.4 LPA', link: 'https://www.gnlu.ac.in' },
             ]
         },
         'commerce': {
             name: 'Commerce Colleges',
             description: 'Best colleges for commerce and management studies',
             colleges: [
-                { name: 'SRCC Delhi', location: 'Delhi', ranking: 1, fee: '₹1.2 LPA' },
-                { name: 'Hindu College Delhi', location: 'Delhi', ranking: 2, fee: '₹1.0 LPA' },
-                { name: 'LSR College Delhi', location: 'Delhi', ranking: 3, fee: '₹1.1 LPA' },
-                { name: 'St. Xavier\'s College Mumbai', location: 'Mumbai', ranking: 4, fee: '₹1.3 LPA' },
-                { name: 'Christ University Bangalore', location: 'Bangalore', ranking: 5, fee: '₹1.5 LPA' },
+                { name: 'SRCC Delhi', location: 'Delhi', ranking: 1, fee: '₹1.2 LPA', link: 'https://srcc.du.ac.in' },
+                { name: 'Hindu College Delhi', location: 'Delhi', ranking: 2, fee: '₹1.0 LPA', link: 'https://www.hinducollege.ac.in' },
+                { name: 'LSR College Delhi', location: 'Delhi', ranking: 3, fee: '₹1.1 LPA', link: 'https://www.lsrcollege.ac.in' },
+                { name: 'St. Xavier\'s College Mumbai', location: 'Mumbai', ranking: 4, fee: '₹1.3 LPA', link: 'https://www.xaviersmumbai.edu.in' },
+                { name: 'Christ University Bangalore', location: 'Bangalore', ranking: 5, fee: '₹1.5 LPA', link: 'https://christuniversity.in' },
             ]
         },
         'government': {
             name: 'Government Colleges',
             description: 'Affordable and high-quality government colleges across India',
             colleges: [
-                { name: 'Hindu College Delhi', location: 'Delhi', fee: '₹40,000 PA' },
-                { name: 'St. Stephen\'s College Delhi', location: 'Delhi', fee: '₹45,000 PA' },
-                { name: 'Miranda House Delhi', location: 'Delhi', fee: '₹38,000 PA' },
-                { name: 'Madras Christian College', location: 'Chennai', fee: '₹35,000 PA' },
-                { name: 'Fergusson College Pune', location: 'Pune', fee: '₹30,000 PA' },
+                { name: 'Hindu College Delhi', location: 'Delhi', fee: '₹40,000 PA', link: 'https://www.hinducollege.ac.in' },
+                { name: 'St. Stephen\'s College Delhi', location: 'Delhi', fee: '₹45,000 PA', link: 'https://www.ststephens.edu' },
+                { name: 'Miranda House Delhi', location: 'Delhi', fee: '₹38,000 PA', link: 'https://mirandahouse.ac.in' },
+                { name: 'Madras Christian College', location: 'Chennai', fee: '₹35,000 PA', link: 'https://www.mcc.edu.in' },
+                { name: 'Fergusson College Pune', location: 'Pune', fee: '₹30,000 PA', link: 'https://fergussoncollege.edu.in' },
             ]
         },
         'affordable': {
             name: 'Affordable Colleges',
             description: 'High-quality colleges with low fee structures',
             colleges: [
-                { name: 'Fergusson College Pune', location: 'Pune', fee: '₹30,000 PA' },
-                { name: 'St. Xavier\'s College Kolkata', location: 'Kolkata', fee: '₹32,000 PA' },
-                { name: 'Loyola College Chennai', location: 'Chennai', fee: '₹35,000 PA' },
-                { name: 'Christ University Bangalore', location: 'Bangalore', fee: '₹40,000 PA' },
-                { name: 'Hindu College Delhi', location: 'Delhi', fee: '₹40,000 PA' },
+                { name: 'Fergusson College Pune', location: 'Pune', fee: '₹30,000 PA', link: 'https://fergussoncollege.edu.in' },
+                { name: 'St. Xavier\'s College Kolkata', location: 'Kolkata', fee: '₹32,000 PA', link: 'https://www.xavierkolkata.edu.in' },
+                { name: 'Loyola College Chennai', location: 'Chennai', fee: '₹35,000 PA', link: 'https://www.loyolachennai.edu.in' },
+                { name: 'Christ University Bangalore', location: 'Bangalore', fee: '₹40,000 PA', link: 'https://christuniversity.in' },
+                { name: 'Hindu College Delhi', location: 'Delhi', fee: '₹40,000 PA', link: 'https://www.hinducollege.ac.in' },
             ]
         },
         'scholarship': {
             name: 'Scholarship Colleges',
             description: 'Colleges offering excellent scholarship opportunities',
             colleges: [
-                { name: 'BITS Pilani', location: 'Pilani', scholarships: 'Merit Scholarships' },
-                { name: 'VIT Vellore', location: 'Vellore', scholarships: '100% Fee Waiver' },
-                { name: 'SRM University', location: 'Chennai', scholarships: 'Sports & Academic' },
-                { name: 'Manipal University', location: 'Manipal', scholarships: 'Merit-Cum-Means' },
-                { name: 'Amity University', location: 'Noida', scholarships: '100% to 25%' },
+                { name: 'BITS Pilani', location: 'Pilani', scholarships: 'Merit Scholarships', link: 'https://www.bits-pilani.ac.in' },
+                { name: 'VIT Vellore', location: 'Vellore', scholarships: '100% Fee Waiver', link: 'https://www.vit.ac.in' },
+                { name: 'SRM University', location: 'Chennai', scholarships: 'Sports & Academic', link: 'https://www.srmist.edu.in' },
+                { name: 'Manipal University', location: 'Manipal', scholarships: 'Merit-Cum-Means', link: 'https://www.manipal.edu' },
+                { name: 'Amity University', location: 'Noida', scholarships: '100% to 25%', link: 'https://www.amity.edu' },
             ]
         }
     };
@@ -144,7 +144,10 @@ const CollegesCategoryDetail = () => {
                                             <span>{college.scholarships}</span>
                                         </div>
                                     )}
-                                    <button className="w-full py-3 bg-[#ced4da] text-white font-semibold rounded-xl hover:bg-[#adb5bd] transition-all shadow-sm font-sans">
+                                    <button 
+                                        onClick={() => college.link && window.open(college.link, '_blank')}
+                                        className="w-full py-3 bg-[#721c24] text-white font-semibold rounded-xl hover:bg-[#5a1620] transition-all shadow-md font-sans active:scale-95"
+                                    >
                                         View Details
                                     </button>
                                 </motion.div>

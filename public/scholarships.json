@@ -1,0 +1,315 @@
+{
+  "lastUpdated": "2026-06-02T00:00:00Z",
+  "scholarships": {
+    "government": [
+      {
+        "id": "govt_pmsss_001",
+        "name": "PMSSS (Prime Minister Special Scholarship Scheme)",
+        "provider": "Ministry of Human Resource Development",
+        "category": "government",
+        "amount": "Up to ₹1.25 LPA",
+        "deadline": "To be announced",
+        "eligibility": "Students from J&K, Ladakh regions",
+        "link": "https://pmsss.gov.in",
+        "description": "Scholarship for meritorious students from J&K and Ladakh",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "govt_nsp_001",
+        "name": "NSP (National Scholarship Portal)",
+        "provider": "Ministry of Education",
+        "category": "government",
+        "amount": "Varies",
+        "deadline": "To be announced",
+        "eligibility": "Various based on scheme",
+        "link": "https://scholarships.gov.in",
+        "description": "Umbrella portal for all national scholarships",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "govt_mcm_001",
+        "name": "MCM Scholarship",
+        "provider": "Ministry of Minority Affairs",
+        "category": "government",
+        "amount": "₹10,000 per year",
+        "deadline": "To be announced",
+        "eligibility": "Post-matric students from minority communities",
+        "link": "https://www.mcmscholarship.org",
+        "description": "Scholarship for post-matric minority students",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "govt_scst_001",
+        "name": "SC/ST Scholarship Scheme",
+        "provider": "Ministry of Social Justice",
+        "category": "government",
+        "amount": "Varies",
+        "deadline": "To be announced",
+        "eligibility": "Scheduled Caste/Tribe students",
+        "link": "https://scholarships.gov.in",
+        "description": "Comprehensive scholarship program for SC/ST students",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "govt_obc_001",
+        "name": "OBC Scholarship Scheme",
+        "provider": "Ministry of Social Justice",
+        "category": "government",
+        "amount": "Varies",
+        "deadline": "To be announced",
+        "eligibility": "Other Backward Classes students",
+        "link": "https://scholarships.gov.in",
+        "description": "Scholarship for OBC category students",
+        "addedDate": "2026-06-02"
+      }
+    ],
+    "private": [
+      {
+        "id": "pvt_tata_001",
+        "name": "Tata Scholarship",
+        "provider": "Tata Group/Tata Trusts",
+        "category": "private",
+        "amount": "Up to ₹5 LPA",
+        "deadline": "To be announced",
+        "eligibility": "Engineering and science students with merit",
+        "link": "https://www.tata.com/company/about-us/social-initiatives",
+        "description": "Prestigious scholarship from India's largest conglomerate",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "pvt_aditya_birla_001",
+        "name": "Aditya Birla Scholarship",
+        "provider": "Aditya Birla Foundation",
+        "category": "private",
+        "amount": "₹1.5 LPA",
+        "deadline": "To be announced",
+        "eligibility": "Meritorious students, 10-12th and graduation",
+        "link": "https://www.adityabirlafoundation.org",
+        "description": "Scholarship for merit and talent development",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "pvt_infosys_001",
+        "name": "Infosys Foundation Scholarship",
+        "provider": "Infosys Foundation",
+        "category": "private",
+        "amount": "Varies (₹1-3 LPA)",
+        "deadline": "To be announced",
+        "eligibility": "Engineering students with financial need",
+        "link": "https://www.infosys.org/scholarships",
+        "description": "Scholarship for deserving engineering students",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "pvt_reliance_001",
+        "name": "Reliance Foundation Scholarship",
+        "provider": "Reliance Foundation",
+        "category": "private",
+        "amount": "Varies",
+        "deadline": "To be announced",
+        "eligibility": "Students with exceptional merit or talent",
+        "link": "https://www.reliancefoundation.org",
+        "description": "Comprehensive scholarship and talent support program",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "pvt_mahindra_001",
+        "name": "Mahindra Scholarship",
+        "provider": "Mahindra Foundation",
+        "category": "private",
+        "amount": "Varies",
+        "deadline": "To be announced",
+        "eligibility": "Underprivileged but meritorious students",
+        "link": "https://www.mahindrafoundation.org",
+        "description": "Scholarship promoting social uplift through education",
+        "addedDate": "2026-06-02"
+      }
+    ],
+    "international": [
+      {
+        "id": "intl_fulbright_001",
+        "name": "Fulbright Scholarship",
+        "provider": "U.S. Department of State",
+        "category": "international",
+        "amount": "Full Tuition + Living Expenses",
+        "deadline": "To be announced",
+        "eligibility": "Indian citizens with bachelor's degree",
+        "link": "https://www.fulbright.org.in",
+        "description": "World's most prestigious scholarship for studying in USA",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "intl_chevening_001",
+        "name": "Chevening Scholarship",
+        "provider": "UK Foreign Office",
+        "category": "international",
+        "amount": "Full Tuition",
+        "deadline": "To be announced",
+        "eligibility": "Professionals with 3+ years work experience",
+        "link": "https://www.chevening.org",
+        "description": "UK's global scholarship program for leaders",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "intl_commonwealth_001",
+        "name": "Commonwealth Scholarship",
+        "provider": "Commonwealth Secretariat",
+        "category": "international",
+        "amount": "Full Tuition",
+        "deadline": "To be announced",
+        "eligibility": "Citizens of Commonwealth countries",
+        "link": "https://www.thecommonwealth.org/scholarships",
+        "description": "Scholarship for study in Commonwealth countries",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "intl_erasmus_001",
+        "name": "Erasmus Mundus Scholarship",
+        "provider": "European Commission",
+        "category": "international",
+        "amount": "Full Tuition + Monthly Stipend",
+        "deadline": "To be announced",
+        "eligibility": "Students worldwide for European masters",
+        "link": "https://erasmus-plus.ec.europa.eu",
+        "description": "European scholarship for joint degree programs",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "intl_daad_001",
+        "name": "DAAD Scholarship (German Academic Exchange)",
+        "provider": "German Academic Exchange Service",
+        "category": "international",
+        "amount": "Varies (€756/month typical)",
+        "deadline": "To be announced",
+        "eligibility": "Master's students with good academics",
+        "link": "https://www.daad.de",
+        "description": "German government's scholarship for international students",
+        "addedDate": "2026-06-02"
+      }
+    ],
+    "minority": [
+      {
+        "id": "min_maulana_001",
+        "name": "Maulana Azad Scholarship",
+        "provider": "Ministry of Minority Affairs",
+        "category": "minority",
+        "amount": "₹12,000 per year",
+        "deadline": "To be announced",
+        "eligibility": "Muslim minority students, post-matric",
+        "link": "https://scholarships.gov.in",
+        "description": "Post-matric scholarship for minority students",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "min_post_matric_001",
+        "name": "Post Matric Scholarship for Minorities",
+        "provider": "Ministry of Minority Affairs",
+        "category": "minority",
+        "amount": "Varies",
+        "deadline": "To be announced",
+        "eligibility": "All minority communities, post-matric",
+        "link": "https://scholarships.gov.in",
+        "description": "Comprehensive post-matric scholarship scheme",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "min_merit_001",
+        "name": "Merit Scholarship for Minorities",
+        "provider": "State Governments",
+        "category": "minority",
+        "amount": "Varies",
+        "deadline": "To be announced",
+        "eligibility": "Meritorious minority students",
+        "link": "https://scholarships.gov.in",
+        "description": "Merit-based scholarship for minority communities",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "min_pre_matric_001",
+        "name": "Pre Matric Scholarship for Minorities",
+        "provider": "Ministry of Minority Affairs",
+        "category": "minority",
+        "amount": "Varies",
+        "deadline": "To be announced",
+        "eligibility": "Minority students in 9-12 standards",
+        "link": "https://scholarships.gov.in",
+        "description": "Pre-matric scholarship for school-level minority students",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "min_general_001",
+        "name": "Minority Scholarship Scheme",
+        "provider": "Ministry of Minority Affairs",
+        "category": "minority",
+        "amount": "Varies",
+        "deadline": "To be announced",
+        "eligibility": "All recognized minority communities",
+        "link": "https://scholarships.gov.in",
+        "description": "General scholarship for all minority groups",
+        "addedDate": "2026-06-02"
+      }
+    ],
+    "merit": [
+      {
+        "id": "merit_cbse_001",
+        "name": "CBSE Merit Scholarship",
+        "provider": "Central Board of Secondary Education",
+        "category": "merit",
+        "amount": "₹1,000 per month",
+        "deadline": "To be announced",
+        "eligibility": "CBSE board toppers in 10+2",
+        "link": "https://cbseacademic.nic.in",
+        "description": "Scholarship for class 12 board toppers",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "merit_inspire_001",
+        "name": "INSPIRE Scholarship",
+        "provider": "Department of Science & Technology",
+        "category": "merit",
+        "amount": "₹80,000 per year",
+        "deadline": "To be announced",
+        "eligibility": "Science students with 75% in 12th",
+        "link": "https://inspire.gov.in",
+        "description": "Innovation in Science Pursuit for Inspired Research",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "merit_kvpy_001",
+        "name": "KVPY Scholarship (Kishore Vaigyanik Protsahan Yojana)",
+        "provider": "Indian Institute of Science",
+        "category": "merit",
+        "amount": "₹5,000 per month + ₹1 lakh annual fees",
+        "deadline": "To be announced",
+        "eligibility": "Class 11-12 and 1st year undergrad in science",
+        "link": "https://kvpy.iisc.ac.in",
+        "description": "Premier scholarship for science talent development",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "merit_ntse_001",
+        "name": "NTSE Scholarship (National Talent Search Examination)",
+        "provider": "National Council of Educational Research and Training",
+        "category": "merit",
+        "amount": "₹1,250 per month",
+        "deadline": "To be announced",
+        "eligibility": "Class 8-12 students with merit",
+        "link": "https://ncert.nic.in",
+        "description": "Nationwide talent identification and development program",
+        "addedDate": "2026-06-02"
+      },
+      {
+        "id": "merit_olympiad_001",
+        "name": "International Olympiad Scholarship",
+        "provider": "Various - IOI, IMO, IBO, IPhO",
+        "category": "merit",
+        "amount": "Varies (Full sponsorship typical)",
+        "deadline": "To be announced",
+        "eligibility": "Medal winners in international olympiads",
+        "link": "https://www.imo-official.org",
+        "description": "Scholarship for international olympiad medalists",
+        "addedDate": "2026-06-02"
+      }
+    ]
+  }
+}

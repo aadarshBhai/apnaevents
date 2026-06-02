@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
-import { ArrowRight, Trophy, Users, Calendar, Shield, Target, Award } from 'lucide-react';
+import { ArrowRight, Trophy, Users, Calendar, Target, Award } from 'lucide-react';
 import CareerGuidanceNavbar from '../components/premium/CareerGuidanceNavbar';
 import Footer from '../components/premium/Footer';
 import CareerHero from '../components/career/CareerHero';
@@ -78,12 +78,6 @@ const LandingPage = () => {
             icon: <Calendar size={24} />,
             title: 'Book Mentorship',
             description: 'Connect with experts and mentors'
-        },
-        {
-            href: '/resources',
-            icon: <Shield size={24} />,
-            title: 'Free Resources',
-            description: 'Study planners, templates, and guides'
         }
     ];
 
@@ -189,7 +183,7 @@ const LandingPage = () => {
                         >
                             <h2 className="text-4xl md:text-5xl font-bold text-[#212529] mb-6 font-serif">Ready to Find Your Path?</h2>
                             <p className="text-xl text-[#495057] mb-8 font-sans">Start with a free career quiz and get personalized recommendations in 5 minutes.</p>
-                            <button className="px-8 py-4 bg-[#ced4da] text-white font-semibold rounded-xl hover:bg-[#adb5bd] transition-all hover:scale-105 flex items-center justify-center gap-2 mx-auto shadow-sm font-sans">
+                            <button className="px-8 py-4 bg-[#002D62] text-white font-semibold rounded-xl hover:bg-[#721c24] transition-all hover:scale-105 flex items-center justify-center gap-2 mx-auto shadow-md font-sans">
                                 <span>Get Started Now</span>
                                 <ArrowRight className="w-5 h-5" />
                             </button>

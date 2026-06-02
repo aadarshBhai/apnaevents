@@ -201,7 +201,7 @@ const CareerCategoryDetail = () => {
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                 <a
                                     href="/career-quiz"
-                                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#ced4da] text-white font-semibold rounded-xl hover:bg-[#adb5bd] transition-all hover:scale-105 shadow-sm font-sans"
+                                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#002D62] text-white font-semibold rounded-xl hover:bg-[#721c24] transition-all hover:scale-105 shadow-md font-sans"
                                 >
                                     <span>Take Career Quiz</span>
                                     <ArrowRight className="w-5 h-5" />

@@ -49,11 +49,11 @@ router.post('/', async (req, res) => {
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
                     <h2>Application Received!</h2>
                     <p>Hi ${studentName},</p>
-                    <p>Thank you for submitting your Mentorship Application to ApnaEvents / CareerPilot.</p>
+                    <p>Thank you for submitting your Mentorship Application to WeBridge.</p>
                     <p>We have successfully received your detailed application. Our team will review your profile carefully.</p>
                     <p>We will update you via email if you are selected or if there are any further updates in the selection process.</p>
                     <br />
-                    <p>Best regards,<br>The CareerPilot Team</p>
+                    <p>Best regards,<br>The WeBridge Team</p>
                 </div>
             `;
 
