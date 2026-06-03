@@ -208,8 +208,8 @@ const CareerGuidanceNavbar = () => {
 
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-3 group">
-              <motion.div whileHover={{ scale: 1.05 }} className="w-12 h-12 bg-[#721c24] rounded-lg flex items-center justify-center shadow-sm">
-                <GraduationCap className="w-7 h-7 text-white" />
+              <motion.div whileHover={{ scale: 1.05 }} className="w-12 h-12 rounded-full flex items-center justify-center shadow-sm overflow-hidden">
+                <img src="/logo.png" alt="WeBridge Logo" className="w-full h-full object-cover" />
               </motion.div>
               <div>
                 <h1 className="font-serif text-2xl font-bold text-white leading-none tracking-tight">

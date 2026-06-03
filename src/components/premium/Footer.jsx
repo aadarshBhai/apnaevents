@@ -4,7 +4,6 @@ import {
   Twitter,
   Linkedin,
   Mail,
-  Shield,
   ArrowUp,
   Github,
   Instagram,
@@ -43,8 +42,8 @@ const Footer = ({ stats }) => {
           {/* Brand Column */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-[#721c24] rounded-lg flex items-center justify-center shadow-sm">
-                <Shield size={20} className="text-white" fill="currentColor" />
+              <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-sm overflow-hidden">
+                <img src="/logo.png" alt="WeBridge Logo" className="w-full h-full object-cover" />
               </div>
               <div>
                 <h1 className="font-serif text-2xl font-bold text-white leading-none tracking-tight">
